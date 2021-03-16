@@ -1,0 +1,43 @@
+{% extends 'base_generica.html' %}
+
+{% block Banner%}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px; height: 70%;">
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7" style="margin-left: 0px;">
+        <h3 style="text-align: center;">Projetos</h3>  
+        <iframe src="{{url_for('profile.Lista_Projetos_Admin')}}" style="width: 100%; height: 100%;"></iframe>
+        
+    </div>
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7">
+        <br>
+        <br>
+        <br>
+        <form id="form_alter_senha" name="form_alter_senha" method="POST">                    
+            <div class="modal-body">
+              <div class="form-group">
+                  <label for="senha_atual" style="color:rgb(0,0,0);">Senha Atual</label>
+                  <input type="password" class="form-control" id="senha_atual" name="senha_atual" aria-describedby="emailHelp" placeholder="Senha Atual">
+              </div>
+              <div class="form-group">
+                <label for="nova_senha" style="color:rgb(0,0,0);">Nova Senha</label>
+                <input type="password" class="form-control" id="nova_senha" name="nova_senha" aria-describedby="emailHelp" placeholder="Nova Senha">
+              </div>
+              <div class="form-group">
+                <label for="conf_nova_senha" style="color:rgb(0,0,0);">Confirmação da Nova Senha</label>
+                <input type="password" class="form-control" id="conf_nova_senha" name="conf_nova_senha" placeholder="Confirmação da Nova Senha">
+              </div>
+            </div>
+            <div class="modal-footer border-top-0 d-flex justify-content-center">
+              <button type="button" id="btn_alter" name="btn_alter" value="btn_alter_password" class="btn btn-success" onclick="fAlterarSenha();" style="width: 40%; height: 30px; line-height: 0;">Salvar</button>
+            </div>
+          </form>          
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Table V01</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="/static/css/tabela.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<style>
+.editar, .apagar {
+	background-color:#276873;
+	border-radius:5px;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+	font-weight:bold;
+	padding:7px 8px;
+	text-decoration:none;
+	margin-left:5px;
+	margin-right:0px;
+}
+
+.apagar {
+	background-color:#b34332;
+	margin-right:20px;	
+}
+</style>
+</head>
+<body>
+
+<!--<div class="limiter">
+<div class="container-table100">
+<div class="wrap-table100">-->
+<br>
+<div class="table100">
+    <label for="myInput">Filtro: </label>
+<input id="myInput" type="text" placeholder=" Filtre sua procura" size="30" style="height:30px; border:1px solid #bbb">
+<br><br>
+<table>
+<thead>
+<tr class="table100-head">
+<th class="column1">Cód. Projeto</th>
+<th class="column2">Cliente</th>
+<th class="column3">Cod.Func.</th>
+<th class="column4">Local</th>
+<th class="column5">Início</th>
+<th class="column6">Término</th>
+<th class="column7">Responsável</th>
+<th class="column8">Status</th>
+<th class="column9">Data/Hora</th>
+<th class="column10"></th>
+<th class="column11"></th>
+</tr>
+</thead>
+<tbody id="myTable">
+<tr>
+<td class="column1">02032021</td>
+<td class="column2">Mauro Dias</td>
+<td class="column3">235546</td>
+<td class="column4">Rua das Flores 31</td>
+<td class="column5">2017-01-12</td>
+<td class="column6">2017-04-12</td>
+<td class="column7">Marcos</td>
+<td class="column8">Em andamento</td>
+<td class="column9">2017-09-29 01:22</td>
+<td class="column10"><a href="#" class="editar">editar</a></td>
+<td class="column11"><a href="#" class="apagar">apagar</a></td>
+
+</tr>
+<tr>
+<td class="column1">02032021</td>
+<td class="column2">Ligia Camargo</td>
+<td class="column3">567345</td>
+<td class="column4">Al dos Pinagés 234</td>
+<td class="column5">2017-01-12</td>
+<td class="column6">2017-04-12</td>
+<td class="column7">Marcos</td>
+<td class="column8">Iniciando</td>
+<td class="column9">2017-09-29 01:22</td>
+<td class="column10"><a href="#" class="editar">editar</a></td>
+<td class="column11"><a href="#" class="apagar">apagar</a></td>
+</tr>
+<tr>
+<td class="column1">02032021</td>
+<td class="column2">Sandra Campello</td>
+<td class="column3">112376</td>
+<td class="column4">Av Ibirapuer 444</td>
+<td class="column5">2017-01-12</td>
+<td class="column6">2017-04-12</td>
+<td class="column7">Marcos</td>
+<td class="column8">Iniciando</td>
+<td class="column9">2017-09-29 01:22</td>
+<td class="column10"><a href="#" class="editar">editar</a></td>
+<td class="column11"><a href="#" class="apagar">apagar</a></td>
+</tr>
+<tr>
+<td class="column1">02032021</td>
+<td class="column2">Claudio Siqueira</td>
+<td class="column3">887635</td>
+<td class="column4">Alameda Jau 332</td>
+<td class="column5">2017-01-12</td>
+<td class="column6">2017-04-12</td>
+<td class="column7">Marcos</td>
+<td class="column8">Iniciando</td>
+<td class="column9">2017-09-29 01:22</td>
+<td class="column10"><a href="#" class="editar">editar</a></td>
+<td class="column11"><a href="#" class="apagar">apagar</a></td>
+</tr>
+<tr>
+    <td class="column1">02032021</td>
+    <td class="column2">Mauro Dias</td>
+    <td class="column3">235546</td>
+    <td class="column4">Rua das Flores 31</td>
+    <td class="column5">2017-01-12</td>
+    <td class="column6">2017-04-12</td>
+    <td class="column7">Marcos</td>
+    <td class="column8">Em andamento</td>
+    <td class="column9">2017-09-29 01:22</td>
+    <td class="column10"><a href="#" class="editar">editar</a></td>
+    <td class="column11"><a href="#" class="apagar">apagar</a></td>
+    
+    </tr>
+    <tr>
+    <td class="column1">02032021</td>
+    <td class="column2">Ligia Camargo</td>
+    <td class="column3">567345</td>
+    <td class="column4">Al dos Pinagés 234</td>
+    <td class="column5">2017-01-12</td>
+    <td class="column6">2017-04-12</td>
+    <td class="column7">Marcos</td>
+    <td class="column8">Iniciando</td>
+    <td class="column9">2017-09-29 01:22</td>
+    <td class="column10"><a href="#" class="editar">editar</a></td>
+    <td class="column11"><a href="#" class="apagar">apagar</a></td>
+    </tr>
+    <tr>
+    <td class="column1">02032021</td>
+    <td class="column2">Sandra Campello</td>
+    <td class="column3">112376</td>
+    <td class="column4">Av Ibirapuer 444</td>
+    <td class="column5">2017-01-12</td>
+    <td class="column6">2017-04-12</td>
+    <td class="column7">Marcos</td>
+    <td class="column8">Iniciando</td>
+    <td class="column9">2017-09-29 01:22</td>
+    <td class="column10"><a href="#" class="editar">editar</a></td>
+    <td class="column11"><a href="#" class="apagar">apagar</a></td>
+    </tr>
+    <tr>
+    <td class="column1">02032021</td>
+    <td class="column2">Claudio Siqueira</td>
+    <td class="column3">887635</td>
+    <td class="column4">Alameda Jau 332</td>
+    <td class="column5">2017-01-12</td>
+    <td class="column6">2017-04-12</td>
+    <td class="column7">Marcos</td>
+    <td class="column8">Iniciando</td>
+    <td class="column9">2017-09-29 01:22</td>
+    <td class="column10"><a href="#" class="editar">editar</a></td>
+    <td class="column11"><a href="#" class="apagar">apagar</a></td>
+    </tr>
+    <tr>
+        <td class="column1">02032021</td>
+        <td class="column2">Mauro Dias</td>
+        <td class="column3">235546</td>
+        <td class="column4">Rua das Flores 31</td>
+        <td class="column5">2017-01-12</td>
+        <td class="column6">2017-04-12</td>
+        <td class="column7">Marcos</td>
+        <td class="column8">Em andamento</td>
+        <td class="column9">2017-09-29 01:22</td>
+        <td class="column10"><a href="#" class="editar">editar</a></td>
+        <td class="column11"><a href="#" class="apagar">apagar</a></td>
+        
+        </tr>
+        <tr>
+        <td class="column1">02032021</td>
+        <td class="column2">Ligia Camargo</td>
+        <td class="column3">567345</td>
+        <td class="column4">Al dos Pinagés 234</td>
+        <td class="column5">2017-01-12</td>
+        <td class="column6">2017-04-12</td>
+        <td class="column7">Marcos</td>
+        <td class="column8">Iniciando</td>
+        <td class="column9">2017-09-29 01:22</td>
+        <td class="column10"><a href="#" class="editar">editar</a></td>
+        <td class="column11"><a href="#" class="apagar">apagar</a></td>
+        </tr>
+        <tr>
+        <td class="column1">02032021</td>
+        <td class="column2">Sandra Campello</td>
+        <td class="column3">112376</td>
+        <td class="column4">Av Ibirapuer 444</td>
+        <td class="column5">2017-01-12</td>
+        <td class="column6">2017-04-12</td>
+        <td class="column7">Marcos</td>
+        <td class="column8">Iniciando</td>
+        <td class="column9">2017-09-29 01:22</td>
+        <td class="column10"><a href="#" class="editar">editar</a></td>
+        <td class="column11"><a href="#" class="apagar">apagar</a></td>
+        </tr>
+        <tr>
+        <td class="column1">02032021</td>
+        <td class="column2">Claudio Siqueira</td>
+        <td class="column3">887635</td>
+        <td class="column4">Alameda Jau 332</td>
+        <td class="column5">2017-01-12</td>
+        <td class="column6">2017-04-12</td>
+        <td class="column7">Marcos</td>
+        <td class="column8">Iniciando</td>
+        <td class="column9">2017-09-29 01:22</td>
+        <td class="column10"><a href="#" class="editar">editar</a></td>
+        <td class="column11"><a href="#" class="apagar">apagar</a></td>
+        </tr>
+        <tr>
+            <td class="column1">02032021</td>
+            <td class="column2">Mauro Dias</td>
+            <td class="column3">235546</td>
+            <td class="column4">Rua das Flores 31</td>
+            <td class="column5">2017-01-12</td>
+            <td class="column6">2017-04-12</td>
+            <td class="column7">Marcos</td>
+            <td class="column8">Em andamento</td>
+            <td class="column9">2017-09-29 01:22</td>
+            <td class="column10"><a href="#" class="editar">editar</a></td>
+            <td class="column11"><a href="#" class="apagar">apagar</a></td>
+            
+            </tr>
+            <tr>
+            <td class="column1">02032021</td>
+            <td class="column2">Ligia Camargo</td>
+            <td class="column3">567345</td>
+            <td class="column4">Al dos Pinagés 234</td>
+            <td class="column5">2017-01-12</td>
+            <td class="column6">2017-04-12</td>
+            <td class="column7">Marcos</td>
+            <td class="column8">Iniciando</td>
+            <td class="column9">2017-09-29 01:22</td>
+            <td class="column10"><a href="#" class="editar">editar</a></td>
+            <td class="column11"><a href="#" class="apagar">apagar</a></td>
+            </tr>
+            <tr>
+            <td class="column1">02032021</td>
+            <td class="column2">Sandra Campello</td>
+            <td class="column3">112376</td>
+            <td class="column4">Av Ibirapuer 444</td>
+            <td class="column5">2017-01-12</td>
+            <td class="column6">2017-04-12</td>
+            <td class="column7">Marcos</td>
+            <td class="column8">Iniciando</td>
+            <td class="column9">2017-09-29 01:22</td>
+            <td class="column10"><a href="#" class="editar">editar</a></td>
+            <td class="column11"><a href="#" class="apagar">apagar</a></td>
+            </tr>
+            <tr>
+            <td class="column1">02032021</td>
+            <td class="column2">Claudio Siqueira</td>
+            <td class="column3">887635</td>
+            <td class="column4">Alameda Jau 332</td>
+            <td class="column5">2017-01-12</td>
+            <td class="column6">2017-04-12</td>
+            <td class="column7">Marcos</td>
+            <td class="column8">Iniciando</td>
+            <td class="column9">2017-09-29 01:22</td>
+            <td class="column10"><a href="#" class="editar">editar</a></td>
+            <td class="column11"><a href="#" class="apagar">apagar</a></td>
+            </tr>
+            <tr>
+                <td class="column1">02032021</td>
+                <td class="column2">Mauro Dias</td>
+                <td class="column3">235546</td>
+                <td class="column4">Rua das Flores 31</td>
+                <td class="column5">2017-01-12</td>
+                <td class="column6">2017-04-12</td>
+                <td class="column7">Marcos</td>
+                <td class="column8">Em andamento</td>
+                <td class="column9">2017-09-29 01:22</td>
+                <td class="column10"><a href="#" class="editar">editar</a></td>
+                <td class="column11"><a href="#" class="apagar">apagar</a></td>
+                
+                </tr>
+                <tr>
+                <td class="column1">02032021</td>
+                <td class="column2">Ligia Camargo</td>
+                <td class="column3">567345</td>
+                <td class="column4">Al dos Pinagés 234</td>
+                <td class="column5">2017-01-12</td>
+                <td class="column6">2017-04-12</td>
+                <td class="column7">Marcos</td>
+                <td class="column8">Iniciando</td>
+                <td class="column9">2017-09-29 01:22</td>
+                <td class="column10"><a href="#" class="editar">editar</a></td>
+                <td class="column11"><a href="#" class="apagar">apagar</a></td>
+                </tr>
+                <tr>
+                <td class="column1">02032021</td>
+                <td class="column2">Sandra Campello</td>
+                <td class="column3">112376</td>
+                <td class="column4">Av Ibirapuer 444</td>
+                <td class="column5">2017-01-12</td>
+                <td class="column6">2017-04-12</td>
+                <td class="column7">Marcos</td>
+                <td class="column8">Iniciando</td>
+                <td class="column9">2017-09-29 01:22</td>
+                <td class="column10"><a href="#" class="editar">editar</a></td>
+                <td class="column11"><a href="#" class="apagar">apagar</a></td>
+                </tr>
+                <tr>
+                <td class="column1">02032021</td>
+                <td class="column2">Claudio Siqueira</td>
+                <td class="column3">887635</td>
+                <td class="column4">Alameda Jau 332</td>
+                <td class="column5">2017-01-12</td>
+                <td class="column6">2017-04-12</td>
+                <td class="column7">Marcos</td>
+                <td class="column8">Iniciando</td>
+                <td class="column9">2017-09-29 01:22</td>
+                <td class="column10"><a href="#" class="editar">editar</a></td>
+                <td class="column11"><a href="#" class="apagar">apagar</a></td>
+                </tr>
+</tbody>
+</table>
+</div>
+<!--</div>
+</div>
+</div>-->
+
+
+</body>
+</html>
