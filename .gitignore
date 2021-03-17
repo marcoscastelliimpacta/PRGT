@@ -127,3 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+AC_2_MOBILE/AC02/local.properties
