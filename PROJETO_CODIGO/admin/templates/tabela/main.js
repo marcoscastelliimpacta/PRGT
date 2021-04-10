@@ -113,7 +113,7 @@
     console.log(error);
   }
 
-
+  var text = "{{stServico}}".replaceAll("&#34;", '"').replaceAll('"label"',"label").replaceAll('"data"',"data").replaceAll('"borderColor"',"borderColor").replaceAll('"borderWidth"',"borderWidth").replaceAll('"backgroundColor"',"backgroundColor").replaceAll('"fontFamily"',"fontFamily").replaceAll('"(_',"[").replaceAll('_)"',"]");
   try {
     var ctx = document.getElementById("barChart");
     if (ctx) {

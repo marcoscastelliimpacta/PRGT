@@ -1,0 +1,69 @@
+
+<% strcliente = request("cliente") %>
+<html>
+<head>
+<style>
+    .buttonred{background-color: #B00000; font-family:"Century Gothic"; color: #FFF; font-size:15px; padding:0px 8px; padding-bottom:0px; border:0px}
+    .buttongreen{background-color: #24ab24; color: #fff; font-family:"Century Gothic"; font-size:15px; padding:0px 6px; border:0px}
+</style>
+<form action="cliservicosadd.asp" method="GET">
+<input type="hidden" name="cliente" value="<% = strcliente %>">
+
+<script type="text/javascript">
+i=1;
+function insRow()
+{
+var x=document.getElementById('myTable').insertRow(0);
+var y=x.insertCell(0);
+y.innerHTML="<tr><td><select name=servico" + (i+1) + "><option value=''>Selecione o Serviço</option><option value='Botox&nbsp;Capilar'>Botox Capilar</option><option value='Calosidade'>Calosidade</option><option value='Chapinha'>Chapinha</option><option value='Corte&nbsp;Feminino'>Corte Feminino</option><option value='Corte&nbsp;Masculino'>Corte Masculino</option><option value='Depila&ccedil;&atilde;o&nbsp;Meia&nbsp;Perna'>Depilação Meia Perna</option><option value='Depila&ccedil;&atilde;o&nbsp;Axila'>Depilação Axila</option><option value='Depila&ccedil;&atilde;o&nbsp;Bu&ccedil;o'>Depilação Buço</option><option value='Depila&ccedil;&atilde;o&nbsp;Perna'>Depilação Perna</option><option value='Drenagem&nbsp;Linf&aacute;tica'>Drenagem Linfática</option><option value='Escova'>Escova</option><option value='Hidrata&ccedil;&atilde;o'>Hidratação</option><option value='Infec&ccedil;&atilde;o'>Infecção</option><option value='Limpeza&nbsp;de&nbsp;Pele'>Limpeza de Pele</option><option value='Luzes'>Luzes</option><option value='M&atilde;os'>Mãos</option><option value='Massagem&nbsp;Modeladora'>Masssagem Modeladora</option><option value='Massagem&nbsp;Relaxante'>Massagem Relaxante</option><option value='P&eacute;s'>Pés</option><option value='Podologia'>Podologia</option><option value='Progressiva'>Progressiva</option><option value='Reflexologia'>Reflexologia</option><option value='Sobancelha&nbsp;Design&nbsp;Linha'>Sobrancelha Design Linha</option><option value='Sobrancelha&nbsp;Limpeza'>Sobrancelha Limpeza</option><option value='Tintura'>Luzes</option><option value='Luzes'>Tintura</option><option value='Unha&nbsp;de&nbsp;Vidro'>Unha de Vidro</option><option value='Unha&nbsp;em&nbsp;Gel '>Unha em Gel</option></select> <input type='button' onclick='myFunction2()' value='-' class='buttonred'></td></tr>";
+i++;
+}
+</script>
+<script>
+function myFunction2() {
+  document.getElementById("myTable").deleteRow(0);
+i=i-1
+}
+</script>
+
+</head>
+<body>
+<table id="myTable" border="0">
+<tr><td>
+<select name="servico1">
+  <option value="">Selecione o Serviço</option>
+  <option value="Botox&nbsp;Capilar">Botox Capilar</option>
+  <option value="Calosidade">Calosidade</option>
+  <option value="Chapinha">Chapinha</option>
+  <option value="Corte&nbsp;Feminino">Corte Feminino</option>
+  <option value="Corte&nbsp;Masculino">Corte Masculino</option>
+  <option value="Depila&ccedil;&atilde;o&nbsp;Meia&nbsp;Perna">Depilação Meia Perna</option>
+  <option value="Depila&ccedil;&atilde;o&nbsp;Axila">Depilação Axila</option>
+  <option value="Depila&ccedil;&atilde;o&nbsp;Bu&ccedil;o">Depilação Buço</option>
+  <option value="Depila&ccedil;&atilde;o&nbsp;Perna">Depilação Perna</option>
+  <option value="Drenagem&nbsp;Linf&aacute;tica">Drenagem Linfática</option>
+  <option value="Escova">Escova</option>
+  <option value="Hidrata&ccedil;&atilde;o">Hidratação</option>
+  <option value="Infec&ccedil;&atilde;o">Infecção</option>
+  <option value="Limpeza&nbsp;de&nbsp;Pele">Limpeza de Pele</option>
+  <option value="Luzes">Luzes</option>
+  <option value="M&atilde;os">Mãos</option>
+  <option value="Massagem&nbsp;Modeladora">Masssagem Modeladora</option>
+  <option value="Massagem&nbsp;Relaxante">Massagem Relaxante</option>
+  <option value="P&eacute;s">Pés</option>
+  <option value="Podologia">Podologia</option>
+  <option value="Progressiva">Progressiva</option>
+  <option value="Reflexologia">Reflexologia</option>
+  <option value="Sobancelha&nbsp;Design&nbsp;Linha">Sobrancelha Design Linha</option>          
+  <option value="Sobrancelha&nbsp;Limpeza">Sobrancelha Limpeza</option>          
+  <option value="Tintura">Luzes</option>          
+  <option value="Luzes">Tintura</option>          
+  <option value="Unha&nbsp;de&nbsp;Vidro">Unha de Vidro</option>   
+  <option value="Unha&nbsp;em&nbsp;Gel ">Unha em Gel</option>     
+</select> <input type="button" onclick="insRow()" value="+" class='buttongreen'></td></tr>
+<tr><td><input type="submit" value="Gravar"/></td></tr>
+</table>
+
+</form>
+</body>
+</html>

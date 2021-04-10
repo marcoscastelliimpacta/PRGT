@@ -107,35 +107,23 @@
             <br>
             <br>
             <div class="row" style="margin-top:-30px">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                    <a href="post.asp?code=" class="box box--image">
-                        <div class="box__wrapper no-shadow">
-                            <div class="box__header">
-                                <div class="box__image /img-into-bg">
-                                    <img src="/static/imgs/blogs/blog1/capablog1.jpg" alt=""/>
+                {%for cnt in capas:%}
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                        <a href="{{url_for('profile.Projeto_Cliente', codigo_projeto=cnt[0])}}" class="box box--image">
+                            <div class="box__wrapper no-shadow">
+                                <div class="box__header">
+                                    <div class="box__image /img-into-bg">
+                                        <img src="{{cnt[2]}}{{cnt[3]}}" alt=""/>
+                                    </div>
                                 </div>
+                                    <h5 style="margin-top:30px">{{cnt[4]}}</h5>
+                                    <h4 class="reveal1">{{cnt[5]}}</h4>
+                                    <p class="mb-4">Data Finalização: {{cnt[6].strftime('%d/%m/%y')}}</p>
                             </div>
-                                <h5 style="margin-top:30px">aaaa</h5>
-                                <h4 class="reveal1">aaaa</h4>
-                                <p class="mb-4">aaa</p>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                {% endfor %}
             
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                    <a href="post.asp?code=" class="box box--image">
-                        <div class="box__wrapper no-shadow">
-                            <div class="box__header">
-                                <div class="box__image /img-into-bg">
-                                    <img src="/static/imgs/blogs/blog2/capablog1.jpg" alt=""/>
-                                </div>
-                            </div>
-                                <h5 style="margin-top:30px">aaaa</h5>
-                                <h4 class="reveal1">aaaa</h4>
-                                <p class="mb-4">aaa</p>
-                        </div>
-                    </a>
-                </div>
             </div>
 
         </div>
