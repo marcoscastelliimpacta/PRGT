@@ -182,6 +182,8 @@ def Projetos_Admin():
                 codigos_funcs = codigos_funcs + cnt + ','
             if codigos_funcs:
                 Alterar_Func_Projeto(idProjeto, codigos_funcs[:len(codigos_funcs)-1])
+            else:
+                Limpar_Func_Projeto(idProjeto)
             func = Listar_Todos_Funcionarios(idProjeto)
             proj = [x for x in projetos if x.codigo_projeto == idProjeto][0]
             if proj:
@@ -295,21 +297,184 @@ def Projeto_Cliente(codigo_projeto):
     if proj:
         g.proj = proj
         g.proj.orcamento = str(g.proj.orcamento)[0:-3]
-    statusPro = Listar_Servicos_Projetos(g.proj.codigo_projeto)
+    statusPro = Listar_Servicos_Projetos(g.proj.codigo_projeto)    
     stServico = []
     stProgress = []
+    stCoresBarra = []
     for cnt in statusPro:
         if cnt[2] == 'checked':
             stServico.append(cnt[1])
             stProgress.append(cnt[3])
+            stCoresBarra.append(coresBarra(cnt[3]))
+    pasta = 'static/imgs/Projetos/'+str(codigo_projeto)+'/'
+    ImagensProjeto = Listar_Imagem_Projetos('/'+pasta)
     return render_template(
         'projetos_clientes.html',
         stServico = stServico,
-        stProgress=stProgress
+        stProgress=stProgress,
+        stCoresBarra=stCoresBarra,
+        ImagensProjeto=ImagensProjeto
         )
+
+
+
+
+@admin_dp.app_template_filter()
+def formatingCPF(value):
+    if value:
+        strValue = str(value)
+        cpf = str(strValue[:3]) + "." + str(strValue[3:6]) + "." + str(strValue[6:9]) + "-" + str(strValue[9:])
+    else:
+        cpf = ''
+    return cpf
+
+
+@admin_dp.route('/Funcionarios/', methods=['GET', 'POST'])
+def Funcionarios():
+    if 'user_type' in session:        
+        user = [x for x in users if x.user_type == session['user_type']][0]
+        g.user = user
+        Select_Func_Data(g.user.codigo)        
+        func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
+        if func:
+            g.func = func
+            Listar_Todos_Funcionarios_Cadastrados()
+        tFunc = [x for x in todos_Func if x.codigo_func > 0]
+        if tFunc:
+            g.tFunc = tFunc
+        g.umFunc = ''
+    cargos = Listar_Cargos()
+    tpUsuario = Listar_Tipo_Usuario()
+    if request.method == 'GET':
+        func = Listar_Todos_Funcionarios(0)
+        usuario = [['','','']]
+        perUsuario = Listar_Permissoes_Usuarios(0)
+    elif request.method == 'POST':        
+        form = request.form
+        if form['btn_admin_func'] == 'btn_select_func':
+            codigo_func = form.get('codigo_func')
+            umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
+            if umFunc:
+                g.umFunc = umFunc
+        elif form['btn_admin_func'] == 'btn_salvar_func':
+            pass
+        elif form['btn_admin_func'] == 'btn_salvar_func':
+            pass
+        if g.umFunc.codigo_usuario:
+            usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
+            perUsuario = Listar_Permissoes_Usuarios(g.umFunc.codigo_usuario)
+        else:
+            usuario = [['','','']]
+            perUsuario = Listar_Permissoes_Usuarios(0)
+    return render_template(
+            'cadastro_funcionarios.html',
+            funcionarios = func,
+            cargos=cargos,
+            usuario=usuario,
+            tpUsuario=tpUsuario,
+            perUsuario=perUsuario
+        )
+
+
+
+
+
+
+
+@admin_dp.route('/Clientes/', methods=['GET', 'POST'])
+def Clientes():
+    if 'user_type' in session:
+        user = [x for x in users if x.user_type == session['user_type']][0]
+        g.user = user
+        Select_Func_Data(g.user.codigo)        
+        func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
+        if func:
+            g.func = func
+    if request.method == 'GET':
+        func = Listar_Todos_Funcionarios(0)
+        return render_template(
+            'cadastro_clientes.html',
+            funcionarios = func
+        )
+    else:
+        pass
+
+
+
+
+
+@admin_dp.route('/Home_Page/', methods=['GET', 'POST'])
+def Home_Page():
+    if 'user_type' in session:
+        user = [x for x in users if x.user_type == session['user_type']][0]
+        g.user = user
+        Select_Func_Data(g.user.codigo)        
+        func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
+        if func:
+            g.func = func
+    if request.method == 'GET':
+        func = Listar_Todos_Funcionarios(0)
+        return render_template(
+            'manutencao_home.html',
+            funcionarios = func
+        )
+    else:
+        pass
+
+
+
+
+@admin_dp.route('/Blog/', methods=['GET', 'POST'])
+def Blog():
+    if 'user_type' in session:
+        user = [x for x in users if x.user_type == session['user_type']][0]
+        g.user = user
+        Select_Func_Data(g.user.codigo)        
+        func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
+        if func:
+            g.func = func
+    if request.method == 'GET':
+        func = Listar_Todos_Funcionarios(0)
+        return render_template(
+            'manutencao_blog.html',
+            funcionarios = func
+        )
+    else:
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def pegaExtencaoImg(nomeImagem):
     lista_N = nomeImagem.split('.')
     return lista_N[len(lista_N)-1]
 
+def coresBarra(val):
+    cor = ''
+    if val <= 25:
+        cor = 'rgba(133, 0, 0, 0.9)'
+    elif val <=50:
+        cor = 'rgba(255, 165, 0, 0.9)'
+    elif val <= 75:
+        cor = 'rgba(200, 200, 0, 0.9)'
+    elif val < 100:
+        cor = 'rgba(0, 123, 0, 0.9)'
+    else:
+        cor = 'rgba(0, 0, 200, 0.9)'
+    return cor

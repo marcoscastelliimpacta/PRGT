@@ -28,6 +28,22 @@ class Funcionario:
     def __repr__(self):
         return f'CPF: {self.cpf}'
 
+class Todos_Funcionarios:
+    def __init__(self, codigo_func,	codigo_usuario,	nome,	cpf,	email,	codigo_funcao,	codigo_status,	codigo_status_alocacao,	data_hora_post):
+        self.codigo_func = codigo_func
+        self.codigo_usuario = codigo_usuario
+        self.nome = nome
+        self.cpf = cpf
+        self.email = email
+        self.codigo_funcao = codigo_func
+        self.codigo_status = codigo_status
+        self.codigo_status_alocacao = codigo_status_alocacao
+        self.data_hora_post = data_hora_post
+    def __repr__(self):
+        return f'codigo_func: {self.codigo_func}'
+
+
+
 class User:
     def __init__(self, codigo, name, email, telefone, username, user_type):
         self.codigo = codigo
@@ -299,5 +315,64 @@ def Listar_Projetos_Cliente(codigo_usuario):
         imagensCapa.append(row)
     close_Conection(cursor[0], cursor[1])
     return imagensCapa
+
+todos_Func = []
+def Listar_Todos_Funcionarios_Cadastrados():
+    todos_Func.clear()
+    cursor = open_Conection()
+    cursor[0].callproc("Listar_Todos_Funcionarios_Cadastrados")    
+    for row in cursor[0]:
+        todos_Func.append(Todos_Funcionarios(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
+    close_Conection(cursor[0], cursor[1])
+
+
+def Listar_Cargos():
+    cursor = open_Conection()
+    cursor[0].callproc("Listar_Cargos")
+    cargos = []
+    for row in cursor[0]:
+        cargos.append(row)
+    close_Conection(cursor[0], cursor[1])
+    return cargos
+
+
+def Limpar_Func_Projeto(idProjeto):
+    cursor = open_Conection()
+    cursor[0].callproc("Limpar_Func_Projeto",[idProjeto])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Listar_Usuario_Func(codigo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Listar_Usuario_Func",[codigo_usuario])
+    usuario = []
+    for row in cursor[0]:
+        usuario.append(row)
+    close_Conection(cursor[0], cursor[1])
+    return usuario
+
+
+
+def Listar_Tipo_Usuario():
+    cursor = open_Conection()
+    cursor[0].callproc("Listar_Tipo_Usuario")
+    tpUsuario = []
+    for row in cursor[0]:
+        tpUsuario.append(row)
+    close_Conection(cursor[0], cursor[1])
+    return tpUsuario
+
+
+def Listar_Permissoes_Usuarios(codigo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Listar_Permissoes_Usuarios",[codigo_usuario])
+    perUsuario = []
+    for row in cursor[0]:
+        perUsuario.append(row)
+    close_Conection(cursor[0], cursor[1])
+    return perUsuario
+
+
 
 'Delete_Todo_Projeto'
