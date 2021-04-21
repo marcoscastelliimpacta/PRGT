@@ -119,7 +119,7 @@ def Projetos_Admin():
     if 'user_type' in session:
         user = [x for x in users if x.user_type == session['user_type']][0]
         g.user = user
-        Select_Func_Data(g.user.codigo)        
+        Select_Func_Data(g.user.codigo)
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
         if func:
             g.func = func
@@ -331,17 +331,14 @@ def formatingCPF(value):
 
 @admin_dp.route('/Funcionarios/', methods=['GET', 'POST'])
 def Funcionarios():
-    if 'user_type' in session:        
+    if 'user_type' in session:
         user = [x for x in users if x.user_type == session['user_type']][0]
         g.user = user
-        Select_Func_Data(g.user.codigo)        
+        Select_Func_Data(g.user.codigo)
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
         if func:
             g.func = func
             Listar_Todos_Funcionarios_Cadastrados()
-        tFunc = [x for x in todos_Func if x.codigo_func > 0]
-        if tFunc:
-            g.tFunc = tFunc
         g.umFunc = ''
     cargos = Listar_Cargos()
     tpUsuario = Listar_Tipo_Usuario()
@@ -357,8 +354,26 @@ def Funcionarios():
             if umFunc:
                 g.umFunc = umFunc
         elif form['btn_admin_func'] == 'btn_salvar_func':
-            pass
-        elif form['btn_admin_func'] == 'btn_salvar_func':
+            nome = form.get('txtNome')
+            cpf = form.get('txtCPF')
+            email = form.get('txtemail')
+            cargo = form.get('cbCargo')
+            check = form.get('chkUsuario')
+
+            Insert_New_Func(nome, cpf, email, cargo)
+            codigo_func = Select_Top_Func()
+            if not check is None:
+                usuario = form.get('txtUsuario')
+                senha = form.get('txtSenha')
+                tpUsua = form.get('cbUsuario')
+                Insert_New_Usuario(usuario, senha, tpUsua)
+                codigo_usuario = Select_Top_Usuario()
+                Insert_Usuario_Func(codigo_func, codigo_usuario)
+            Listar_Todos_Funcionarios_Cadastrados()
+            umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
+            if umFunc:
+                g.umFunc = umFunc
+        elif form['btn_admin_func'] == 'btn_alterar_func':
             pass
         if g.umFunc.codigo_usuario:
             usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
@@ -366,6 +381,9 @@ def Funcionarios():
         else:
             usuario = [['','','']]
             perUsuario = Listar_Permissoes_Usuarios(0)
+    tFunc = [x for x in todos_Func if x.codigo_func > 0]
+    if tFunc:
+        g.tFunc = tFunc
     return render_template(
             'cadastro_funcionarios.html',
             funcionarios = func,

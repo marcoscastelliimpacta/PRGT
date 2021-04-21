@@ -210,7 +210,7 @@ input[type=range] + datalist option {
                 </div>
                 <br>
                 
-                <input type="checkbox" id="chkUsuario" onclick="fUsuario();">
+                <input type="checkbox" id="chkUsuario" name="chkUsuario" onclick="fUsuario();">
                 <label for="chkUsuario" style="color:rgb(0,0,0);">Usuário</label>
                 <br>
                 <br>
@@ -229,8 +229,8 @@ input[type=range] + datalist option {
                                 </div> 
                                 <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                                     <div class="form-group">
-                                        <label for="cbCargo" style="color:rgb(0,0,0);">Tipo Usuário</label>
-                                        <select name="cbCargo" id="cbCargo" style="height: 40px; font-size: 18px;" class="form-control select-cli">
+                                        <label for="cbUsuario" style="color:rgb(0,0,0);">Tipo Usuário</label>
+                                        <select name="cbUsuario" id="cbUsuario" style="height: 40px; font-size: 18px;" class="form-control select-cli">
                                             <option id=""></option>
                                             {%if tpUsuario:%}
                                                 {%for cnt in tpUsuario:%}
@@ -308,7 +308,7 @@ input[type=range] + datalist option {
                     <button type="submit" id="btn_admin_func" name="btn_admin_func" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Salvar</button>
                     <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
                 {%else:%}
-                    <button type="submit" id="btn_admin_func" name="btn_admin_func" value="btn_alterar_projeto" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
+                    <button type="submit" id="btn_admin_func" name="btn_admin_func" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
                     <a href="{{url_for('profile.Funcionarios')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
 
                 {%endif%}              

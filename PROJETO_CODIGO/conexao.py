@@ -2,7 +2,9 @@ import MySQLdb
 
 
 class Projeto:
-    def __init__(self, codigo_projeto, nome_projeto, local_projeto, orcamento, prazo_dias, data_inicio, data_finalizacao, codigo_cli , codigo_status, observacao):
+    def __init__(self, codigo_projeto, nome_projeto, local_projeto, orcamento,
+                 prazo_dias, data_inicio, data_finalizacao, codigo_cli,
+                 codigo_status, observacao):
         self.codigo_projeto = codigo_projeto
         self.nome_projeto = nome_projeto
         self.local_projeto = local_projeto
@@ -13,6 +15,7 @@ class Projeto:
         self.codigo_cli = codigo_cli
         self.codigo_status = codigo_status
         self.observacao = observacao
+
     def __repr__(self):
         return f'Projeto: {self.codigo_projeto}'
 
@@ -25,11 +28,15 @@ class Funcionario:
         self.nome = nome
         self.cpf = cpf
         self.funcao = funcao
+
     def __repr__(self):
         return f'CPF: {self.cpf}'
 
+
 class Todos_Funcionarios:
-    def __init__(self, codigo_func,	codigo_usuario,	nome,	cpf,	email,	codigo_funcao,	codigo_status,	codigo_status_alocacao,	data_hora_post):
+    def __init__(self, codigo_func,	codigo_usuario,	nome,	cpf,	email,
+                 codigo_funcao,	codigo_status,	codigo_status_alocacao,	
+                 data_hora_post):
         self.codigo_func = codigo_func
         self.codigo_usuario = codigo_usuario
         self.nome = nome
@@ -39,9 +46,9 @@ class Todos_Funcionarios:
         self.codigo_status = codigo_status
         self.codigo_status_alocacao = codigo_status_alocacao
         self.data_hora_post = data_hora_post
+
     def __repr__(self):
         return f'codigo_func: {self.codigo_func}'
-
 
 
 class User:
@@ -52,18 +59,16 @@ class User:
         self.telefone = telefone
         self.username = username
         self.user_type = user_type
-    
+
     def __repr__(self):
         return f'User: {self.username}'
 
 
-
-
 def open_Conection():
-    senha  = 'prgt123456'
-    username = 'prgt_db'     
+    senha = 'prgt123456'
+    username = 'prgt_db'
     conn = MySQLdb.Connect(host='prgt_db.mysql.dbaas.com.br',
-                            user=username, passwd=senha, db='prgt_db')
+                           user=username, passwd=senha, db='prgt_db')
     cursor = conn.cursor()
     return cursor, conn
 
@@ -73,37 +78,32 @@ def close_Conection(cursor, conn):
     conn.close()
 
 
-
-
 def selecionarTabela():
     cursor = open_Conection()
-    cursor[0].callproc('Select_Imgs_Blog_Home')    
+    cursor[0].callproc('Select_Imgs_Blog_Home')
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
+
 
 def selecionarImagens(setor):
-    #try:
     cursor = open_Conection()
-    cursor[0].callproc("Select_Imgs_Por_Setor",[setor])
+    cursor[0].callproc("Select_Imgs_Por_Setor", [setor])
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
-    #except TypeError as m:
-    #    raise SyntaxError
-    
+
 
 def selecionarImagens_Blog(setor):
-    #try:
     cursor = open_Conection()
-    cursor[0].callproc("Select_Imgs_Blog_page",[setor])
+    cursor[0].callproc("Select_Imgs_Blog_page", [setor])
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
 
@@ -111,23 +111,23 @@ def selecionarImagens_Blog(setor):
 funcionarios = []
 users = []
 projetos = []
+
+
 def Autentic_Usuario(usuario, senha):
     users.clear()
     cursor = open_Conection()
-    cursor[0].callproc("Autentic_Usuario",[usuario, senha])    
+    cursor[0].callproc("Autentic_Usuario", [usuario, senha])
     for row in cursor[0]:
-        users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))         
+        users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))
     close_Conection(cursor[0], cursor[1])
 
 
 def Alter_Password_Usuario(usuario, senha, nova_senha):
-    #users.clear()
     cursor = open_Conection()
-    cursor[0].callproc("Alter_Password_Usuario",[usuario, senha, nova_senha]) 
+    cursor[0].callproc("Alter_Password_Usuario", [usuario, senha, nova_senha])
     cursor[1].commit()
-    #cursor[0].callproc("Autentic_Usuario",[usuario, senha])
     for row in cursor[0]:
-        users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))         
+        users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))
     close_Conection(cursor[0], cursor[1])
     return cursor[0].rowcount
 
@@ -138,24 +138,20 @@ def Alter_Dados_Cliente(id_cli, nome, email, telefone):
     cursor[1].commit()
 
 
-
 def Select_Func_Data(codigo_usuario):
     cursor = open_Conection()
-    cursor[0].callproc("Select_Func_Data",[codigo_usuario])
-    conteudo = []
+    cursor[0].callproc("Select_Func_Data", [codigo_usuario])
     for row in cursor[0]:
-        funcionarios.append(Funcionario(row[0], row[1], row[2], row[3], row[4], row[5]))    
+        funcionarios.append(Funcionario(row[0], row[1], row[2], row[3], row[4], row[5]))
     close_Conection(cursor[0], cursor[1])
-
-
 
 
 def Select_Img_Admin_Por_Permissao(codigo_usuario):
     cursor = open_Conection()
-    cursor[0].callproc("Select_Img_Admin_Por_Permissao",[codigo_usuario])
+    cursor[0].callproc("Select_Img_Admin_Por_Permissao", [codigo_usuario])
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
 
@@ -165,16 +161,17 @@ def Listar_Todos_Projetos():
     cursor[0].callproc("Listar_Todos_Projetos")
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
+
 
 def Listar_Todos_Clientes():
     cursor = open_Conection()
     cursor[0].callproc("Listar_Todos_Clientes")
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
 
@@ -184,27 +181,28 @@ def Listar_Status_Projeto():
     cursor[0].callproc("Listar_Status_Projeto")
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
+
 
 def Listar_Todos_Funcionarios(codigo_projeto):
-    if codigo_projeto == None:
+    if codigo_projeto is None:
         codigo_projeto = 0
     cursor = open_Conection()
-    cursor[0].callproc("Listar_Todos_Funcionarios",[codigo_projeto])
+    cursor[0].callproc("Listar_Todos_Funcionarios", [codigo_projeto])
     conteudo = []
     for row in cursor[0]:
-        conteudo.append(row)    
+        conteudo.append(row)
     close_Conection(cursor[0], cursor[1])
     return conteudo
-
 
 
 def Insert_New_Project(nome_projeto, local_projeto, orcamento, prazo_dias,
-                        data_inicio, data_fim, codigo_cliente, codigo_status, observacao, codigo_func):
+                         data_inicio, data_fim, codigo_cliente, codigo_status,
+                         observacao, codigo_func):
     cursor = open_Conection()
-    cursor[0].callproc("Insert_New_Project",[nome_projeto, local_projeto, orcamento, prazo_dias,
+    cursor[0].callproc("Insert_New_Project", [nome_projeto, local_projeto, orcamento, prazo_dias,
                         data_inicio, data_fim, codigo_cliente, codigo_status, observacao, codigo_func]) 
     cursor[1].commit()
     close_Conection(cursor[0], cursor[1])
@@ -374,5 +372,44 @@ def Listar_Permissoes_Usuarios(codigo_usuario):
     return perUsuario
 
 
+def Insert_New_Func(nome, cpf, email, codigo_funcao):
+    cursor = open_Conection()
+    cursor[0].callproc("Insert_New_Func", [nome, cpf, email, codigo_funcao])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Select_Top_Func():
+    cursor = open_Conection()
+    cursor[0].callproc("Select_Top_Func")
+    newIdUser = 0
+    for row in cursor[0]:
+        newIdUser = row[0]
+    close_Conection(cursor[0], cursor[1])
+    return newIdUser
+
+
+def Insert_New_Usuario(usuario, senha, codigo_tipo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Insert_New_Usuario", [usuario, senha, codigo_tipo_usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Insert_Usuario_Func(codigo_func, codigo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Insert_Usuario_Func", [codigo_func, codigo_usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Select_Top_Usuario():
+    cursor = open_Conection()
+    cursor[0].callproc("Select_Top_Usuario")
+    cod_usuario = 0
+    for row in cursor[0]:
+        cod_usuario = row[0]
+    close_Conection(cursor[0], cursor[1])
+    return cod_usuario
 
 'Delete_Todo_Projeto'
