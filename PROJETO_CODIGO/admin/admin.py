@@ -353,13 +353,18 @@ def Funcionarios():
             umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             if umFunc:
                 g.umFunc = umFunc
+        elif form['btn_admin_func'] == 'btn_apagar_func':
+            codigo_func = form.get('codigo_func')
+            oFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
+            Delete_Todo_Func(int(codigo_func), int(Nz(oFunc.codigo_usuario)))
+            Listar_Todos_Funcionarios_Cadastrados()
         elif form['btn_admin_func'] == 'btn_salvar_func':
             nome = form.get('txtNome')
             cpf = form.get('txtCPF')
             email = form.get('txtemail')
             cargo = form.get('cbCargo')
             check = form.get('chkUsuario')
-
+            perm = form.getlist('ckPermisao')
             Insert_New_Func(nome, cpf, email, cargo)
             codigo_func = Select_Top_Func()
             if not check is None:
@@ -373,11 +378,18 @@ def Funcionarios():
             umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             if umFunc:
                 g.umFunc = umFunc
+            Delete_All_Permissoes(codigo_usuario)
+            for cnt in perm:
+                Insert_Permisao_Usuario(int(cnt), codigo_usuario)
         elif form['btn_admin_func'] == 'btn_alterar_func':
             pass
-        if g.umFunc.codigo_usuario:
-            usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
-            perUsuario = Listar_Permissoes_Usuarios(g.umFunc.codigo_usuario)
+        if g.umFunc:
+            if g.umFunc.codigo_usuario:
+                usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
+                perUsuario = Listar_Permissoes_Usuarios(g.umFunc.codigo_usuario)
+            else:
+                usuario = [['','','']]
+                perUsuario = Listar_Permissoes_Usuarios(0)
         else:
             usuario = [['','','']]
             perUsuario = Listar_Permissoes_Usuarios(0)
@@ -477,7 +489,10 @@ def Blog():
 
 
 
-
+def Nz(valor):
+    if valor is None:
+        return 0
+    return valor
 
 def pegaExtencaoImg(nomeImagem):
     lista_N = nomeImagem.split('.')

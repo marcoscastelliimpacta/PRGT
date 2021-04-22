@@ -314,11 +314,12 @@ def Listar_Projetos_Cliente(codigo_usuario):
     close_Conection(cursor[0], cursor[1])
     return imagensCapa
 
+
 todos_Func = []
 def Listar_Todos_Funcionarios_Cadastrados():
     todos_Func.clear()
     cursor = open_Conection()
-    cursor[0].callproc("Listar_Todos_Funcionarios_Cadastrados")    
+    cursor[0].callproc("Listar_Todos_Funcionarios_Cadastrados")
     for row in cursor[0]:
         todos_Func.append(Todos_Funcionarios(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
     close_Conection(cursor[0], cursor[1])
@@ -411,5 +412,27 @@ def Select_Top_Usuario():
         cod_usuario = row[0]
     close_Conection(cursor[0], cursor[1])
     return cod_usuario
+
+
+def Insert_Permisao_Usuario(codigo_img, codigo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Insert_Permisao_Usuario", [codigo_img, codigo_usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Delete_All_Permissoes(codigo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Delete_All_Permissoes", [codigo_usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Delete_Todo_Func(codigo_func, codigo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Delete_Todo_Func", [codigo_func, codigo_usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
 
 'Delete_Todo_Projeto'
