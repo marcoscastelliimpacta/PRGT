@@ -42,7 +42,7 @@ class Todos_Funcionarios:
         self.nome = nome
         self.cpf = cpf
         self.email = email
-        self.codigo_funcao = codigo_func
+        self.codigo_funcao = codigo_funcao
         self.codigo_status = codigo_status
         self.codigo_status_alocacao = codigo_status_alocacao
         self.data_hora_post = data_hora_post

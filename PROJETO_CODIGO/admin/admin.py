@@ -374,13 +374,13 @@ def Funcionarios():
                 Insert_New_Usuario(usuario, senha, tpUsua)
                 codigo_usuario = Select_Top_Usuario()
                 Insert_Usuario_Func(codigo_func, codigo_usuario)
+                Delete_All_Permissoes(codigo_usuario)
+                for cnt in perm:
+                    Insert_Permisao_Usuario(int(cnt), codigo_usuario)
             Listar_Todos_Funcionarios_Cadastrados()
             umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             if umFunc:
-                g.umFunc = umFunc
-            Delete_All_Permissoes(codigo_usuario)
-            for cnt in perm:
-                Insert_Permisao_Usuario(int(cnt), codigo_usuario)
+                g.umFunc = umFunc            
         elif form['btn_admin_func'] == 'btn_alterar_func':
             pass
         if g.umFunc:
