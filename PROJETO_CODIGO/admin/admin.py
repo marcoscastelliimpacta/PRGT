@@ -340,6 +340,9 @@ def Funcionarios():
             g.func = func
             Listar_Todos_Funcionarios_Cadastrados()
         g.umFunc = ''
+    retorno = 0
+    titulo = ''
+    msgModal = ''
     cargos = Listar_Cargos()
     tpUsuario = Listar_Tipo_Usuario()
     if request.method == 'GET':
@@ -400,7 +403,13 @@ def Funcionarios():
                 else:
                     result = Insert_New_Usuario(usuario, senha, tpUsua)
                     if result[0] == 1062:
-                        result[1] = 0
+                        retorno = 1
+                        titulo = 'Erro: ' + str(result[0])
+                        msgModal = 'já existe o ' + result[1] + ' ' + usuario + ' Cadastrado! \nTente um novo usuário.'
+                    else:
+                        retorno = 0
+                        titulo = ''
+                        msgModal = ''
                     codigo_usuario = Select_Top_Usuario()
                     Insert_Usuario_Func(codigo_func, codigo_usuario)
                 Delete_All_Permissoes(codigo_usuario)
@@ -429,7 +438,10 @@ def Funcionarios():
             cargos=cargos,
             usuario=usuario,
             tpUsuario=tpUsuario,
-            perUsuario=perUsuario
+            perUsuario=perUsuario,
+            retorno=retorno,
+            msgModal=msgModal,
+            titulo=titulo
         )
 
 
