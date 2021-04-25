@@ -1,3 +1,5 @@
+from os import error
+from typing import cast
 import MySQLdb
 
 
@@ -391,17 +393,26 @@ def Select_Top_Func():
 
 
 def Insert_New_Usuario(usuario, senha, codigo_tipo_usuario):
-    cursor = open_Conection()
-    cursor[0].callproc("Insert_New_Usuario", [usuario, senha, codigo_tipo_usuario])
-    cursor[1].commit()
-    close_Conection(cursor[0], cursor[1])
+    try:
+        cursor = open_Conection()
+        cursor[0].callproc("Insert_New_Usuario", [usuario, senha, codigo_tipo_usuario])
+        cursor[1].commit()
+        close_Conection(cursor[0], cursor[1])
+    except Exception as e:
+        if e.args[0] == 1062:
+            return e.args[0], e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
 
 
 def Insert_Usuario_Func(codigo_func, codigo_usuario):
-    cursor = open_Conection()
-    cursor[0].callproc("Insert_Usuario_Func", [codigo_func, codigo_usuario])
-    cursor[1].commit()
-    close_Conection(cursor[0], cursor[1])
+    try:
+        cursor = open_Conection()
+        cursor[0].callproc("Insert_Usuario_Func", [codigo_func, codigo_usuario])
+        cursor[1].commit()
+        close_Conection(cursor[0], cursor[1])
+    except Exception as e:
+        if e.args[0] == 1062:
+            return e.args[0], e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
+        #e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
 
 
 def Select_Top_Usuario():
@@ -431,6 +442,20 @@ def Delete_All_Permissoes(codigo_usuario):
 def Delete_Todo_Func(codigo_func, codigo_usuario):
     cursor = open_Conection()
     cursor[0].callproc("Delete_Todo_Func", [codigo_func, codigo_usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Alterar_Dados_Func(codigo_func, nome, cpf, email, codigo_funcao):
+    cursor = open_Conection()
+    cursor[0].callproc("Alterar_Dados_Func", [codigo_func, nome, cpf, email, codigo_funcao])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+def Alterar_Dados_usuario(codigo_usuario, senha, codigo_tipo_usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Alterar_Dados_usuario", [codigo_usuario, senha, codigo_tipo_usuario])
     cursor[1].commit()
     close_Conection(cursor[0], cursor[1])
 

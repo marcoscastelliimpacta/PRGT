@@ -380,9 +380,36 @@ def Funcionarios():
             Listar_Todos_Funcionarios_Cadastrados()
             umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             if umFunc:
-                g.umFunc = umFunc            
+                g.umFunc = umFunc
         elif form['btn_admin_func'] == 'btn_alterar_func':
-            pass
+            codigo_func = form.get('txtCodigoFuncionario')
+            nome = form.get('txtNome')
+            cpf = form.get('txtCPF').replace(".","").replace("-","")
+            email = form.get('txtemail')
+            cargo = form.get('cbCargo')
+            check = form.get('chkUsuario')
+            perm = form.getlist('ckPermisao')
+            Alterar_Dados_Func(codigo_func, nome, cpf, email, cargo)
+            if not check is None:
+                codigo_usuario = form.get('txtcodigo_usuario')
+                usuario = form.get('txtUsuario')
+                senha = form.get('txtSenha')
+                tpUsua = form.get('cbUsuario')
+                if codigo_usuario:
+                    Alterar_Dados_usuario(codigo_usuario, senha, tpUsua)
+                else:
+                    result = Insert_New_Usuario(usuario, senha, tpUsua)
+                    if result[0] == 1062:
+                        result[1] = 0
+                    codigo_usuario = Select_Top_Usuario()
+                    Insert_Usuario_Func(codigo_func, codigo_usuario)
+                Delete_All_Permissoes(codigo_usuario)
+                for cnt in perm:
+                    Insert_Permisao_Usuario(int(cnt), codigo_usuario)
+            Listar_Todos_Funcionarios_Cadastrados()
+            umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
+            if umFunc:
+                g.umFunc = umFunc
         if g.umFunc:
             if g.umFunc.codigo_usuario:
                 usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
