@@ -109,9 +109,12 @@
                 </div>
                 <form id="form_msg" name="form_msg" method="GET">                    
                   <div class="modal-body">
-                        <div class="form-group" id="msg_modal" style="color: red; " >
-                            <label style="width: 260px;" id="msgModal">{{msgModal}}</label>
-                        </div>                   
+                    {%set msgModal = msgModal.split("<br>")%}
+                    {%for cnt in msgModal:%}
+                      <div class="form-group" id="msg_modal" style="color: red; " >
+                          <label style="width: 260px;" id="msgModal">{{ cnt }}</label>
+                      </div>
+                    {%endfor%}
                   <div class="modal-footer border-top-0 d-flex justify-content-center">
                     <button type="button" id="btnMsn" name="btnMsn" value="btnMsn" class="btn btn-success" data-dismiss="modal" aria-label="Close" style="width: 40%; height: 30px; line-height: 0;">OK</button>
                   </div>

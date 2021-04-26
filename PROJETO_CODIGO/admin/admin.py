@@ -317,7 +317,17 @@ def Projeto_Cliente(codigo_projeto):
         )
 
 
-
+@admin_dp.app_template_filter()
+def formatingTelefone(value):
+    if value:
+        strValue = str(value)
+        if len(strValue) == 9:
+            telefone = str(strValue[0]) + ' ' + str(strValue[1:5]) + '-' + str(strValue[5:])
+        else:
+            telefone = str(strValue[1:4]) + '-' + str(strValue[4:])
+    else:
+        telefone = ''
+    return telefone
 
 @admin_dp.app_template_filter()
 def formatingCPF(value):
@@ -340,6 +350,7 @@ def Funcionarios():
             g.func = func
             Listar_Todos_Funcionarios_Cadastrados()
         g.umFunc = ''
+    usuario = [['','','']]
     retorno = 0
     titulo = ''
     msgModal = ''
@@ -363,27 +374,44 @@ def Funcionarios():
             Listar_Todos_Funcionarios_Cadastrados()
         elif form['btn_admin_func'] == 'btn_salvar_func':
             nome = form.get('txtNome')
-            cpf = form.get('txtCPF')
+            cpf = form.get('txtCPF').replace(".","").replace("-","")
             email = form.get('txtemail')
             cargo = form.get('cbCargo')
             check = form.get('chkUsuario')
             perm = form.getlist('ckPermisao')
-            Insert_New_Func(nome, cpf, email, cargo)
-            codigo_func = Select_Top_Func()
-            if not check is None:
-                usuario = form.get('txtUsuario')
-                senha = form.get('txtSenha')
-                tpUsua = form.get('cbUsuario')
-                Insert_New_Usuario(usuario, senha, tpUsua)
-                codigo_usuario = Select_Top_Usuario()
-                Insert_Usuario_Func(codigo_func, codigo_usuario)
-                Delete_All_Permissoes(codigo_usuario)
-                for cnt in perm:
-                    Insert_Permisao_Usuario(int(cnt), codigo_usuario)
-            Listar_Todos_Funcionarios_Cadastrados()
-            umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
-            if umFunc:
-                g.umFunc = umFunc
+            result = Insert_New_Func(nome, cpf, email, cargo)
+            if result[0] == 1062:
+                retorno = 1
+                titulo = 'Erro: ' + str(result[0])
+                msgModal = 'Já existe esse ' + result[1].upper() + ' Cadastrado! <br> Tente outro ' + result[1].upper() + '.'
+                umFunc = todos_Func[0]
+                if umFunc:
+                    g.umFunc = umFunc
+                g.umFunc.codigo_func = 0
+                g.umFunc.nome = nome
+                g.umFunc.cpf = cpf
+                g.umFunc.email = email
+                g.umFunc.codigo_funcao = int(cargo)
+                g.umFunc.codigo_usuario = 0
+            else:
+                retorno = 0
+                titulo = ''
+                msgModal = ''
+                codigo_func = Select_Top_Func()
+                if not check is None:
+                    usuario = form.get('txtUsuario')
+                    senha = form.get('txtSenha')
+                    tpUsua = form.get('cbUsuario')
+                    Insert_New_Usuario(usuario, senha, tpUsua)
+                    codigo_usuario = Select_Top_Usuario()
+                    Insert_Usuario_Func(codigo_func, codigo_usuario)
+                    Delete_All_Permissoes(codigo_usuario)
+                    for cnt in perm:
+                        Insert_Permisao_Usuario(int(cnt), codigo_usuario)
+                Listar_Todos_Funcionarios_Cadastrados()
+                umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
+                if umFunc:
+                    g.umFunc = umFunc
         elif form['btn_admin_func'] == 'btn_alterar_func':
             codigo_func = form.get('txtCodigoFuncionario')
             nome = form.get('txtNome')
@@ -405,7 +433,8 @@ def Funcionarios():
                     if result[0] == 1062:
                         retorno = 1
                         titulo = 'Erro: ' + str(result[0])
-                        msgModal = 'já existe o ' + result[1] + ' ' + usuario + ' Cadastrado! \nTente um novo usuário.'
+                        msgModal = 'Já existe o ' + result[1] + ' ' + usuario.upper() + ' Cadastrado! <br> Tente um novo usuário.'
+                        usuario = [['',usuario,int(tpUsua)]]
                     else:
                         retorno = 0
                         titulo = ''
@@ -424,10 +453,9 @@ def Funcionarios():
                 usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
                 perUsuario = Listar_Permissoes_Usuarios(g.umFunc.codigo_usuario)
             else:
-                usuario = [['','','']]
                 perUsuario = Listar_Permissoes_Usuarios(0)
+                g.umFunc.codigo_usuario = 0
         else:
-            usuario = [['','','']]
             perUsuario = Listar_Permissoes_Usuarios(0)
     tFunc = [x for x in todos_Func if x.codigo_func > 0]
     if tFunc:
@@ -459,14 +487,33 @@ def Clientes():
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
         if func:
             g.func = func
-    if request.method == 'GET':
+        Listar_Todos_Clientes_Cadastrados()
+        tclie = [x for x in todos_cli if x.codigo_cli > 0]
+        if tclie:
+            g.tclie = tclie
+        retorno = 0
+        titulo = ''
+        msgModal = ''
         func = Listar_Todos_Funcionarios(0)
-        return render_template(
-            'cadastro_clientes.html',
-            funcionarios = func
-        )
-    else:
-        pass
+        g.umClie = ''
+    if request.method == 'GET':
+        usuario=[['','','']]
+    elif request.method == 'POST':
+        form = request.form
+        if form['btn_admin_cli'] == 'btn_select_cli':
+            codigo_cli = form.get('codigo_cli')
+            umClie = [x for x in todos_cli if x.codigo_cli == int(codigo_cli)][0]
+            if umClie:
+                g.umClie = umClie
+                usuario = Listar_Usuario_Func(g.umClie.codigo_usuario)
+    return render_template(
+        'cadastro_clientes.html',
+        funcionarios=func,
+        usuario=usuario,
+        retorno = retorno,
+        titulo = titulo,
+        msgModal = msgModal
+    )
 
 
 

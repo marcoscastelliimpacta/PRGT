@@ -1,5 +1,239 @@
 {% extends 'base_generica.html' %}
 
 {% block Banner%}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/tabela.css">
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 
+function fUsuario()
+{
+    check = document.getElementById("divUsuario").hidden;
+    
+    if (check)
+    {
+        document.getElementById("divUsuario").hidden = false;
+    }
+    else
+    {
+        document.getElementById("divUsuario").hidden = true;
+    }
+}
+</script>
+<style>
+.editar, .apagar {
+	background-color:#276873;
+	border-radius:5px;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+	font-weight:bold;
+	padding:7px 8px;
+	text-decoration:none;
+	margin-left:5px;
+	margin-right:0px;
+}
+
+.apagar {
+	background-color:#b34332;
+	margin-right:20px;	
+}
+
+    .form-projeto input{
+        padding: 0.5em;
+        margin: 0 0;        
+    }
+    .form-projeto label{
+        padding: 0.5em;
+        margin: 0 0;
+    }
+    .select-cli{
+        height: 30px;        
+    }
+    .list-project .list-column{
+        height: 70%;
+    }
+    @media screen and (max-width:892px)
+    {
+        .list-project .list-column{
+            height: 450px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    input[type=range] {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+}
+
+/* style datalist */
+input[type=range] + datalist {
+    display: block;
+    margin-top: -16px;
+    font-size: 12px;
+}
+input[type=range] + datalist option {
+    display: inline-block;
+    width: calc((90% - 12px) / (var(--list-length) + 1.8));
+    text-align: center;
+}
+
+
+
+
+/* style Firefox range and thumb */
+
+
+</style>
+<br>
+<br>
+<div class="row list-project" style="margin-top:110px; color: black; font-weight: bolder; font-size: 20px; height: 80%; cursor: default;">
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 720px;">
+        <h3 style="text-align: center;">Lista de Clientes</h3>
+        
+            <label for="myInput">Filtro: </label>
+            <input id="myInput" type="text" placeholder=" Filtre sua procura" size="30" style="width: 300px; height:30px; border:1px solid #bbb">
+            <div class="table100" style="overflow: auto; overflow-y: scroll; height: 680px;">
+            
+                <table class= "table table-striped table-dark">
+                    <thead>
+                        <tr class="table100-head" style="height: 30px;">
+                            <th class="column1">Código</th>
+                            <th class="column2">Cliente</th>
+                            <th class="column3">Email</th>
+                            <th class="column4">Telefone</th>
+                            <th class="column9"></th>
+                            <th class="column10"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+
+                        {% if g.tclie: %}
+                            {% for cnt in g.tclie: %}
+                                <form method="POST">
+                                    <tr style="cursor: default;">
+                                        <td class="column1" style="cursor: default;">
+                                        <input type="text" id="codigo_cli" name="codigo_cli" value="{{cnt.codigo_cli}}" readonly style="font-weight: bolder; color: rgba(120,120,120, 1); height: 15px; box-shadow: 0 0 0 0; border: 0 none; outline: 0; background-color: rgba(0,0,0, 0);"> </td>
+                                        <td class="column2">{{cnt.nome_cli}}</td>
+                                        <td class="column3">{{cnt.email}}</td>
+                                        <td class="column4">{{cnt.telefone | formatingTelefone}}</td>
+                                        <td class="column9"><button  id="btn_admin_cli" value="btn_select_cli" name="btn_admin_cli" type="submit" class="editar">editar</button></td>
+                                        <td class="column10"><button  id="btn_admin_cli" value="btn_apagar_cli" name="btn_admin_cli" type="submit" class="apagar">apagar</button></td>
+                                    </tr>
+                                </form>
+                            {% endfor %}
+                        {%else:%}
+                            <tr>
+                                <td style="color: black; text-align: center;  cursor: default;" colspan="7" class="msg-vazio"><h2>Ainda não foi cadastro nenhum Cliente!</h2></td>
+                            </tr>
+                        {%endif%}
+                    </tbody>
+                </table>
+            </div>
+         
+        <!--<iframe src="{{url_for('profile.Lista_Projetos_Admin')}}" style="width: 100%; height: 100%;"></iframe>        -->
+    </div>
+    
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7">
+    <br>
+        <form class="form-projeto" id="form_alter_senha" name="form_alter_senha" method="POST">                    
+            <div class="modal-body">
+                <div class="row" style="margin-top:40px; margin-bottom: -20px; color: black; font-weight: bolder; font-size: 20px; width: 50%;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtCodigoCliente" style="color:rgb(0,0,0);">Código do Cliente</label>
+                            <input type="text" class="form-control" id="txtCodigoCliente" name="txtCodigoCliente" value="{{g.umClie.codigo_cli}}" readonly>
+                        </div>
+                    </div>
+                </div>                
+                <div class="row" style="color: black; font-weight: bolder; font-size: 20px;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtNome" style="color:rgb(0,0,0);">Nome do Cliente</label>
+                            <input type="text" class="form-control" id="txtNome" name="txtNome"  placeholder="Nome do Cliente" value="{{g.umClie.nome_cli}}">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtemail" style="color:rgb(0,0,0);">Email</label>
+                            <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="Telefone" value="{{g.umClie.email}}">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtTelefone" style="color:rgb(0,0,0);">Telefone</label>
+                            <input type="text" class="form-control" id="txtTelefone" name="txtTelefone" placeholder="Telefone" value="{{g.umClie.telefone | formatingTelefone}}">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtUsuario" style="color:rgb(0,0,0);">Usuário</label>
+                            {%if usuario[0][1]:%}
+                                {%set valReadOnly = 'readonly'%}
+                            {%else:%}
+                                {%set valReadOnly = ''%}
+                            {%endif%}
+                            <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="Usuário" value="{{usuario[0][1]}}" {{valReadOnly}}>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                
+                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txttpUsuario" style="color:rgb(0,0,0);">Tipo Usuário</label>
+                            <input type="text" class="form-control" id="txttpUsuario" name="txttpUsuario" value="Cliente" readonly>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtSenha" style="color:rgb(0,0,0);">Senha</label>
+                            <input type="text" class="form-control" id="txtSenha" name="txtSenha" placeholder="Senha" value="">
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                
+            </div>
+            
+            <div class="modal-footer border-top-0 d-flex justify-content-center" style="margin-top: -10px;">
+                {%if not g.umClie.codigo_cli: %}
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Salvar</button>
+                    <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
+                {%else:%}
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
+                    <a href="{{url_for('profile.Clientes')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
+                {%endif%}              
+            </div>
+          </form>       
+    </div>    
+    <script type="text/javascript" DEFER="DEFER">
+       
+   
+    </script>
+</div>
 {%endblock%}

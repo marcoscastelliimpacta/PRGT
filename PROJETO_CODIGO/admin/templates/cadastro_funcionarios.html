@@ -108,7 +108,7 @@ input[type=range] + datalist option {
 <br>
 <div class="row list-project" style="margin-top:110px; color: black; font-weight: bolder; font-size: 20px; height: 80%; cursor: default;">
     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 720px;">
-        <h3 style="text-align: center;">Funcionarios</h3>
+        <h3 style="text-align: center;">Lista de Funcionarios</h3>
         
             <label for="myInput">Filtro: </label>
             <input id="myInput" type="text" placeholder=" Filtre sua procura" size="30" style="width: 300px; height:30px; border:1px solid #bbb">
@@ -135,7 +135,7 @@ input[type=range] + datalist option {
                                         <td class="column1" style="cursor: default;">
                                         <input type="text" id="codigo_func" name="codigo_func" value="{{cnt.codigo_func}}" readonly style="font-weight: bolder; color: rgba(120,120,120, 1); height: 15px; box-shadow: 0 0 0 0; border: 0 none; outline: 0; background-color: rgba(0,0,0, 0);"> </td>
                                         <td class="column2">{{cnt.nome}}</td>
-                                        <td class="column3">{{cnt.cpf}}</td>
+                                        <td class="column3">{{cnt.cpf | formatingCPF}}</td>
                                         <td class="column4">{{cnt.email}}</td>
                                         <td class="column5">{{cnt.data_hora_post}}</td>                                        
                                         <td class="column9"><button  id="btn_admin_func" value="btn_select_func" name="btn_admin_func" type="submit" class="editar">editar</button></td>
@@ -311,15 +311,16 @@ input[type=range] + datalist option {
                     <button type="submit" id="btn_admin_func" name="btn_admin_func" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
                     <a href="{{url_for('profile.Funcionarios')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
 
-                {%endif%}              
+                {%endif%}
               
             </div>
           </form>       
     </div>    
     <script type="text/javascript" DEFER="DEFER">
        
-        var codigo_usuario = {{g.umFunc.codigo_usuario}};    
-        if(codigo_usuario != "")
+        var codigo_usuario = {{g.umFunc.codigo_usuario}};
+        var vusuario = '{{usuario[0][1]}}';
+        if(codigo_usuario != 0 || vusuario != "")
         {
             document.getElementById("divUsuario").hidden = false;
             document.getElementById("chkUsuario").checked = true;

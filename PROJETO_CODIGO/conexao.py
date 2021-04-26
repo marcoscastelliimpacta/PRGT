@@ -53,6 +53,18 @@ class Todos_Funcionarios:
         return f'codigo_func: {self.codigo_func}'
 
 
+class Todos_Clientes:
+    def __init__(self, codigo_cli, codigo_usuario, nome_cli, email, telefone):
+        self.codigo_cli = codigo_cli
+        self.codigo_usuario = codigo_usuario
+        self.nome_cli = nome_cli
+        self.email = email
+        self.telefone = telefone
+    
+    def __repr__(self):
+        return f'codigo_cli: {self.codigo_cli}'
+
+
 class User:
     def __init__(self, codigo, name, email, telefone, username, user_type):
         self.codigo = codigo
@@ -376,11 +388,13 @@ def Listar_Permissoes_Usuarios(codigo_usuario):
 
 
 def Insert_New_Func(nome, cpf, email, codigo_funcao):
-    cursor = open_Conection()
-    cursor[0].callproc("Insert_New_Func", [nome, cpf, email, codigo_funcao])
-    cursor[1].commit()
-    close_Conection(cursor[0], cursor[1])
-
+    try:
+        cursor = open_Conection()
+        cursor[0].callproc("Insert_New_Func", [nome, cpf, email, codigo_funcao])
+        cursor[1].commit()
+        close_Conection(cursor[0], cursor[1])
+    except Exception as e:
+        return e.args[0], e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
 
 def Select_Top_Func():
     cursor = open_Conection()
@@ -457,6 +471,16 @@ def Alterar_Dados_usuario(codigo_usuario, senha, codigo_tipo_usuario):
     cursor = open_Conection()
     cursor[0].callproc("Alterar_Dados_usuario", [codigo_usuario, senha, codigo_tipo_usuario])
     cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
+
+
+todos_cli = []
+def Listar_Todos_Clientes_Cadastrados():
+    todos_cli.clear()
+    cursor = open_Conection()
+    cursor[0].callproc("Listar_Todos_Clientes_Cadastrados")
+    for row in cursor[0]:
+        todos_cli.append(Todos_Clientes(row[0], row[1], row[2], row[3], row[4]))
     close_Conection(cursor[0], cursor[1])
 
 
