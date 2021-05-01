@@ -260,6 +260,9 @@ def Projetos_Admin():
             Delete_Todo_Projeto(idProjeto)
             return redirect('/profile/Projetos/')
     ImagensProjeto = Listar_Imagem_Projetos('/'+pasta)
+    retorno=0
+    msgModal=""
+    titulo=''
     return render_template(
         'Projetos_admin.html',
         clientes = clientes,
@@ -267,7 +270,10 @@ def Projetos_Admin():
         funcionarios = func,
         osProjetos = osProjetos,
         servicos = servicos,
-        ImagensProjeto = ImagensProjeto
+        ImagensProjeto = ImagensProjeto,
+        retorno=retorno,
+        msgModal=msgModal,
+        titulo=titulo
     )
 
 
@@ -530,9 +536,15 @@ def Home_Page():
             g.func = func
     if request.method == 'GET':
         func = Listar_Todos_Funcionarios(0)
+        retorno=0
+        msgModal=''
+        titulo=''
         return render_template(
             'manutencao_home.html',
-            funcionarios = func
+            funcionarios = func,
+            retorno=retorno,
+            msgModal=msgModal,
+            titulo=titulo
         )
     else:
         pass
@@ -551,9 +563,15 @@ def Blog():
             g.func = func
     if request.method == 'GET':
         func = Listar_Todos_Funcionarios(0)
+        retorno=0
+        msgModal=''
+        titulo=''
         return render_template(
             'manutencao_blog.html',
-            funcionarios = func
+            funcionarios = func,
+            retorno=retorno,
+            msgModal=msgModal,
+            titulo=titulo
         )
     else:
         pass
