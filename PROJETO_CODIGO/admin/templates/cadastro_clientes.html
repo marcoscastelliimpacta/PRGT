@@ -175,7 +175,7 @@ input[type=range] + datalist option {
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
                             <label for="txtemail" style="color:rgb(0,0,0);">Email</label>
-                            <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="Telefone" value="{{g.umClie.email}}">
+                            <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="E-Mail" value="{{g.umClie.email}}">
                         </div>
                     </div>
                 </div>
@@ -204,14 +204,12 @@ input[type=range] + datalist option {
                 <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txttpUsuario" style="color:rgb(0,0,0);">Tipo Usuário</label>
-                            <input type="text" class="form-control" id="txttpUsuario" name="txttpUsuario" value="Cliente" readonly>
+                            
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtSenha" style="color:rgb(0,0,0);">Senha</label>
-                            <input type="text" class="form-control" id="txtSenha" name="txtSenha" placeholder="Senha" value="">
+                            
                         </div>
                     </div>
                 </div>
@@ -222,11 +220,12 @@ input[type=range] + datalist option {
             
             <div class="modal-footer border-top-0 d-flex justify-content-center" style="margin-top: -10px;">
                 {%if not g.umClie.codigo_cli: %}
-                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Salvar</button>
-                    <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 140px; height: 30px; line-height: 0;">Salvar</button>
+                    <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 140px; height: 30px; line-height: 0;">Cancelar</a>
                 {%else:%}
-                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
-                    <a href="{{url_for('profile.Clientes')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 140px; height: 30px; line-height: 0;">Alterar</button>
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_resete_password" class="btn btn-success" onclick="" style="width: 140px; height: 30px; line-height: 0;">Resetar Senha</button>
+                    <a href="{{url_for('profile.Clientes')}}" class="btn btn-success" onclick="" style="width: 140px; height: 30px; line-height: 0;">Cancelar</a>
                 {%endif%}              
             </div>
           </form>       

@@ -284,7 +284,10 @@ def Lista_Projetos_Admin():
         projetos = Listar_Todos_Projetos()
         return render_template(
             'lista_projetos_admin.html',
-            projetos = projetos
+            projetos = projetos,
+            retorno = retorno,
+            titulo = titulo,
+            msgModal = msgModal
         )
     else:
         form = request.form
@@ -319,7 +322,10 @@ def Projeto_Cliente(codigo_projeto):
         stServico = stServico,
         stProgress=stProgress,
         stCoresBarra=stCoresBarra,
-        ImagensProjeto=ImagensProjeto
+        ImagensProjeto=ImagensProjeto,
+        retorno = retorno,
+        titulo = titulo,
+        msgModal = msgModal
         )
 
 
@@ -493,10 +499,7 @@ def Clientes():
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
         if func:
             g.func = func
-        Listar_Todos_Clientes_Cadastrados()
-        tclie = [x for x in todos_cli if x.codigo_cli > 0]
-        if tclie:
-            g.tclie = tclie
+        Listar_Todos_Clientes_Cadastrados()     
         retorno = 0
         titulo = ''
         msgModal = ''
@@ -512,6 +515,26 @@ def Clientes():
             if umClie:
                 g.umClie = umClie
                 usuario = Listar_Usuario_Func(g.umClie.codigo_usuario)
+        elif form['btn_admin_cli'] == 'btn_salvar_func':
+            usuario = form.get('txtUsuario')
+            Insert_New_Usuario(usuario, usuario, 3)
+            codigo_usuario = Select_Top_Usuario()
+            nome_cli = form.get('txtNome')
+            email = form.get('txtemail')
+            telefone = form.get('txtTelefone')
+            Insert_New_Cliente(codigo_usuario, nome_cli, email, telefone)
+            Listar_Todos_Clientes_Cadastrados()
+            umClie = [x for x in todos_cli if x.codigo_cli == todos_cli[-1].codigo_cli][0]
+            if umClie:
+                g.umClie = umClie
+                usuario = Listar_Usuario_Func(todos_cli[-1].codigo_usuario)
+        elif form['btn_admin_cli'] == 'btn_resete_password':
+            pass
+        elif form['btn_admin_cli'] == 'btn_alterar_func':
+            pass
+    tclie = [x for x in todos_cli if x.codigo_cli > 0]
+    if tclie:
+        g.tclie = tclie
     return render_template(
         'cadastro_clientes.html',
         funcionarios=func,
