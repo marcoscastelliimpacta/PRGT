@@ -317,6 +317,9 @@ def Projeto_Cliente(codigo_projeto):
             stCoresBarra.append(coresBarra(cnt[3]))
     pasta = 'static/imgs/Projetos/'+str(codigo_projeto)+'/'
     ImagensProjeto = Listar_Imagem_Projetos('/'+pasta)
+    retorno = ''
+    titulo = ''
+    msgModal = ''
     return render_template(
         'projetos_clientes.html',
         stServico = stServico,
