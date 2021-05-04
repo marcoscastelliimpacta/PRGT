@@ -484,4 +484,8 @@ def Listar_Todos_Clientes_Cadastrados():
     close_Conection(cursor[0], cursor[1])
 
 
-'Delete_Todo_Projeto'
+def Insert_New_Cliente(codigo_usuario, nome_cli, email, telefone):
+    cursor = open_Conection()
+    cursor[0].callproc("Insert_New_Cliente", [codigo_usuario, nome_cli, email, telefone])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])
