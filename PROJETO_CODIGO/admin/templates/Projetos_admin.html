@@ -356,7 +356,7 @@ input[type=range] + datalist option {
 
 
         <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-top: 25px; height: 720px;">
-            <h3 style="text-align: center;">Imagens do Projeto</h3>
+            <h3 style="text-align: center;">Imagens do Projeto <br><span style="color: red; font-weight: bold;">(Maximo 1mb)</span></h3>
             <form class="form-projeto" id="form_insert_img" name="form_insert_img" method="POST" enctype="multipart/form-data">                    
                 <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 20px; height: 40px;">
                     <input type="number" value="{{g.proj.codigo_projeto}}" id="txtcodigo_pro" name="txtcodigo_pro" hidden>
@@ -375,6 +375,7 @@ input[type=range] + datalist option {
                         {% for cnt in ImagensProjeto: %}
                             <div class="col-xl-4 col-lg-12 col-md-12 col-sm-14">
                                 <form class="form-projeto"  method="POST">
+                                    <input type="number" value="{{g.proj.codigo_projeto}}" id="txtcodigo_pro" name="txtcodigo_pro" hidden>
                                     <input type="text" id="img_projeto" name="img_projeto" value="{{cnt[2]}}" hidden>
                                     <div class="box--image">
                                         <div class="box__wrapper no-shadow">

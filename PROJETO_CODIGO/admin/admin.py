@@ -240,7 +240,8 @@ def Projetos_Admin():
                 g.proj = proj
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
         elif form['btn_projeto'] == "btn_delete_img":
-            idProjeto = int(form.get("txtcodigo_pro"))
+            idProjeto = form.get("txtcodigo_pro")
+            idProjeto = int(idProjeto)
             imagemName = form.get("img_projeto")
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             func = Listar_Todos_Funcionarios(idProjeto)
@@ -415,9 +416,8 @@ def Funcionarios():
                 codigo_func = Select_Top_Func()
                 if not check is None:
                     usuario = form.get('txtUsuario')
-                    senha = form.get('txtSenha')
                     tpUsua = form.get('cbUsuario')
-                    Insert_New_Usuario(usuario, senha, tpUsua)
+                    Insert_New_Usuario(usuario, usuario, tpUsua)
                     codigo_usuario = Select_Top_Usuario()
                     Insert_Usuario_Func(codigo_func, codigo_usuario)
                     Delete_All_Permissoes(codigo_usuario)
@@ -439,12 +439,12 @@ def Funcionarios():
             if not check is None:
                 codigo_usuario = form.get('txtcodigo_usuario')
                 usuario = form.get('txtUsuario')
-                senha = form.get('txtSenha')
+                senha = None
                 tpUsua = form.get('cbUsuario')
                 if codigo_usuario:
                     Alterar_Dados_usuario(codigo_usuario, senha, tpUsua)
                 else:
-                    result = Insert_New_Usuario(usuario, senha, tpUsua)
+                    result = Insert_New_Usuario(usuario, usuario, tpUsua)
                     if result[0] == 1062:
                         retorno = 1
                         titulo = 'Erro: ' + str(result[0])
@@ -531,6 +531,8 @@ def Clientes():
             if umClie:
                 g.umClie = umClie
                 usuario = Listar_Usuario_Func(todos_cli[-1].codigo_usuario)
+        elif form['btn_admin_cli'] == 'btn_apagar_cli':
+            pass
         elif form['btn_admin_cli'] == 'btn_resete_password':
             pass
         elif form['btn_admin_cli'] == 'btn_alterar_func':

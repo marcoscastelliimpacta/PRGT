@@ -393,6 +393,7 @@ def Insert_New_Func(nome, cpf, email, codigo_funcao):
         cursor[0].callproc("Insert_New_Func", [nome, cpf, email, codigo_funcao])
         cursor[1].commit()
         close_Conection(cursor[0], cursor[1])
+        return 1, 2
     except Exception as e:
         return e.args[0], e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
 
@@ -412,6 +413,7 @@ def Insert_New_Usuario(usuario, senha, codigo_tipo_usuario):
         cursor[0].callproc("Insert_New_Usuario", [usuario, senha, codigo_tipo_usuario])
         cursor[1].commit()
         close_Conection(cursor[0], cursor[1])
+        return 1, 2
     except Exception as e:
         if e.args[0] == 1062:
             return e.args[0], e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
@@ -423,6 +425,7 @@ def Insert_Usuario_Func(codigo_func, codigo_usuario):
         cursor[0].callproc("Insert_Usuario_Func", [codigo_func, codigo_usuario])
         cursor[1].commit()
         close_Conection(cursor[0], cursor[1])
+        return 1, 2
     except Exception as e:
         if e.args[0] == 1062:
             return e.args[0], e.args[1][str.find(e.args[1],"'",str.find(e.args[1],"'",17)+1)+1:-1]
