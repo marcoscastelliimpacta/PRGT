@@ -386,7 +386,11 @@ def Funcionarios():
         elif form['btn_admin_func'] == 'btn_apagar_func':
             codigo_func = form.get('codigo_func')
             oFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
-            Delete_Todo_Func(int(codigo_func), int(Nz(oFunc.codigo_usuario)))
+            result =  Delete_Todo_Func(int(codigo_func), int(Nz(oFunc.codigo_usuario)))
+            if result[0] == 1451:
+                retorno = 1
+                titulo = 'Erro: ' + str(result[0])
+                msgModal = result[1].replace('nome_func', oFunc.nome)
             Listar_Todos_Funcionarios_Cadastrados()
         elif form['btn_admin_func'] == 'btn_salvar_func':
             nome = form.get('txtNome')
@@ -532,7 +536,15 @@ def Clientes():
                 g.umClie = umClie
                 usuario = Listar_Usuario_Func(todos_cli[-1].codigo_usuario)
         elif form['btn_admin_cli'] == 'btn_apagar_cli':
-            pass
+            usuario=[['','','']]
+            codigo_cli = form.get('codigo_cli')
+            umClie = [x for x in todos_cli if x.codigo_cli == int(codigo_cli)][0]
+            codigo_usuario = umClie.codigo_usuario
+            result = Delete_Cliente(codigo_cli, codigo_usuario)
+            if result[0] == 1451:
+                retorno = 1
+                titulo = 'Erro: ' + str(result[0])
+                msgModal = 'Não é possivel deletar os dados do ' + umClie.nome_cli + '<br> Exitem projetos do ' + umClie.nome_cli + ' cadastrado.'
         elif form['btn_admin_cli'] == 'btn_resete_password':
             pass
         elif form['btn_admin_cli'] == 'btn_alterar_func':

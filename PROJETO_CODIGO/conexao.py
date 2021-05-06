@@ -457,10 +457,16 @@ def Delete_All_Permissoes(codigo_usuario):
 
 
 def Delete_Todo_Func(codigo_func, codigo_usuario):
-    cursor = open_Conection()
-    cursor[0].callproc("Delete_Todo_Func", [codigo_func, codigo_usuario])
-    cursor[1].commit()
-    close_Conection(cursor[0], cursor[1])
+    try:
+        cursor = open_Conection()
+        cursor[0].callproc("Delete_Todo_Func", [codigo_func, codigo_usuario])
+        cursor[1].commit()
+        close_Conection(cursor[0], cursor[1])
+        return 1, 2
+    except Exception as e:
+        if e.args[0] == 1451:
+            return e.args[0], 'O Funcionário "nome_func" está vinculado a um Projeto, só será possivel deleta-lo após desvincula-lo.'
+       
 
 
 def Alterar_Dados_Func(codigo_func, nome, cpf, email, codigo_funcao):
@@ -492,3 +498,15 @@ def Insert_New_Cliente(codigo_usuario, nome_cli, email, telefone):
     cursor[0].callproc("Insert_New_Cliente", [codigo_usuario, nome_cli, email, telefone])
     cursor[1].commit()
     close_Conection(cursor[0], cursor[1])
+
+
+def Delete_Cliente(codigo_cli, codigo_usuario):
+    try:
+        cursor = open_Conection()
+        cursor[0].callproc("Delete_Cliente", [codigo_cli, codigo_usuario])
+        cursor[1].commit()
+        close_Conection(cursor[0], cursor[1])
+        return 1, 2
+    except Exception as e:
+        if e.args[0] == 1451:
+            return e.args[0], 1

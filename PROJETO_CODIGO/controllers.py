@@ -79,9 +79,3 @@ def profile():
             return redirect('/cliente/')
         
 
-
-'''@app.before_request
-def before_request():
-    if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
-        g.user = user'''
