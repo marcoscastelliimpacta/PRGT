@@ -1,0 +1,318 @@
+{% extends 'base_generica.html' %}
+
+{% block Banner%}
+<style>
+  .tabs-container {
+    position: relative;
+    height: 360px;
+    max-width: 98%;
+    margin: 0 auto;
+}
+.tabs-container p {
+    margin: 0;
+    padding: 0;
+}
+.tabs-container:after {
+    content: '.';
+    display: block;
+    clear: both;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    visibility: none;
+}
+
+/* ABAS */
+input.tabs {
+    display: none;
+}
+input.tabs + label + div {
+    width: 99%;
+    opacity: 0;
+    position: absolute;
+    background: rgba(150,150,150,0.3);
+    border-color: black;
+    top: 40px;
+    left: 0;
+    height: 700px;
+    padding: 10px;
+    z-index: -1;
+    transition: opacity ease-in-out .3s;
+}
+input.tabs:checked + label + div {
+    opacity: 1;
+    z-index: 1000;
+}
+
+/* Labels */
+input.tabs + label {
+    line-height: 40px;
+    padding: 0 20px;
+    border-radius: 10px 10px 0 0;
+    float: left;
+    background: #444;
+    color: #fff;
+    cursor: pointer;
+    transition: background ease-in-out .3s;
+}
+input.tabs:checked + label {
+    color: #000;
+    font-weight: bolder;
+    background: rgb(0,150,0);
+}
+</style>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <div id="content">
+    <div class="container" style="padding-top:10px">
+      <div class="modal-body">
+        <div class="form-group">
+          <H4 for="email1" style="font-weight:bold">DADOS DO PROJETO</H4>
+          <div style="text-align: right;">
+            <a href="{{url_for('profile')}}" style="width:150px; margin-top: -100px; height: 45px;" class="btn btn-success">Voltar</a>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="nome_cli">Projeto</label>
+          <input type="text" class="form-control" id="nome1" aria-describedby="emailHelp" value="{{g.proj.nome_projeto}}" readonly>
+        </div>
+        <div class="form-group">
+          <label for="endereco">Endereço da Obra</label>
+          <input type="text" class="form-control" id="codigo_cli" value="{{g.proj.local_projeto}}" readonly>
+        </div>
+        <div class="form-group" style="display:flex; flex-wrap:wrap; justify-content:space-between">
+          <div>
+            <label for="data_inicio">Data Início</label>
+            <input type="text" class="form-control" id="data-inicio" value="{{g.proj.data_inicio.strftime('%d/%m/%y')}}" readonly>
+          </div>
+          <div>
+            <label for="data_termino">Data Término</label>
+            <input type="text" class="form-control" id="data-inicio" value="{{g.proj.data_finalizacao.strftime('%d/%m/%y')}}" readonly >
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-top:30px">
+          <H4 for="email1" style="font-weight:bold">STATUS SERVIÇOS DA OBRA</H4>          
+        </div>        
+      </div>
+    </div>
+
+
+    <div class="tabs-container">
+    
+      <!-- IMAGENS -->
+      <input type="radio" name="tabs" class="tabs" id="tab1" checked>
+      <label for="tab1">Imagens</label>
+      <div>
+        <h3>Imagens do Projeto</h3>
+        <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 12px; height: 640px; overflow: auto; overflow-y: scroll;">
+          {%if ImagensProjeto:%}
+            {% for cnt in ImagensProjeto: %}
+              {%if not 'Capa' in cnt[3]:%}
+                <div class="col-xl-3 col-lg-12 col-md-12 col-sm-14">
+                  <div class="box--image">
+                    <div class="box__wrapper no-shadow">
+                      <div class="box__header">
+                        <div class="box__image /img-into-bg">
+                          <a href="{{ cnt[1] }}{{ cnt[2] }}" class="gallery__image popup-image">
+                            <img src="{{cnt[1]}}{{cnt[2]}}"style="width: 250px; height: 225px; border: 1cm; border-color: black; border-radius: 10px;">
+                            <h4 class="reveal1"><label style="width: 80px; font-size: 12px; width: 50%;"></label></h4>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%endif%} 
+            {% endfor %}
+          {%endif%}
+        </div>
+      </div>
+      <!-- GRAFICOS -->
+      <input type="radio" name="tabs" class="tabs" id="tab2">
+      <label for="tab2">Progresso</label>
+      <div>
+        <h3>Status do Projeto</h3>
+        
+        <canvas id="barChart"></canvas>
+        <script src="/static/grafico/Chart.bundle.min.js"></script>        
+        <script src="/static/grafico/jquery-3.2.1.min.js"></script>        
+        <script type="text/javascript">
+          (function ($) {
+            "use strict";
+
+            try {
+              var ctx = document.getElementById("widgetChart1");
+              if (ctx) {
+                ctx.height = 100;
+                var myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                    type: 'line'
+
+                  },
+                  options: {
+                    maintainAspectRatio: true,
+                    legend: {
+                      display: false
+                    },
+                    layout: {
+                      padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                      }
+                    },
+                    responsive: true,
+                    scales: {
+                      xAxes: [{
+                        gridLines: {
+                          color: 'transparent',
+                          zeroLineColor: 'transparent'
+                        },
+                        ticks: {
+                          fontSize: 2,
+                          fontColor: 'transparent'
+                        }
+                      }],
+                      yAxes: [{
+                        display: false,
+                        ticks: {
+                          display: false,
+                        }
+                      }]
+                    },
+                    title: {
+                      display: false,
+                    },
+                    elements: {
+                      line: {
+                        borderWidth: 0
+                      },
+                      point: {
+                        radius: 0,
+                        hitRadius: 10,
+                        hoverRadius: 4
+                      }
+                    }
+                  }
+                });
+              }
+
+              var ctx = document.getElementById("percent-chart");
+              if (ctx) {
+                ctx.height = 200;
+                var myChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    datasets: [
+                      {
+                        backgroundColor: [
+                          '#00b5e9',
+                          '#fa4251'
+                        ],
+                        hoverBackgroundColor: [
+                          '#00b5e9',
+                          '#fa4251'
+                        ],
+                        borderWidth: [
+                          0, 0
+                        ],
+                        hoverBorderColor: [
+                          'transparent',
+                          'transparent'
+                        ]
+                      }
+                    ]
+                  },
+                  options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    cutoutPercentage: 55,
+                    animation: {
+                      animateScale: true,
+                      animateRotate: true
+                    },
+                    legend: {
+                      display: false
+                    },
+                    tooltips: {
+                      titleFontFamily: "Poppins",
+                      xPadding: 15,
+                      yPadding: 10,
+                      caretPadding: 0,
+                      bodyFontSize: 16
+                    }
+                  }
+                });
+              }
+
+            } catch (error) {
+              console.log(error);
+            }
+
+
+            try {
+              var ctx = document.getElementById("barChart");
+              if (ctx) {
+                ctx.height = 100;
+                var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  defaultFontFamily: 'Poppins',
+                  data: {
+                    labels: {{stServico | tojson}},
+                    datasets: [
+                      {
+                        label: "Fases",
+                        data: {{stProgress | tojson}},
+                        borderColor: "rgba(0, 123, 255, 0.9)",
+                        borderWidth: "0",
+                        backgroundColor: {{stCoresBarra | tojson}},
+                        fontFamily: "Poppins"
+                      },
+                    ]
+                  },
+                  options: {
+                    legend: {
+                      position: 'top',
+                      labels: {
+                        fontFamily: 'Poppins'
+                      }
+
+                    },
+                    scales: {
+                      xAxes: [{
+                        ticks: {
+                          fontFamily: "Poppins"
+
+                        }
+                      }],
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true,
+                          fontFamily: "Poppins"
+                        }
+                      }]
+                    }
+                  }
+                });
+              }
+
+            } catch (error) {
+              console.log(error);
+            }
+          
+          })(jQuery);
+        </script>
+      </div>
+  
+  </div>
+  </div>
+
+{%endblock%}
