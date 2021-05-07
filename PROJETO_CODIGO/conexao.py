@@ -510,3 +510,9 @@ def Delete_Cliente(codigo_cli, codigo_usuario):
     except Exception as e:
         if e.args[0] == 1451:
             return e.args[0], 1
+
+def Resert_Password(usuario):
+    cursor = open_Conection()
+    cursor[0].callproc("Resert_Password", [usuario])
+    cursor[1].commit()
+    close_Conection(cursor[0], cursor[1])

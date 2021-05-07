@@ -138,8 +138,8 @@ input[type=range] + datalist option {
                                         <td class="column3">{{cnt.cpf | formatingCPF}}</td>
                                         <td class="column4">{{cnt.email}}</td>
                                         <td class="column5">{{cnt.data_hora_post}}</td>                                        
-                                        <td class="column9"><button  id="btn_admin_func" value="btn_select_func" name="btn_admin_func" type="submit" class="editar">editar</button></td>
-                                        <td class="column10"><button  id="btn_admin_func" value="btn_apagar_func" name="btn_admin_func" type="submit" class="apagar">apagar</button></td>
+                                        <td class="column9"><button  id="btn_admin_cli" value="btn_select_func" name="btn_admin_cli" type="submit" class="editar">editar</button></td>
+                                        <td class="column10"><button  id="btn_admin_cli" value="btn_apagar_func" name="btn_admin_cli" type="submit" class="apagar">apagar</button></td>
                                     </tr>
                                 </form>
                             {% endfor %}
@@ -305,10 +305,10 @@ input[type=range] + datalist option {
             
             <div class="modal-footer border-top-0 d-flex justify-content-center" style="margin-top: -10px;">
                 {%if not g.umFunc.codigo_func: %}    
-                    <button type="submit" id="btn_admin_func" name="btn_admin_func" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Salvar</button>
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Salvar</button>
                     <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
                 {%else:%}
-                    <button type="submit" id="btn_admin_func" name="btn_admin_func" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
                     <a href="{{url_for('profile.Funcionarios')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
 
                 {%endif%}

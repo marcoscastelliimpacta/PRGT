@@ -29,7 +29,7 @@
             
             if (nSenha == cNova_Senha){
                 //document.getElementById("msg_senha").hidden = true;                
-                document.getElementById("btn_alter").type = "submit";
+                document.getElementById("btn_admin_cli").type = "submit";
             }else
             {
                 $('#form_msg_modal_1').modal('show', 'focus');                
@@ -52,7 +52,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form id="form_alter_senha" name="form_alter_senha" method="POST">                    
+                <form id="form_alter_senha" name="form_alter_senha" method="POST" formaction="">                    
                   <div class="modal-body">
                     <div class="form-group">
                         <label for="senha_atual" style="color:rgb(0,0,0);">Senha Atual</label>
@@ -68,7 +68,7 @@
                     </div>
                   </div>
                   <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="button" id="btn_alter" name="btn_alter" value="btn_alter_password" class="btn btn-success" onclick="fAlterarSenha();" style="width: 40%; height: 30px; line-height: 0;">Salvar</button>
+                    <button type="button" id="btn_admin_cli" name="btn_admin_cli" value="btn_alter_password" class="btn btn-success" onclick="fAlterarSenha();" style="width: 40%; height: 30px; line-height: 0;">Salvar</button>
                   </div>
                 </form>
               </div>

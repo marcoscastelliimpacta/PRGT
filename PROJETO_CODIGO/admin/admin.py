@@ -66,14 +66,15 @@ def home():
                 )                
         elif request.method == 'POST':
             form = request.form
-            if request.form['btn_alter'] == 'btn_alter_password':
+            if request.form['btn_admin_cli'] == 'btn_alter_password':
                     oldPassword = form.get("senha_atual")
                     newPassword = form.get("nova_senha")
                     msgModal = ""
                     titulo = "Alteração de Senha"
+                    retorno = 1
                     rowCont = Alter_Password_Usuario(g.user.username, oldPassword, newPassword)                
                     if rowCont >= 1:
-                        msgModal = "Senha Alterada com Sucesso!   \t\t  Por vafor, deslogue e logue com a nova senha."
+                        msgModal = "Senha Alterada com Sucesso!   <br>  Por vafor, deslogue e logue com a nova senha."
                     else:
                         msgModal = "Senha atual incorreta!"                        
             if g.user.user_type == 'dev' or g.user.user_type == 'admin' or g.user.user_type == 'func':
@@ -127,6 +128,9 @@ def Projetos_Admin():
     status = Listar_Status_Projeto()
     osProjetos = Listar_Todos_Projetos()
     pasta = ''
+    retorno=0
+    msgModal=""
+    titulo=''
     if request.method == 'GET':
         func = Listar_Todos_Funcionarios(0)
         servicos = Listar_Servicos_Projetos(0)
@@ -135,7 +139,7 @@ def Projetos_Admin():
         g.proj = proj
     else:
         form = request.form
-        if form['btn_projeto'] == 'btn_salvar_projeto':
+        if form['btn_admin_cli'] == 'btn_salvar_projeto':
             projeto = form.get('txtProjeto')
             local = form.get('txtLocal_Projeto')
             orcamento = form.get('txtOrcamento_Projeto').replace('.','').replace(',','.')
@@ -160,7 +164,7 @@ def Projetos_Admin():
             else:
                 proj = [x for x in projetos if x.codigo_projeto == idProjeto][0]
                 g.proj = proj
-        elif form['btn_projeto'] == 'btn_alterar_projeto':
+        elif form['btn_admin_cli'] == 'btn_alterar_projeto':
             idProjeto = int(form.get('txtCodigoProjeto'))
             projeto = form.get('txtProjeto')
             local = form.get('txtLocal_Projeto')
@@ -189,7 +193,7 @@ def Projetos_Admin():
             if proj:
                 g.proj = proj
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
-        elif form['btn_projeto'] == 'btn_select_projeto':
+        elif form['btn_admin_cli'] == 'btn_select_projeto':
             idProjeto = int(form.get('idProjeto'))
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             func = Listar_Todos_Funcionarios(idProjeto)
@@ -199,7 +203,7 @@ def Projetos_Admin():
             if proj:
                 g.proj = proj
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
-        elif form['btn_projeto'] == 'btn_insert_servio':
+        elif form['btn_admin_cli'] == 'btn_insert_servio':
             idProjeto = int(form.get("txtcodigo_pro"))
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             func = Listar_Todos_Funcionarios(idProjeto)
@@ -212,7 +216,7 @@ def Projetos_Admin():
             if proj:
                 g.proj = proj
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
-        elif form['btn_projeto'] == "btn_insert_img":   
+        elif form['btn_admin_cli'] == "btn_insert_img":   
             idProjeto = int(form.get("txtcodigo_pro"))
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             func = Listar_Todos_Funcionarios(idProjeto)
@@ -239,7 +243,7 @@ def Projetos_Admin():
             if proj:
                 g.proj = proj
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
-        elif form['btn_projeto'] == "btn_delete_img":
+        elif form['btn_admin_cli'] == "btn_delete_img":
             idProjeto = form.get("txtcodigo_pro")
             idProjeto = int(idProjeto)
             imagemName = form.get("img_projeto")
@@ -253,17 +257,31 @@ def Projetos_Admin():
             if proj:
                 g.proj = proj
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
-        elif form['btn_projeto'] == "btn_apagar_projeto":
+        elif form['btn_admin_cli'] == "btn_apagar_projeto":
             idProjeto = int(form.get('idProjeto'))
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             if os.path.isdir(pasta):
                 shutil.rmtree(pasta)
             Delete_Todo_Projeto(idProjeto)
             return redirect('/profile/Projetos/')
+        elif request.form['btn_admin_cli'] == 'btn_alter_password':
+            oldPassword = form.get("senha_atual")
+            newPassword = form.get("nova_senha")
+            msgModal = ""
+            titulo = "Alteração de Senha"
+            retorno = 1
+            rowCont = Alter_Password_Usuario(g.user.username, oldPassword, newPassword)                
+            if rowCont >= 1:
+                msgModal = "Senha Alterada com Sucesso!   <br>  Por vafor, deslogue e logue com a nova senha."
+            else:
+                msgModal = "Senha atual incorreta!"
+            usuario=[['','','']]
+            servicos = Listar_Servicos_Projetos(0)
+            func = Listar_Todos_Funcionarios(0)
+            projetos.append(Projeto(0,'','', '','','','',0,0, ''))
+            proj = [x for x in projetos if x.codigo_projeto == 0][0]
+            g.proj = proj
     ImagensProjeto = Listar_Imagem_Projetos('/'+pasta)
-    retorno=0
-    msgModal=""
-    titulo=''
     return render_template(
         'Projetos_admin.html',
         clientes = clientes,
@@ -292,7 +310,7 @@ def Lista_Projetos_Admin():
         )
     else:
         form = request.form
-        if form['btn_projeto'] == 'btn_select_projeto':
+        if form['btn_admin_cli'] == 'btn_select_projeto':
            return redirect('/Projetos_Admin/')
         
 
@@ -378,12 +396,12 @@ def Funcionarios():
         perUsuario = Listar_Permissoes_Usuarios(0)
     elif request.method == 'POST':        
         form = request.form
-        if form['btn_admin_func'] == 'btn_select_func':
+        if form['btn_admin_cli'] == 'btn_select_func':
             codigo_func = form.get('codigo_func')
             umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             if umFunc:
                 g.umFunc = umFunc
-        elif form['btn_admin_func'] == 'btn_apagar_func':
+        elif form['btn_admin_cli'] == 'btn_apagar_func':
             codigo_func = form.get('codigo_func')
             oFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             result =  Delete_Todo_Func(int(codigo_func), int(Nz(oFunc.codigo_usuario)))
@@ -392,7 +410,7 @@ def Funcionarios():
                 titulo = 'Erro: ' + str(result[0])
                 msgModal = result[1].replace('nome_func', oFunc.nome)
             Listar_Todos_Funcionarios_Cadastrados()
-        elif form['btn_admin_func'] == 'btn_salvar_func':
+        elif form['btn_admin_cli'] == 'btn_salvar_func':
             nome = form.get('txtNome')
             cpf = form.get('txtCPF').replace(".","").replace("-","")
             email = form.get('txtemail')
@@ -431,7 +449,7 @@ def Funcionarios():
                 umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
                 if umFunc:
                     g.umFunc = umFunc
-        elif form['btn_admin_func'] == 'btn_alterar_func':
+        elif form['btn_admin_cli'] == 'btn_alterar_func':
             codigo_func = form.get('txtCodigoFuncionario')
             nome = form.get('txtNome')
             cpf = form.get('txtCPF').replace(".","").replace("-","")
@@ -467,6 +485,18 @@ def Funcionarios():
             umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
             if umFunc:
                 g.umFunc = umFunc
+        elif request.form['btn_admin_cli'] == 'btn_alter_password':
+            oldPassword = form.get("senha_atual")
+            newPassword = form.get("nova_senha")
+            msgModal = ""
+            titulo = "Alteração de Senha"
+            retorno = 1
+            rowCont = Alter_Password_Usuario(g.user.username, oldPassword, newPassword)                
+            if rowCont >= 1:
+                msgModal = "Senha Alterada com Sucesso!   <br>  Por vafor, deslogue e logue com a nova senha."
+            else:
+                msgModal = "Senha atual incorreta!"
+            usuario=[['','','']]
         if g.umFunc:
             if g.umFunc.codigo_usuario:
                 usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
@@ -545,10 +575,44 @@ def Clientes():
                 retorno = 1
                 titulo = 'Erro: ' + str(result[0])
                 msgModal = 'Não é possivel deletar os dados do ' + umClie.nome_cli + '<br> Exitem projetos do ' + umClie.nome_cli + ' cadastrado.'
+            Listar_Todos_Clientes_Cadastrados()
         elif form['btn_admin_cli'] == 'btn_resete_password':
-            pass
+            usuario = form.get('txtUsuario')
+            codigo_cli = form.get('txtCodigoCliente')
+            Resert_Password(usuario)
+            umClie = [x for x in todos_cli if x.codigo_cli == int(codigo_cli)][0]
+            if umClie:
+                g.umClie = umClie
+                usuario = Listar_Usuario_Func(g.umClie.codigo_usuario)
+            retorno = 1
+            titulo = 'Senhas'
+            msgModal = 'Senha resetada com sucesso. <br> Peça para que o usuário faça o login e altere a senha.'
         elif form['btn_admin_cli'] == 'btn_alterar_func':
-            pass
+            nome_cli = form.get('txtNome')
+            email = form.get('txtemail')
+            telefone = form.get('txtTelefone').replace('-','').replace(' ','')
+            codigo_cli = form.get('txtCodigoCliente')
+            Alter_Dados_Cliente(codigo_cli, nome_cli, email, telefone)
+            Listar_Todos_Clientes_Cadastrados()
+            umClie = [x for x in todos_cli if x.codigo_cli == int(codigo_cli)][0]
+            if umClie:
+                g.umClie = umClie
+                usuario = Listar_Usuario_Func(g.umClie.codigo_usuario)
+            retorno = 1
+            titulo = 'Alteração'
+            msgModal = 'Dados alterado com sucesso.'
+        elif request.form['btn_admin_cli'] == 'btn_alter_password':
+            oldPassword = form.get("senha_atual")
+            newPassword = form.get("nova_senha")
+            msgModal = ""
+            titulo = "Alteração de Senha"
+            retorno = 1
+            rowCont = Alter_Password_Usuario(g.user.username, oldPassword, newPassword)                
+            if rowCont >= 1:
+                msgModal = "Senha Alterada com Sucesso!   <br>  Por vafor, deslogue e logue com a nova senha."
+            else:
+                msgModal = "Senha atual incorreta!"
+            usuario=[['','','']]
     tclie = [x for x in todos_cli if x.codigo_cli > 0]
     if tclie:
         g.tclie = tclie
