@@ -309,6 +309,9 @@ input[type=range] + datalist option {
                     <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
                 {%else:%}
                     <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
+                    {%if g.umFunc.codigo_usuario: %}
+                        <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_resete_password" class="btn btn-success" onclick="" style="width: 140px; height: 30px; line-height: 0;">Resetar Senha</button>
+                    {%endif%}
                     <a href="{{url_for('profile.Funcionarios')}}" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Cancelar</a>
 
                 {%endif%}

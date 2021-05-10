@@ -26,6 +26,18 @@ function fUsuario()
         document.getElementById("divUsuario").hidden = true;
     }
 }
+
+function fDeletar(button)
+{
+    var but = document.getElementById(button);    
+    if(window.confirm("Deseja deletar os dados desse cliente?") == true)
+    {
+        but.type="submit";
+        but.onclick = "";
+        but.click();
+        //document.getElementById(button)
+    }
+}
 </script>
 <style>
 .editar, .apagar {
@@ -129,7 +141,7 @@ input[type=range] + datalist option {
 
                         {% if g.tclie: %}
                             {% for cnt in g.tclie: %}
-                                <form method="POST">
+                                <form method="POST" id="{{cnt.codigo_cli}}">
                                     <tr style="cursor: default;">
                                         <td class="column1" style="cursor: default;">
                                         <input type="text" id="codigo_cli" name="codigo_cli" value="{{cnt.codigo_cli}}" readonly style="font-weight: bolder; color: rgba(120,120,120, 1); height: 15px; box-shadow: 0 0 0 0; border: 0 none; outline: 0; background-color: rgba(0,0,0, 0);"> </td>
@@ -137,7 +149,7 @@ input[type=range] + datalist option {
                                         <td class="column3">{{cnt.email}}</td>
                                         <td class="column4">{{cnt.telefone | formatingTelefone}}</td>
                                         <td class="column9"><button  id="btn_admin_cli" value="btn_select_cli" name="btn_admin_cli" type="submit" class="editar">editar</button></td>
-                                        <td class="column10"><button  id="btn_admin_cli" value="btn_apagar_cli" name="btn_admin_cli" type="submit" class="apagar">apagar</button></td>
+                                        <td class="column10"><button  id="deletar{{cnt.codigo_cli}}" value="btn_apagar_cli" name="btn_admin_cli" onclick="fDeletar(this.id)" type="button" class="apagar">apagar</button></td>
                                     </tr>
                                 </form>
                             {% endfor %}

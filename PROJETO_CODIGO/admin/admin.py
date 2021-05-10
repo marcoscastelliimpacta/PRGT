@@ -91,7 +91,7 @@ def home():
                     acessos = acessos
                     )
             elif g.user.user_type == 'cliente':                
-                if request.form['btn_alter'] == 'btn_alter_info':
+                if request.form['btn_admin_cli'] == 'btn_alter_info':
                     vNome = form.get("nome")
                     vEmail = form.get("email")
                     vTelefone = form.get("telefone")
@@ -351,27 +351,6 @@ def Projeto_Cliente(codigo_projeto):
         )
 
 
-@admin_dp.app_template_filter()
-def formatingTelefone(value):
-    if value:
-        strValue = str(value)
-        if len(strValue) == 9:
-            telefone = str(strValue[0]) + ' ' + str(strValue[1:5]) + '-' + str(strValue[5:])
-        else:
-            telefone = str(strValue[1:4]) + '-' + str(strValue[4:])
-    else:
-        telefone = ''
-    return telefone
-
-@admin_dp.app_template_filter()
-def formatingCPF(value):
-    if value:
-        strValue = str(value)
-        cpf = str(strValue[:3]) + "." + str(strValue[3:6]) + "." + str(strValue[6:9]) + "-" + str(strValue[9:])
-    else:
-        cpf = ''
-    return cpf
-
 
 @admin_dp.route('/Funcionarios/', methods=['GET', 'POST'])
 def Funcionarios():
@@ -497,6 +476,18 @@ def Funcionarios():
             else:
                 msgModal = "Senha atual incorreta!"
             usuario=[['','','']]
+        elif request.form['btn_admin_cli'] == 'btn_resete_password':
+            usuario = form.get('txtUsuario')
+            codigo_func = form.get('txtCodigoFuncionario')
+            umFunc = [x for x in todos_Func if x.codigo_func == int(codigo_func)][0]
+            if umFunc:
+                g.umFunc = umFunc
+            Resert_Password(usuario)
+            titulo = "Senhas"
+            retorno = 1                           
+            msgModal = "Senha resetada com sucesso. <br> Peça para que o usuário faça o login e altere a senha."
+            usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
+            Listar_Todos_Funcionarios_Cadastrados()            
         if g.umFunc:
             if g.umFunc.codigo_usuario:
                 usuario = Listar_Usuario_Func(g.umFunc.codigo_usuario)
@@ -685,7 +676,26 @@ def Blog():
 
 
 
+@admin_dp.app_template_filter()
+def formatingTelefone(value):
+    if value:
+        strValue = str(value)
+        if len(strValue) == 9:
+            telefone = str(strValue[0]) + ' ' + str(strValue[1:5]) + '-' + str(strValue[5:])
+        else:
+            telefone = str(strValue[1:4]) + '-' + str(strValue[4:])
+    else:
+        telefone = ''
+    return telefone
 
+@admin_dp.app_template_filter()
+def formatingCPF(value):
+    if value:
+        strValue = str(value)
+        cpf = str(strValue[:3]) + "." + str(strValue[3:6]) + "." + str(strValue[6:9]) + "-" + str(strValue[9:])
+    else:
+        cpf = ''
+    return cpf
 
 
 
