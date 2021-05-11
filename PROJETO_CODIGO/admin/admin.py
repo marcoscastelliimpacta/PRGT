@@ -566,6 +566,10 @@ def Clientes():
                 retorno = 1
                 titulo = 'Erro: ' + str(result[0])
                 msgModal = 'Não é possivel deletar os dados do ' + umClie.nome_cli + '<br> Exitem projetos do ' + umClie.nome_cli + ' cadastrado.'
+            else:
+                retorno = 1
+                titulo = 'Dados deletado'
+                msgModal = 'Os dados do cliente ' + umClie.nome_cli + ' foram deletados.'
             Listar_Todos_Clientes_Cadastrados()
         elif form['btn_admin_cli'] == 'btn_resete_password':
             usuario = form.get('txtUsuario')

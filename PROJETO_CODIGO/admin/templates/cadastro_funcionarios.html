@@ -106,7 +106,7 @@ input[type=range] + datalist option {
 </style>
 <br>
 <br>
-<div class="row list-project" style="margin-top:110px; color: black; font-weight: bolder; font-size: 20px; height: 80%; cursor: default;">
+<div class="row list-project" style="margin-top:110px; color: white; font-weight: bolder; font-size: 20px; height: 80%; cursor: default;">
     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 720px;">
         <h3 style="text-align: center;">Lista de Funcionarios</h3>
         
@@ -145,7 +145,7 @@ input[type=range] + datalist option {
                             {% endfor %}
                         {%else:%}
                             <tr>
-                                <td style="color: black; text-align: center;  cursor: default;" colspan="7" class="msg-vazio"><h2>Ainda não foi cadastro nenhum projeto!</h2></td>
+                                <td style="color: white; text-align: center;  cursor: default;" colspan="7" class="msg-vazio"><h2>Ainda não foi cadastro nenhum projeto!</h2></td>
                             </tr>
                         {%endif%}
                     </tbody>
@@ -159,39 +159,39 @@ input[type=range] + datalist option {
     <br>
         <form class="form-projeto" id="form_alter_senha" name="form_alter_senha" method="POST">                    
             <div class="modal-body">
-                <div class="row" style="margin-top:40px; margin-bottom: -20px; color: black; font-weight: bolder; font-size: 20px; width: 50%;">
+                <div class="row" style="margin-top:40px; margin-bottom: -20px; color: white; font-weight: bolder; font-size: 20px; width: 50%;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtCodigoFuncionario" style="color:rgb(0,0,0);">Código do Funcionario</label>
+                            <label for="txtCodigoFuncionario" style="color:rgb(255,255,255);">Código do Funcionario</label>
                             <input type="text" class="form-control" id="txtCodigoFuncionario" name="txtCodigoFuncionario" value="{{g.umFunc.codigo_func}}" readonly>
                         </div>
                     </div>
                 </div>                
-                <div class="row" style="color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtNome" style="color:rgb(0,0,0);">Nome Funcionario</label>
+                            <label for="txtNome" style="color:rgb(255,255,255);">Nome Funcionario</label>
                             <input type="text" class="form-control" id="txtNome" name="txtNome"  placeholder="Nome do Funcionario" value="{{g.umFunc.nome}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtCPF" style="color:rgb(0,0,0);">CPF</label>
+                            <label for="txtCPF" style="color:rgb(255,255,255);">CPF</label>
                             <input type="text" class="form-control" id="txtCPF" name="txtCPF" aria-describedby="emailHelp" placeholder="CPF Funcionario" value="{{g.umFunc.cpf | formatingCPF }}">
                         </div>
                     </div>
                 </div>
                 <br>
-                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtemail" style="color:rgb(0,0,0);">Email</label>
+                            <label for="txtemail" style="color:rgb(255,255,255);">Email</label>
                             <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="E-Mail" value="{{g.umFunc.email}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="cbCargo" style="color:rgb(0,0,0);">Cargo</label>
+                            <label for="cbCargo" style="color:rgb(255,255,255);">Cargo</label>
                             <select name="cbCargo" id="cbCargo" style="height: 40px; font-size: 18px;" class="form-control select-cli">
                                 <option id=""></option>
                                 {%if cargos:%}
@@ -211,25 +211,25 @@ input[type=range] + datalist option {
                 <br>
                 
                 <input type="checkbox" id="chkUsuario" name="chkUsuario" onclick="fUsuario();">
-                <label for="chkUsuario" style="color:rgb(0,0,0);">Usuário</label>
+                <label for="chkUsuario" style="color:rgb(255,255,255);">Usuário</label>
                 <br>
                 <br>
-                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;" id="divUsuario" hidden>
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;" id="divUsuario" hidden>
                     
                     
                     
                     <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
                         <div class="form-group">
-                            <div class="row" style="color: black; font-weight: bolder; font-size: 20px;">
+                            <div class="row" style="color: white; font-weight: bolder; font-size: 20px;">
                                 <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                                     <div class="form-group">
-                                        <label for="txtcodigo_usuario" style="color:rgb(0,0,0);">Código Usuário</label>
+                                        <label for="txtcodigo_usuario" style="color:rgb(255,255,255);">Código Usuário</label>
                                         <input type="text" class="form-control" id="txtcodigo_usuario" name="txtcodigo_usuario"   value="{{usuario[0][0]}}" readonly>
                                     </div>
                                 </div> 
                                 <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                                     <div class="form-group">
-                                        <label for="cbUsuario" style="color:rgb(0,0,0);">Tipo Usuário</label>
+                                        <label for="cbUsuario" style="color:rgb(255,255,255);">Tipo Usuário</label>
                                         <select name="cbUsuario" id="cbUsuario" style="height: 40px; font-size: 18px;" class="form-control select-cli">
                                             <option id=""></option>
                                             {%if tpUsuario:%}
@@ -247,16 +247,16 @@ input[type=range] + datalist option {
                                 </div>                             
                             </div>
                             <br>
-                            <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                            <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                                 <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                                     <div class="form-group">
-                                        <label for="txtUsuario" style="color:rgb(0,0,0);">Usuário</label>
+                                        <label for="txtUsuario" style="color:rgb(255,255,255);">Usuário</label>
                                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="Usuário" value="{{usuario[0][1]}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                                     <div class="form-group">
-                                        <label for="txtSenha" style="color:rgb(0,0,0);" hidden>Senha</label>
+                                        <label for="txtSenha" style="color:rgb(255,255,255);" hidden>Senha</label>
                                         <input type="password" class="form-control" id="txtSenha" name="txtSenha" placeholder="Senha" value="" hidden>
                                     </div>
                                 </div>

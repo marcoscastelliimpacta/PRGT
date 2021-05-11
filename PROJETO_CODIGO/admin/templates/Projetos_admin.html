@@ -93,7 +93,7 @@ input[type=range] + datalist option {
 </style>
 <br>
 <br>
-<div class="row list-project" style="margin-top:110px; color: black; font-weight: bolder; font-size: 20px; height: 80%; cursor: default;">
+<div class="row list-project" style="margin-top:110px; color: white; font-weight: bolder; font-size: 20px; height: 80%; cursor: default;">
     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 720px;">
         <h3 style="text-align: center;">Projetos</h3>
         
@@ -137,7 +137,7 @@ input[type=range] + datalist option {
                             {% endfor %}
                         {%else:%}
                             <tr>
-                                <td style="color: black; text-align: center;  cursor: default;" colspan="7" class="msg-vazio"><h2>Ainda não foi cadastro nenhum projeto!</h2></td>
+                                <td style="color: white; text-align: center;  cursor: default;" colspan="7" class="msg-vazio"><h2>Ainda não foi cadastro nenhum projeto!</h2></td>
                             </tr>
                         {%endif%}
                     </tbody>
@@ -151,63 +151,63 @@ input[type=range] + datalist option {
     <br>
         <form class="form-projeto" id="form_alter_senha" name="form_alter_senha" method="POST">                    
             <div class="modal-body">
-                <div class="row" style="margin-top:40px; margin-bottom: -20px; color: black; font-weight: bolder; font-size: 20px; width: 50%;">
+                <div class="row" style="margin-top:40px; margin-bottom: -20px; color: white; font-weight: bolder; font-size: 20px; width: 50%;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtProjeto" style="color:rgb(0,0,0);">Código do Projeto</label>
+                            <label for="txtProjeto" style="color:rgb(255,255,255);">Código do Projeto</label>
                             <input type="text" class="form-control" id="txtCodigoProjeto" name="txtCodigoProjeto" value="{{g.proj.codigo_projeto}}" readonly>
                         </div>
                     </div>
                 </div>                
-                <div class="row" style="color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtProjeto" style="color:rgb(0,0,0);">Projeto</label>
+                            <label for="txtProjeto" style="color:rgb(255,255,255);">Projeto</label>
                             <input type="text" class="form-control" id="txtProjeto" name="txtProjeto" aria-describedby="emailHelp" placeholder="Nome do Projeto" value="{{g.proj.nome_projeto}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtLocal_Projeto" style="color:rgb(0,0,0);">Local</label>
+                            <label for="txtLocal_Projeto" style="color:rgb(255,255,255);">Local</label>
                             <input type="text" class="form-control" id="txtLocal_Projeto" name="txtLocal_Projeto" aria-describedby="emailHelp" placeholder="Local do Projeto" value="{{g.proj.local_projeto}}">
                         </div>
                     </div>
                 </div>
                 <br>
-                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtOrcamento_Projeto" style="color:rgb(0,0,0);">Orçamento</label>
+                            <label for="txtOrcamento_Projeto" style="color:rgb(255,255,255);">Orçamento</label>
                             <input type="text" class="form-control" id="txtOrcamento_Projeto" name="txtOrcamento_Projeto" placeholder="Orçamento do Projeto" value="{{g.proj.orcamento}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtPrazo_Dias" style="color:rgb(0,0,0);">Prazo em Dias</label>
+                            <label for="txtPrazo_Dias" style="color:rgb(255,255,255);">Prazo em Dias</label>
                             <input type="text" class="form-control" id="txtPrazo_Dias" name="txtPrazo_Dias" placeholder="Prazo em Dias" value="{{g.proj.prazo_dias}}">
                         </div>
                     </div>
                 </div>
                 <br>
-                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtData_Inicio" style="color:rgb(0,0,0);">Data Inicio</label>
+                            <label for="txtData_Inicio" style="color:rgb(255,255,255);">Data Inicio</label>
                             <input type="date" class="form-control" id="txtData_Inicio" name="txtData_Inicio" placeholder="Data que o Projeto inicia" value="{{g.proj.data_inicio}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtData_Fim" style="color:rgb(0,0,0);">Data de Finalização</label>
+                            <label for="txtData_Fim" style="color:rgb(255,255,255);">Data de Finalização</label>
                             <input type="date" class="form-control" id="txtData_Fim" name="txtData_Fim" placeholder="Data de Finalização do Projeto" value="{{g.proj.data_finalizacao}}">
                         </div>
                     </div>
                 </div>
                     <br>
-                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="cbCliente" style="color:rgb(0,0,0);">Cliente</label>
+                            <label for="cbCliente" style="color:rgb(255,255,255);">Cliente</label>
                             <select name="cbCliente" id="cbCliente" style="height: 40px; font-size: 18px;" class="form-control select-cli">
                                 <option id=""></option>
                                 {% for cnt in clientes:%}
@@ -222,7 +222,7 @@ input[type=range] + datalist option {
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="cbStatus" style="color:rgb(0,0,0);">Status</label>
+                            <label for="cbStatus" style="color:rgb(255,255,255);">Status</label>
                             <select name="cbStatus" id="cbStatus" style="height: 40px; font-size: 18px;" class="form-control select-cli">
                                 <option value=""></option>
                                 {% for cnt in status:%}
@@ -238,7 +238,7 @@ input[type=range] + datalist option {
                 </div>
                 <br>
                 <br>
-                <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
                         <div class="form-group">
                             <table style="width: 100%;  border-radius: 10px 10px 0 0;">
@@ -278,7 +278,7 @@ input[type=range] + datalist option {
                     </div>
                     <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
                         <div class="form-group">
-                            <label for="txtObs" style="color:rgb(0,0,0);">Observações</label>
+                            <label for="txtObs" style="color:rgb(255,255,255);">Observações</label>
                             <textarea type="text" style="height: 200px;" class="form-control" id="txtObs" name="txtObs" value="{{g.proj.observacao}}">{{g.proj.observacao}}</textarea>
                         </div>
                     </div>
@@ -304,7 +304,7 @@ input[type=range] + datalist option {
         <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-top: 25px; height: 720px;">
             <h3 style="text-align: center;">Progresso do Projeto</h3>
             
-                <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 20px; height: 500px;">
+                <div class="row list-project" style="margin-top:10px; color: white; font-weight: bolder; font-size: 20px; height: 500px;">
                     <div class="col-xl-12 col-lg-2 col-md-4 col-sm-4 list-column" style="height: 540px;">
                         <div class="form-group">
                             <table style="width: 100%;  border-radius: 10px 10px 0 0;">
@@ -358,19 +358,19 @@ input[type=range] + datalist option {
         <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-top: 25px; height: 720px;">
             <h3 style="text-align: center;">Imagens do Projeto <br><span style="color: red; font-weight: bold;">(Maximo 1mb)</span></h3>
             <form class="form-projeto" id="form_insert_img" name="form_insert_img" method="POST" enctype="multipart/form-data">                    
-                <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 20px; height: 40px;">
+                <div class="row list-project" style="margin-top:10px; color: white; font-weight: bolder; font-size: 20px; height: 40px;">
                     <input type="number" value="{{g.proj.codigo_projeto}}" id="txtcodigo_pro" name="txtcodigo_pro" hidden>
                     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 40px;">
                         <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" id="fileImagens" name="fileImagens" style="width: 100%;">
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 40px; text-align: center;">
-                        <input type="checkbox" name="checkCapa" id="checkCapa" >&nbsp;<label for="checkCapa" style="color:rgb(0,0,0);">Capa</label>&nbsp;&nbsp;
+                        <input type="checkbox" name="checkCapa" id="checkCapa" >&nbsp;<label for="checkCapa" style="color:rgb(255,255,255);">Capa</label>&nbsp;&nbsp;
                         <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_insert_img" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height: 0;">Salvar Imagem</button>
                     </div>
                 </div>
                 <br>
                 <br>
-                <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 12px; height: 420px; overflow: auto; overflow-y: scroll;">
+                <div class="row list-project" style="margin-top:10px; color: white; font-weight: bolder; font-size: 12px; height: 420px; overflow: auto; overflow-y: scroll;">
                     {%if ImagensProjeto:%}
                         {% for cnt in ImagensProjeto: %}
                             <div class="col-xl-4 col-lg-12 col-md-12 col-sm-14">

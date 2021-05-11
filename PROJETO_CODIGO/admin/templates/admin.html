@@ -10,54 +10,54 @@
 <br>
 <form>
     <div class="modal-body">
-        <div class="form-group">
+        <div class="form-group" >
             <table>            
                 <tr style="height: 2px;">
                     <td>                            
-                        <label id="nome_cliente" style="color: black; font-size: 20px;">Informações de Acesso</label>
+                        <label id="nome_cliente" style="color: white; font-size: 20px;">Informações de Acesso</label>
                     </td>
                 </tr>           
                 <tr style="height: 2px;">
                     <td>                            
-                        <label id="nome_cliente" style="color: black;">Nome: {{g.func.nome}}</label>
+                        <label id="nome_cliente" style="color: white;">Nome: {{g.func.nome}}</label>
                     </td>
                 </tr>
                 <tr style="height: 2px;">
                     <td>
                         
-                        <label id="nome_cliente" style="color: black;">CPF: {{g.func.cpf | formatingCPF}}</label>
+                        <label id="nome_cliente" style="color: white;">CPF: {{g.func.cpf | formatingCPF}}</label>
                     </td>
                 </tr >
                 <tr style="height: 2px;">
                     <td>                        
-                        <label id="nome_cliente" style="color: black;">Email: {{g.func.email}}</label>
+                        <label id="nome_cliente" style="color: white;">Email: {{g.func.email}}</label>
                     </td>
                 </tr >
                 <tr style="height: 2px;">
                     <td>
                         
-                        <label id="nome_cliente" style="color: black;">Função: {{g.func.funcao}}</label>
+                        <label id="nome_cliente" style="color: white;">Função: {{g.func.funcao}}</label>
                     </td>
                 </tr >
                 <tr style="height: 2px;">
                     <td>
                         
-                        <label id="nome_cliente" style="color: black;">Nome de Usúario: {{g.user.username}}</label>
+                        <label id="nome_cliente" style="color: white;">Nome de Usúario: {{g.user.username}}</label>
                     </td>
                 </tr>                
             </table>
         </div>
         <div class="form-group" style="margin-top:30px">
-            <H4 for="email1" style="font-weight:bold; color: black;">Manutenção / Criação</H4>            
+            <H4 for="email1" style="font-weight:bold; color: white;">Manutenção / Criação</H4>            
         </div>
         <br>
         <br>
-        <div class="row" style="margin-top:-30px; color: black; font-weight: bolder; font-size: 20px;">
+        <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
             {% for cnt in acessos: %}
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-14">
                 <a class="nav-item nav-link navbar-nav ml-auto" href="{{cnt[5]}}" >
-                    {{cnt[4]}}
-                    <img src="{{cnt[1]}}{{cnt[2]}}" style="width: 250px; height: 225px; border: 1cm; border-color: black; border-radius: 10px;">
+                    <span style="color: white;">{{cnt[4]}}</span>
+                    <img src="{{cnt[1]}}{{cnt[2]}}" style="width: 250px; height: 225px; border: 1cm; border-color: white; border-radius: 10px;">
                 </a>            
             </div>          
             {% endfor %}
