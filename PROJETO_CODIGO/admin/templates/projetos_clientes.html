@@ -110,7 +110,7 @@ input.tabs:checked + label {
       <label for="tab1">Imagens</label>
       <div>
         <h3>Imagens do Projeto</h3>
-        <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 12px; height: 640px; overflow: auto; overflow-y: scroll;">
+        <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 12px; height: 640px; overflow: auto; overflow-y: auto;">
           {%if ImagensProjeto:%}
             {% for cnt in ImagensProjeto: %}
               {%if not 'Capa' in cnt[3]:%}
