@@ -288,17 +288,19 @@ input[type=range] + datalist option {
             <div class="modal-footer border-top-0 d-flex justify-content-center" style="margin-top: -10px;">
                 {% if g.proj.codigo_projeto == 0:%}
                     <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_salvar_projeto" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0; ">Salvar</button>
+                    <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height:0; background-color:transparent; color:black; border:1px solid; black">Voltar ao Menu</a>
                 {%else:%}
                     <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_projeto" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0; ">Alterar</button>
+                    <a href="{{url_for('profile.Projetos_Admin')}}" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height:0; background-color:transparent; color:black; border:1px solid; black">Cancelar</a>
                 {%endif%}
               <button type="button" id="btn_admin_cli" name="btn_admin_cli" value="btn_deletar_projeto" class="btn btn-success" onclick="fAlterarSenha();" style="width: 120px; height: 30px; line-height: 0;  background-color: red;" hidden>Apagar</button>
-              <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height:0; background-color:transparent; color:black; border:1px solid; black">Voltar ao Menu</a>
+              
             </div>
           </form>       
     </div>
     
     {% if g.proj.codigo_projeto == 0:%}
-        <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 0px;">
+        <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" >
         </div>
     {%else:%}
         <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-top: 25px; height: 720px;">
