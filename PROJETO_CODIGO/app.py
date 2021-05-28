@@ -1,4 +1,6 @@
 from flask import Flask, g
+import flask_session
+from flask_session import Session
 from admin import admin
 
 
@@ -7,6 +9,11 @@ app.secret_key = 'somescretekeythatonlyishouldknow'
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg', '.gif', '.bmp', '.tif']
 app.config["IMAGE_UPLOADS"] = "/mnt/c/wsl/projects/pythonise/tutorials/flask_series/app/app/static/img/uploads"
+
+
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 ALLOWED_HOSTS = ['*']
 

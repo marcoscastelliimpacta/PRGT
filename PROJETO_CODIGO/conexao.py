@@ -96,7 +96,7 @@ def conectSSHTunnel():
     sshtunnel.SSH_TIMEOUT = 15.0
     sshtunnel.TUNNEL_TIMEOUT = 15.0
     with sshtunnel.open_tunnel(
-        ('ssh.pythonanywhere.com'), ssh_pkey=None,
+        ('ssh.pythonanywhere.com'), ssh_pkey="/var/ssh/rsa_key", ssh_private_key_password="secret",
         ssh_username=username, ssh_password=senha, allow_agent=False,
         remote_bind_address=('IAmDevelop.mysql.pythonanywhere-services.com',3306)
     ) as tunnel:        
@@ -153,12 +153,17 @@ projetos = []
 
 
 def Autentic_Usuario(usuario, senha):
-    users.clear()
+    #users.clear()
+    
     cursor = open_Conection()
     cursor[0].callproc("Autentic_Usuario", [usuario, senha])
-    for row in cursor[0]:
-        users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))
-    close_Conection(cursor[0], cursor[1], cursor[2])
+    if cursor[0].rowcount > 0:
+        for row in cursor[0]:
+            users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))
+        close_Conection(cursor[0], cursor[1], cursor[2])
+    else:
+        return 0 
+    return 1
 
 
 def Alter_Password_Usuario(usuario, senha, nova_senha):

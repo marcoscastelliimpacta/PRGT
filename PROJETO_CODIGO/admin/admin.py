@@ -679,7 +679,6 @@ def Blog():
 
 
 
-
 @admin_dp.app_template_filter()
 def formatingTelefone(value):
     if value:

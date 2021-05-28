@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, Blueprint, session, url_for, g
+from flask import render_template, request, redirect, Blueprint, url_for, g, session
 from app import app
 import os.path
 from conexao import *
@@ -11,7 +11,8 @@ def index():
     Tabela = selecionarTabela()
     slide = selecionarImagens('slide_home')
     gallery_container = selecionarImagens('galery_container_home')
-    if request.method == 'GET':        
+    if request.method == 'GET':
+        session.pop('user_type', None)      
         return render_template(
             'index.html',
             Tabela = Tabela,
@@ -23,9 +24,9 @@ def index():
                 
         usuario = form.get("usuario")
         senha = form.get("senha")
-        Autentic_Usuario(usuario, senha)
-        if users.__len__() > 0:
-            user = users[0]
+        retur = Autentic_Usuario(usuario, senha)
+        if retur > 0:
+            user = [x for x in users if x.username == usuario][0]
             if user:
                 session['user_type'] = user.user_type
                 return redirect(url_for('profile'))
@@ -51,8 +52,8 @@ def blog():
         form = request.form                
         usuario = form.get("usuario")
         senha = form.get("senha")
-        Autentic_Usuario(usuario, senha)
-        if users.__len__() > 0:
+        retur = Autentic_Usuario(usuario, senha)
+        if retur > 0:
             user = [x for x in users if x.username == usuario][0]
             if user:
                 session['user_type'] = user.user_type
@@ -63,7 +64,17 @@ def blog():
                 titulo = 'Falha na autenticação.',
                 msgLog = 'Usuario ou senha errado!'
                 )
-        
+
+    
+@app.route('/Deslogar/', methods=['GET', 'POST'])
+def Deslogar():
+    form = request.args
+    usuario = form.get("txtUsuarioLogado")
+    for cnt in range(len(users)):
+        if users[cnt].username == usuario:
+            users.pop(cnt)
+            break
+    return redirect('/')
 
 
 @app.route('/profile/', methods=['GET', 'POST'])
