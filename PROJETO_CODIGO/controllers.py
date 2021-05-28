@@ -26,6 +26,12 @@ def index():
         senha = form.get("senha")
         retur = Autentic_Usuario(usuario, senha)
         if retur > 0:
+            if retur == 2:
+                return render_template(
+                'index.html',
+                titulo = 'Falha na autenticação.',
+                msgLog = 'Usuário logado em outro aparelho!'
+                )
             user = [x for x in users if x.username == usuario][0]
             if user:
                 session['user_type'] = user.user_type
@@ -54,6 +60,12 @@ def blog():
         senha = form.get("senha")
         retur = Autentic_Usuario(usuario, senha)
         if retur > 0:
+            if retur == 2:
+                return render_template(
+                'blog.html',
+                titulo = 'Falha na autenticação.',
+                msgLog = 'Usuário logado em outro aparelho!'
+                )
             user = [x for x in users if x.username == usuario][0]
             if user:
                 session['user_type'] = user.user_type

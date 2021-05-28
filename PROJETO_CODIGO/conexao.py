@@ -154,7 +154,9 @@ projetos = []
 
 def Autentic_Usuario(usuario, senha):
     #users.clear()
-    
+    for cnt in users:
+        if usuario in cnt.username:
+            return 2
     cursor = open_Conection()
     cursor[0].callproc("Autentic_Usuario", [usuario, senha])
     if cursor[0].rowcount > 0:
