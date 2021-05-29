@@ -147,7 +147,7 @@
                         <div class="navbar-nav ml-auto">
                             <a class="nav-item nav-link"> Bem vindo: &nbsp; {{g.func.funcao}} &nbsp; {{g.user.name}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
                             <form action="{{ url_for('Deslogar') }}">
-                              <button class="nav-item nav-link" type="submit">Logout</button>                              
+                              <button class="nav-item nav-link" type="submit" style=" cursor: pointer; background: rgba(255, 255, 255, 0); border-style: none; font-size: 14px;">LOGOUT</button>
                               <input	type="text" value="{{g.user.username}}" name="txtUsuarioLogado" id="txtUsuarioLogado" hidden>
                             </form>
                             <a class="nav-item nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#form_nova_senha">Alterar Senha</a>                             
