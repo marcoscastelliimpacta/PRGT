@@ -35,6 +35,7 @@ def index():
             user = [x for x in users if x.username == usuario][0]
             if user:
                 session['user_type'] = user.user_type
+                session['username'] = user.username
                 return redirect(url_for('profile'))
         else:
             return render_template(
@@ -69,6 +70,7 @@ def blog():
             user = [x for x in users if x.username == usuario][0]
             if user:
                 session['user_type'] = user.user_type
+                session['username'] = user.username
                 return redirect(url_for('profile'))
         else:
             return render_template(
@@ -92,7 +94,7 @@ def Deslogar():
 @app.route('/profile/', methods=['GET', 'POST'])
 def profile():
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         if g.user.user_type == 'Dev' or g.user.user_type == 'admin':
             return redirect('/admin/')        

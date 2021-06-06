@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, g, session, url_for
-import os.path
+import os
 import json
 from datetime import date
 from conexao import *
@@ -38,7 +38,7 @@ class StatusProjetoAtivo:
 @admin_dp.route('/', methods=['GET', 'POST'])
 def home():    
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         if request.method == 'GET':
             if g.user.user_type == 'dev' or g.user.user_type == 'admin' or g.user.user_type == 'func' or g.user.user_type == 'assistente' or g.user.user_type == 'blog':
@@ -118,7 +118,7 @@ def home():
 @admin_dp.route('/Projetos/', methods=['GET', 'POST'])
 def Projetos_Admin():
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         Select_Func_Data(g.user.codigo)
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
@@ -222,7 +222,7 @@ def Projetos_Admin():
             func = Listar_Todos_Funcionarios(idProjeto)
             #img = form.get('fileImagens')
             if not os.path.isdir(pasta):
-                os.mkdir(pasta)
+                os.mkdir(pasta)                
             if request.files:
                 file = request.files["fileImagens"]
                 #if os.path.isfile(pasta+file.filename):
@@ -317,7 +317,7 @@ def Lista_Projetos_Admin():
 @admin_dp.route('/Projeto_Cliente/<codigo_projeto>/', methods=['GET', 'POST'])
 def Projeto_Cliente(codigo_projeto):
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
     g.func = 'funcao:'
     Select_Projeto_Selecionado(codigo_projeto)
@@ -355,7 +355,7 @@ def Projeto_Cliente(codigo_projeto):
 @admin_dp.route('/Funcionarios/', methods=['GET', 'POST'])
 def Funcionarios():
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         Select_Func_Data(g.user.codigo)
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
@@ -521,7 +521,7 @@ def Funcionarios():
 @admin_dp.route('/Clientes/', methods=['GET', 'POST'])
 def Clientes():
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         Select_Func_Data(g.user.codigo)        
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
@@ -627,7 +627,7 @@ def Clientes():
 @admin_dp.route('/Home_Page/', methods=['GET', 'POST'])
 def Home_Page():
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         Select_Func_Data(g.user.codigo)        
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]
@@ -654,7 +654,7 @@ def Home_Page():
 @admin_dp.route('/Blog/', methods=['GET', 'POST'])
 def Blog():
     if 'user_type' in session:
-        user = [x for x in users if x.user_type == session['user_type']][0]
+        user = [x for x in users if x.username == session['username']][0]
         g.user = user
         Select_Func_Data(g.user.codigo)        
         func = [x for x in funcionarios if x.codigo_usuario == g.user.codigo][0]

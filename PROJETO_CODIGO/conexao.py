@@ -103,8 +103,9 @@ def conectSSHTunnel():
         return tunnel
 
 def open_Conection():
-    tunnel = conectSSHTunnel()
-    tunnel.start()
+    #tunnel = conectSSHTunnel()
+    #tunnel.start()
+    tunnel = ""
     conn = MySQLdb.Connect(host='prgt_db.mysql.dbaas.com.br', port=3306, user='prgt_db', password='prgt123456', db='prgt_db')
     cursor = conn.cursor()
     return cursor, conn, tunnel
@@ -114,7 +115,7 @@ def open_Conection():
 def close_Conection(cursor, conn, tunnel):
     cursor.close()
     conn.close()
-    tunnel.close()
+    #tunnel.close()
 
 
 def selecionarTabela():
@@ -164,6 +165,7 @@ def Autentic_Usuario(usuario, senha):
             users.append(User(row[0], row[1], row[2], row[3], row[4], row[5]))
         close_Conection(cursor[0], cursor[1], cursor[2])
     else:
+        close_Conection(cursor[0], cursor[1], cursor[2])
         return 0 
     return 1
 
@@ -185,6 +187,10 @@ def Alter_Dados_Cliente(id_cli, nome, email, telefone):
 
 
 def Select_Func_Data(codigo_usuario):
+    for cnt in range(len(funcionarios)):
+        if codigo_usuario == funcionarios[cnt].codigo_usuario:
+            funcionarios.pop(cnt)
+            break
     cursor = open_Conection()
     cursor[0].callproc("Select_Func_Data", [codigo_usuario])
     for row in cursor[0]:
@@ -548,3 +554,7 @@ def Resert_Password(usuario):
     cursor[0].callproc("Resert_Password", [usuario])
     cursor[1].commit()
     close_Conection(cursor[0], cursor[1], cursor[2])
+
+
+tunnel = conectSSHTunnel()
+tunnel.start()
