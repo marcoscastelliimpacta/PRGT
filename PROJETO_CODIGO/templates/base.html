@@ -17,7 +17,13 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link REL="SHORTCUT ICON" HREF="/static/imgs/img_css/favicon.ico">
 	<title>PRGT Arquitetura & Execução de Obras</title>
-
+    <script>
+        fFocusLink(link)
+        {
+            window.alert(link);
+            docuemnt.getElementById(link).style="color: rgba(255,255,255,1);";
+        }
+    </script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" class="has-loading-screen">
@@ -78,13 +84,13 @@
                     <!--end navbar-toggler-->
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
-                            <a class="nav-item nav-link active" href="{{ url_for('index') }}#page-top">Home <!--<span class="sr-only">(current)</span>--></a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#what-we-do">Serviços</a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#our-works">Fotos</a>
+                            <a class="nav-item nav-link" id="home" onclick="fFocusLink(this);" href="{{ url_for('index') }}#page-top" >Home <!--<span class="sr-only">(current)</span>--></a>
+                            <a class="nav-item nav-link" href="{{ url_for('index') }}#what-we-do" onclick="fFocusLink(this.id);">Serviços</a>
+                            <a class="nav-item nav-link active" href="{{ url_for('index') }}#our-works" onclick="fFocusLink(this.id);">Fotos</a>
 <!--                          <a class="nav-item nav-link" href="#the-team">The Team</a> --> 
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#about-us">Sobre Nós</a>
-                              <a class="nav-item nav-link" href="{{ url_for('blog') }}">Blog</a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#contact">Contato</a>
+                            <a class="nav-item nav-link" id="sobre" href="{{ url_for('index') }}#about-us" onclick="fFocusLink(this.id);">Sobre Nós</a>
+                            <a class="nav-item nav-link" href="{{ url_for('blog') }}">Blog</a>
+                            <a class="nav-item nav-link" href="{{ url_for('index') }}#contact" onclick="fFocusLink(this.id);">Contato</a>
                             <a class="nav-item nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#form">Login</a>
                         </div>
                         <!--end navbar-nav-->
@@ -221,7 +227,7 @@ gtag('config', 'UA-122288932-1');
                                   <div class="py-4">
                                       <figure>
                                           <i class="fa fa-envelope width-20px"></i>
-                                          <a href="contato@prgt.com.br" target="_blank">contato@prgt.com.br</a>
+                                          <a href="#contact" target="_blank">contato@prgt.com.br</a>
                                       </figure>
                                       <figure>
                                           <i class="fa fa-facebook width-20px"></i>
@@ -229,7 +235,7 @@ gtag('config', 'UA-122288932-1');
                                       </figure>
                                       <figure>
                                           <i class="fa fa-pinterest width-20px"></i>
-                                          <a href="http:/www.pinterest.com/linkprgt" target="_blank">PRGT no Pinterest</a>
+                                          <a href="https:/www.pinterest.com/linkprgt" target="_blank">PRGT no Pinterest</a>
                                       </figure>
                                       <figure>
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.2139380617286!2d-46.66003718437809!3d-23.56075866745662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59cc28d4990d%3A0xd6497aeb76f0f23a!2sAv.%20Paulista%2C%201765%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001311-200!5e0!3m2!1spt-BR!2sbr!4v1620170668347!5m2!1spt-BR!2sbr"  style="border:0; width: 100%; height: 250px;" allowfullscreen="" loading="lazy"></iframe>
