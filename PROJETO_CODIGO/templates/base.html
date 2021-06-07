@@ -18,15 +18,15 @@
     <link REL="SHORTCUT ICON" HREF="/static/imgs/img_css/favicon.ico">
 	<title>PRGT Arquitetura & Execução de Obras</title>
     <script>
-        fFocusLink(link)
-        {
-            window.alert(link);
-            docuemnt.getElementById(link).style="color: rgba(255,255,255,1);";
+        function fFocusLink(link)
+        {            
+            document.body.innerHTML = document.body.innerHTML.replace('active', '');
+            document.getElementById(link).classList.add('active');            
         }
     </script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" class="has-loading-screen">
+<body data-spy="scroll" data-target=".navbar" class="has-loading-screen" onload="fFocusLink('home')">
     <!--<div class="page-wrapper" id="page-top">-->
         
         
@@ -84,13 +84,13 @@
                     <!--end navbar-toggler-->
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
-                            <a class="nav-item nav-link" id="home" onclick="fFocusLink(this);" href="{{ url_for('index') }}#page-top" >Home <!--<span class="sr-only">(current)</span>--></a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#what-we-do" onclick="fFocusLink(this.id);">Serviços</a>
-                            <a class="nav-item nav-link active" href="{{ url_for('index') }}#our-works" onclick="fFocusLink(this.id);">Fotos</a>
+                            <a class="nav-item nav-link" id="home" onclick="fFocusLink('home');" href="#page-top" >Home <!--<span class="sr-only">(current)</span>--></a>
+                            <a class="nav-item nav-link" id="servico" href="#what-we-do" onclick="fFocusLink('servico');">Serviços</a>
+                            <a class="nav-item nav-link" id="fotos" onclick="fFocusLink('fotos');" href="#our-works">Fotos</a>
 <!--                          <a class="nav-item nav-link" href="#the-team">The Team</a> --> 
-                            <a class="nav-item nav-link" id="sobre" href="{{ url_for('index') }}#about-us" onclick="fFocusLink(this.id);">Sobre Nós</a>
-                            <a class="nav-item nav-link" href="{{ url_for('blog') }}">Blog</a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#contact" onclick="fFocusLink(this.id);">Contato</a>
+                            <a class="nav-item nav-link" id="sobre" href="#about-us" onclick="fFocusLink('sobre');">Sobre Nós</a>
+                            <!--<a class="nav-item nav-link" id="blog" onclick="fFocusLink('blog');" href="{{ url_for('blog') }}">Blog</a>-->
+                            <a class="nav-item nav-link" id="contato" href="#contact" onclick="fFocusLink('contato');">Contato</a>
                             <a class="nav-item nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#form">Login</a>
                         </div>
                         <!--end navbar-nav-->
