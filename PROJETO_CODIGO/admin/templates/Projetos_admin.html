@@ -83,8 +83,24 @@ input[type=range] + datalist option {
     width: calc((90% - 12px) / (var(--list-length) + 1.8));
     text-align: center;
 }
+.font {font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    line-height:25px;
+    font-weight:normal; 
+}
 
+input[type="file"] { 
+   display: none; 
+}
 
+.label-bordered {
+   border: 1px solid #cecece;
+   padding: 10px;
+   border-radius: 5px;
+   font-size: 14px;
+   font-weight: normal;
+   color:#000;
+}
 
 
 /* style Firefox range and thumb */
@@ -103,15 +119,15 @@ input[type=range] + datalist option {
             
                 <table class= "table table-striped table-dark">
                     <thead>
-                        <tr class="table100-head" style="background-color:#746c6c; height: 30px;">
-                            <th class="column1">Código</th>
-                            <th class="column2">Cliente</th>
-                            <th class="column3">Projeto</th>
-                            <th class="column4">Local</th>
-                            <th class="column5">Orçamento</th>
-                            <th class="column6">Inicio</th>
-                            <th class="column7">Responsável</th>
-                            <th class="column8">Status</th>
+                        <tr class="table100-head" style="background-color:#746c6c; height: 30px;" >
+                            <th class="column1" style="font-family:arial; font-size:14px">Código</th>
+                            <th class="column2" style="font-family:arial; font-size:14px">Cliente</th>
+                            <th class="column3" style="font-family:arial; font-size:14px">Projeto</th>
+                            <th class="column4" style="font-family:arial; font-size:14px">Local</th>
+                            <th class="column5" style="font-family:arial; font-size:14px">Orçamento</th>
+                            <th class="column6" style="font-family:arial; font-size:14px">Inicio</th>
+                            <th class="column7" style="font-family:arial; font-size:14px">Responsável</th>
+                            <th class="column8" style="font-family:arial; font-size:14px">Status</th>
                             <th class="column9"></th>
                             <th class="column10"></th>
                         </tr>
@@ -120,16 +136,16 @@ input[type=range] + datalist option {
                         {% if osProjetos: %}
                             {% for cnt in osProjetos: %}
                                 <form method="POST">
-                                    <tr style="cursor: default;">
+                                    <tr style="cursor: default;" >
                                         <td class="column1" style="cursor: default;">
                                         <input type="text" id="idProjeto" name="idProjeto" value="{{cnt[0]}}" readonly style="font-weight: bolder; color: rgba(120,120,120, 1); height: 15px; box-shadow: 0 0 0 0; border: 0 none; outline: 0; background-color: rgba(0,0,0, 0);"> </td>
-                                        <td class="column2">{{cnt[1]}}</td>
-                                        <td class="column3">{{cnt[2]}}</td>
-                                        <td class="column4">{{cnt[3]}}</td>
-                                        <td class="column5">{{cnt[4]}}</td>
-                                        <td class="column6">{{cnt[5]}}</td>
-                                        <td class="column7">{{cnt[6]}}</td>
-                                        <td class="column8">{{cnt[7]}}</td>
+                                        <td class="column2 font" >{{cnt[1]}}</td>
+                                        <td class="column3 font">{{cnt[2]}}</td>
+                                        <td class="column4 font">{{cnt[3]}}</td>
+                                        <td class="column5 font">{{cnt[4]}}</td>
+                                        <td class="column6 font">{{cnt[5]}}</td>
+                                        <td class="column7 font">{{cnt[6]}}</td>
+                                        <td class="column8 font">{{cnt[7]}}</td>
                                         <td class="column9"><button  id="btn_admin_cli" value="btn_select_projeto" name="btn_admin_cli" type="submit" class="editar" style="background-color:white; color:black;  border-radius:0px">editar</button></td>
                                         <td class="column10"><button  id="btn_admin_cli" value="btn_apagar_projeto" name="btn_admin_cli" type="submit" class="apagar" style="border-radius:0px">apagar</button></td>
                                     </tr>
@@ -147,28 +163,28 @@ input[type=range] + datalist option {
         <!--<iframe src="{{url_for('profile.Lista_Projetos_Admin')}}" style="width: 100%; height: 100%;"></iframe>        -->
     </div>
     
-    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7" style="background-color:white; padding: 30px; border-radius: 10px;">
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7" style="background-color:rgba(255, 255, 255, 0.85); padding: 30px; border-radius: 10px;">
     <br>
-        <form class="form-projeto" id="form_alter_senha" name="form_alter_senha" method="POST">                    
+        <form class="form-projeto" id="form_alter_senha" name="form_alter_senha" method="POST" >                    
             <div class="modal-body"> <span style="color:black; font-size:28px">Cadastrar Novo Projeto</span>
                 <div class="row" style="margin-top:40px; margin-bottom: -20px; color: white; font-weight: bolder; font-size: 20px; width: 50%;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14" >
                         <div class="form-group">
-                            <label for="txtProjeto" style="color:rgb(255,255,255);">Código do Projeto</label>
+                            <label for="txtProjeto" style="color:rgb(0,0,0);">Código do Projeto</label>
                             <input type="text" class="form-control" id="txtCodigoProjeto" name="txtCodigoProjeto" value="{{g.proj.codigo_projeto}}" readonly>
                         </div>
                     </div>
                 </div>                
-                <div class="row" style="color: white; font-weight: bolder; font-size: 20px;">
+                <div class="row" style="color: white; font-weight: bolder; font-size: 20px; font-family:arial">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtProjeto" style="color:rgb(255,255,255);">Projeto</label>
+                            <label for="txtProjeto" style="color:rgb(0,0,0);">Projeto</label>
                             <input type="text" class="form-control" id="txtProjeto" name="txtProjeto" aria-describedby="emailHelp" placeholder="Nome do Projeto" value="{{g.proj.nome_projeto}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtLocal_Projeto" style="color:rgb(255,255,255);">Local</label>
+                            <label for="txtLocal_Projeto" style="color:rgb(0,0,0);">Local</label>
                             <input type="text" class="form-control" id="txtLocal_Projeto" name="txtLocal_Projeto" aria-describedby="emailHelp" placeholder="Local do Projeto" value="{{g.proj.local_projeto}}">
                         </div>
                     </div>
@@ -177,13 +193,13 @@ input[type=range] + datalist option {
                 <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtOrcamento_Projeto" style="color:rgb(255,255,255);">Orçamento</label>
+                            <label for="txtOrcamento_Projeto" style="color:rgb(0,0,0);">Orçamento</label>
                             <input type="text" class="form-control" id="txtOrcamento_Projeto" name="txtOrcamento_Projeto" placeholder="Orçamento do Projeto" value="{{g.proj.orcamento}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtPrazo_Dias" style="color:rgb(255,255,255);">Prazo em Dias</label>
+                            <label for="txtPrazo_Dias" style="color:rgb(0,0,0);">Prazo em Dias</label>
                             <input type="text" class="form-control" id="txtPrazo_Dias" name="txtPrazo_Dias" placeholder="Prazo em Dias" value="{{g.proj.prazo_dias}}">
                         </div>
                     </div>
@@ -192,13 +208,13 @@ input[type=range] + datalist option {
                 <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtData_Inicio" style="color:rgb(255,255,255);">Data Inicio</label>
+                            <label for="txtData_Inicio" style="color:rgb(0,0,0);">Data Inicio</label>
                             <input type="date" class="form-control" id="txtData_Inicio" name="txtData_Inicio" placeholder="Data que o Projeto inicia" value="{{g.proj.data_inicio}}">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="txtData_Fim" style="color:rgb(255,255,255);">Data de Finalização</label>
+                            <label for="txtData_Fim" style="color:rgb(0,0,0);">Data de Finalização</label>
                             <input type="date" class="form-control" id="txtData_Fim" name="txtData_Fim" placeholder="Data de Finalização do Projeto" value="{{g.proj.data_finalizacao}}">
                         </div>
                     </div>
@@ -207,8 +223,8 @@ input[type=range] + datalist option {
                 <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="cbCliente" style="color:rgb(255,255,255);">Cliente</label>
-                            <select name="cbCliente" id="cbCliente" style="height: 40px; font-size: 18px;" class="form-control select-cli">
+                            <label for="cbCliente" style="color:rgb(0,0,0);">Cliente</label>
+                            <select name="cbCliente" id="cbCliente" style="height: 40px; font-size: 14px;" class="form-control select-cli">
                                 <option id="">Selecione o Cliente</option>
                                 {% for cnt in clientes:%}
                                     {% if cnt[0] == g.proj.codigo_cli:%}
@@ -222,8 +238,8 @@ input[type=range] + datalist option {
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
                         <div class="form-group">
-                            <label for="cbStatus" style="color:rgb(255,255,255);">Status</label>
-                            <select name="cbStatus" id="cbStatus" style="height: 40px; font-size: 18px;" class="form-control select-cli">
+                            <label for="cbStatus" style="color:rgb(0,0,0);">Status</label>
+                            <select name="cbStatus" id="cbStatus" style="height: 40px; font-size: 14px;" class="form-control select-cli">
                                 <option value="">Selecione o Status</option>
                                 {% for cnt in status:%}
                                     {% if cnt[0] == g.proj.codigo_status:%}
@@ -241,13 +257,13 @@ input[type=range] + datalist option {
                 <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
                     <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
                         <div class="form-group">
-                            <table style="width: 100%;  border-radius: 10px 10px 0 0;">
+                            <table style="width: 100%;  border-radius: 10px 10px 0 0; margin-top:15px">
                                 <tr style="height: 2px; background-color:#746c6c;">
                                     <td style="width: 76%;  ">
-                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder;">Funcionarios</label>
-                                    </td>deletar
+                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder; font-family:arial">Funcionarios</label>
+                                    </td>
                                     <td style="width: 24%; text-align: left; ">
-                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder;">Função</label>
+                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder; font-family:arial">Função</label>
                                     </td>
                                 </tr>
                             </table>
@@ -258,10 +274,10 @@ input[type=range] + datalist option {
                                         {% for cnt in funcionarios: %}                   
                                             <tr style="height: 2px;">
                                                 <td style="width: 80%;">
-                                                    &nbsp;&nbsp;<input type="checkbox" value="{{cnt[0]}}" {{cnt[7]}} name="ckFunc" id="ckFunc{{cnt[0]}}"> <label for="ckFunc{{cnt[0]}}">{{cnt[2]}}</label>
+                                                    &nbsp;&nbsp;<input type="checkbox" value="{{cnt[0]}}" {{cnt[7]}} name="ckFunc" id="ckFunc{{cnt[0]}}"> <label style="font-family:arial; font-weight:normal;" for="ckFunc{{cnt[0]}}">{{cnt[2]}}</label>
                                                 </td>
                                                 <td style="width: 20%;">
-                                                    <label style=" font-size: 50; font-weight: bolder;">{{cnt[5]}}</label>
+                                                    <label style="font-family:arial; font-weight:normal;">{{cnt[5]}}</label>
                                                 </td>
                                             </tr>
                                         {%endfor%}
@@ -278,7 +294,7 @@ input[type=range] + datalist option {
                     </div>
                     <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
                         <div class="form-group">
-                            <label for="txtObs" style="color:rgb(255,255,255);">Observações</label>
+                            <label for="txtObs" style="color:rgb(0,0,0);">Observações</label>
                             <textarea type="text" style="height: 200px;" class="form-control" id="txtObs" name="txtObs" value="{{g.proj.observacao}}">{{g.proj.observacao}}</textarea>
                         </div>
                     </div>
@@ -312,7 +328,7 @@ input[type=range] + datalist option {
                             <table style="width: 100%;  border-radius: 10px 10px 0 0;">
                                 <tr style="height: 2px; background-color:#746c6c">
                                     <td style="width: 76%;  ">
-                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder;">Serviços</label>
+                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder;padding:10px 0px 0px 10px; line-height:30px; font-family:arial">SERVIÇOS</label>
                                     </td>
                                 </tr>
                             </table>
@@ -323,7 +339,7 @@ input[type=range] + datalist option {
                                             <tr style="height: 2px;">
                                                 <td style="width: 30%;">
                                                     <input type="number" value="{{g.proj.codigo_projeto}}" id="txtcodigo_pro" name="txtcodigo_pro" hidden>
-                                                    &nbsp;&nbsp;<input type="checkbox" value="{{cnt[0]}}" {{cnt[2]}} name="ckServicos" id="ckServicos"> <label for="ckFunc">{{cnt[1]}}</label>                                                    
+                                                    &nbsp;&nbsp;<input type="checkbox" value="{{cnt[0]}}" {{cnt[2]}} name="ckServicos" id="ckServicos"> <label style="font-family:arial; font-weight:normal;" for="ckFunc">{{cnt[1]}}</label>                                                    
                                                 </td>
                                                 <td style="width: 60%;">
                                                     
@@ -363,14 +379,17 @@ input[type=range] + datalist option {
                 <div class="row list-project" style="margin-top:10px; color: white; font-weight: bolder; font-size: 20px; height: 40px;">
                     <input type="number" value="{{g.proj.codigo_projeto}}" id="txtcodigo_pro" name="txtcodigo_pro" hidden>
                     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 40px;">
-                        <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" id="fileImagens" name="fileImagens" style="width: 100%;" >
+
+
+                        <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" id="fileImagens" name="fileImagens" style="width: 100%;"><label for="fileImagens" class="control-label label-bordered" style="margin-left:15px">Clique aqui para escolher uma imagem</label>
+
+
                     </div>
                     <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 40px; text-align: center;">
                         <input type="checkbox" name="checkCapa" id="checkCapa" >&nbsp;<label for="checkCapa" style="color:rgb(255,255,255); color:black">Capa</label>&nbsp;&nbsp;
                         <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_insert_img" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height: 0;">Salvar Imagem</button>
                     </div>
                 </div>
-                <br>
                 <br>
                 <div class="row list-project" style="margin-top:10px; color: white; font-weight: bolder; font-size: 12px; height: 420px; overflow: auto; overflow-y: scroll;">
                     {%if ImagensProjeto:%}
@@ -384,7 +403,7 @@ input[type=range] + datalist option {
                                             <div class="box__header">
                                                 <div class="box__image /img-into-bg">
                                                     <img src="{{cnt[1]}}{{cnt[2]}}"style="width: 250px; height: 225px; border: 1cm; border-color: black; border-radius: 10px;">
-                                                    <h4 class="reveal1"><label style="width: 80px; font-size: 12px; width: 50%;">{{cnt[2][:15]}}</label></h4>
+                                                    <h4 class="reveal1"><label style="width: 80px; font-size: 12px; width: 50%; color:#000;margin-bottom: 15px;">{{cnt[2][:15]}}</label></h4>
                                                 </div>
                                             </div>
                                         </div>

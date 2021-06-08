@@ -108,8 +108,8 @@ input.tabs:checked + label {
       <!-- IMAGENS -->
       <input type="radio" name="tabs" class="tabs" id="tab1" checked>
       <label for="tab1">Imagens</label>
-      <div>
-        <h3>Imagens do Projeto</h3>
+      <div style="background-color: rgba(255, 255, 255, 0.85);">
+        <h3 style="color: #000">Imagens do Projeto</h3>
         <div class="row list-project" style="margin-top:10px; color: black; font-weight: bolder; font-size: 12px; height: 640px; overflow: auto; overflow-y: auto;">
           {%if ImagensProjeto:%}
             {% for cnt in ImagensProjeto: %}
@@ -136,8 +136,8 @@ input.tabs:checked + label {
       <!-- GRAFICOS -->
       <input type="radio" name="tabs" class="tabs" id="tab2">
       <label for="tab2">Progresso</label>
-      <div>
-        <h3>Status do Projeto</h3>
+      <div style="background-color: rgba(255, 255, 255, 0.85);">
+        <h3 style="color:#000">Status do Projeto</h3>
         
         <canvas id="barChart"></canvas>
         <script src="/static/grafico/Chart.bundle.min.js"></script>        
