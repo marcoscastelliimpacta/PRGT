@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, Blueprint, url_for, g, ses
 from app import app
 import os.path
 from conexao import *
+from PRGT_Bot_Telegram import *
 
 
 
@@ -21,29 +22,40 @@ def index():
         )
     elif request.method == 'POST':
         form = request.form
-                
-        usuario = form.get("usuario")
-        senha = form.get("senha")
-        retur = Autentic_Usuario(usuario, senha)
-        if retur > 0:
-            if retur == 2:
+        if form["btn_home"] == "btn_login":
+            usuario = form.get("usuario")
+            senha = form.get("senha")
+            retur = Autentic_Usuario(usuario, senha)
+            if retur > 0:
+                if retur == 2:
+                    return render_template(
+                    'index.html',
+                    titulo = 'Falha na autenticação.',
+                    msgLog = 'Usuário logado em outro aparelho!'
+                    )
+                user = [x for x in users if x.username == usuario][0]
+                if user:
+                    session['user_type'] = user.user_type
+                    session['username'] = user.username
+                    return redirect(url_for('profile'))
+            else:
                 return render_template(
-                'index.html',
-                titulo = 'Falha na autenticação.',
-                msgLog = 'Usuário logado em outro aparelho!'
-                )
-            user = [x for x in users if x.username == usuario][0]
-            if user:
-                session['user_type'] = user.user_type
-                session['username'] = user.username
-                return redirect(url_for('profile'))
-        else:
+                    'index.html',
+                    titulo = 'Falha na autenticação.',
+                    msgLog = 'Usuario ou senha errado!'
+                    )
+        elif form["btn_home"] == "btn_msg":
+            print("mensagem")
+            nome = form.get("name")
+            email = form.get("email")
+            tele = form.get("phone")
+            msg = form.get("message")
+            mensagem = "Nome: " + nome + "\nTelefone: " + tele + "\nEmail: " + email + "\n\nMensagem: \n" + msg
+            bot = TelegramBot()
+            bot.Iniciar(mensagem)
             return render_template(
-                'index.html',
-                titulo = 'Falha na autenticação.',
-                msgLog = 'Usuario ou senha errado!'
+                'index.html'
                 )
-
 
 @app.route('/blog/', methods=['GET', 'POST'])
 def blog():

@@ -49,8 +49,8 @@
                         <h5 style="padding:17px;" id="exampleModalLabel" ><p style="color: #770000;"> {{msgLog}} </p></h5>
                     </div>
                     <div class="form-group">
-                      <label for="email1">Email address</label>
-                      <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="emailHelp" placeholder="E-mail">
+                      <label for="email1">Usuário</label>
+                      <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="emailHelp" placeholder="Usuário">
                     </div>
                     <div class="form-group">
                       <label for="password1">Senha</label>
@@ -58,13 +58,13 @@
                     </div>
                   </div>
                   <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="submit" id="btn_alter" name="btn_alter" value="" class="btn btn-success" style="width: 40%;">Entrar</button>
+                    <button type="submit" id="btn_home" name="btn_home" value="btn_login" class="btn btn-success" style="width: 40%;">Entrar</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-        <div class="loading-screen"></div>
+        <!--<div class="loading-screen"></div>-->
         <!--end loading-screen-->
 
         <!--*********************************************************************************************************-->
@@ -252,17 +252,17 @@ gtag('config', 'UA-122288932-1');
                           <h4>Diga o que precisa!</h4>
 
                           <form id="form-contact" method="post" class="form clearfix">
-                           <div class="row">
-                              <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-name">Seu Nome</label><input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required=""></div></div>
-                              <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu E-mail</label><input type="email" class="form-control" id="email" name="email" placeholder="Seu E-mail" required=""></div></div>
-                              <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu Telefone</label><input type="text" class="form-control" id="phone" name="phone" placeholder="Seu Telefone" required=""></div></div>
-                           </div>
-                             <div class="row">
-                              <div class="col-md-12"><div class="form-group"><label for="form-contact-message">Sua Mensagem</label><textarea class="form-control" id="message" rows="8" name="message" placeholder="Sua Mensagem" required=""></textarea></div></div>
-                              </div>
-                              <div class="form-group clearfix">
-                                  <button type="submit" class="btn pull-right btn-default" id="submit">Enviar</button>
-                              </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-name">Seu Nome</label><input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required=""></div></div>
+                                <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu E-mail</label><input type="email" class="form-control" id="email" name="email" placeholder="Seu E-mail" required=""></div></div>
+                                <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu Telefone</label><input type="text" class="form-control" id="phone" name="phone" placeholder="Seu Telefone" required=""></div></div>
+                            </div>
+                                <div class="row">
+                                <div class="col-md-12"><div class="form-group"><label for="form-contact-message">Sua Mensagem</label><textarea class="form-control" id="message" rows="8" name="message" placeholder="Sua Mensagem" required=""></textarea></div></div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <button type="submit" class="btn pull-right btn-default" id="btn_home" name="btn_home" value="btn_msg">Enviar</button>
+                                </div>
                               <div class="form-contact-status"></div>
                           </form>
 
