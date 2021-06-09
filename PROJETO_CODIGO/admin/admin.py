@@ -126,7 +126,6 @@ def Projetos_Admin():
             g.func = func
     clientes = Listar_Todos_Clientes()
     status = Listar_Status_Projeto()
-    osProjetos = Listar_Todos_Projetos()
     pasta = ''
     retorno=0
     msgModal=""
@@ -227,16 +226,17 @@ def Projetos_Admin():
                 file = request.files["fileImagens"]
                 #if os.path.isfile(pasta+file.filename):
                 #    os.remove(pasta+file.filename)
-                checkCapa = form.get("checkCapa")
-                if checkCapa:
-                    setor = 'Projeto_Capa_'+str(idProjeto)
-                    extencao = pegaExtencaoImg(file.filename)
-                    nomeImg = "Capa."+extencao
-                else:
-                    setor = 'Projeto_'+str(idProjeto)
-                    nomeImg = file.filename
-                file.save(pasta+'/'+nomeImg)
-                Insert_Imagem('/'+pasta, nomeImg, setor,'','1')
+                if file:
+                    checkCapa = form.get("checkCapa")
+                    if checkCapa:
+                        setor = 'Projeto_Capa_'+str(idProjeto)
+                        extencao = pegaExtencaoImg(file.filename)
+                        nomeImg = "Capa."+extencao
+                    else:
+                        setor = 'Projeto_'+str(idProjeto)
+                        nomeImg = file.filename
+                    file.save(pasta+'/'+nomeImg)
+                    Insert_Imagem('/'+pasta, nomeImg, setor,'','1')
             #shutil.copy(img,pasta)            
             servicos = Listar_Servicos_Projetos(idProjeto)
             proj = [x for x in projetos if x.codigo_projeto == idProjeto][0]
@@ -282,6 +282,7 @@ def Projetos_Admin():
             proj = [x for x in projetos if x.codigo_projeto == 0][0]
             g.proj = proj
     ImagensProjeto = Listar_Imagem_Projetos('/'+pasta)
+    osProjetos = Listar_Todos_Projetos()
     return render_template(
         'Projetos_admin.html',
         clientes = clientes,
