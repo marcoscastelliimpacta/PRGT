@@ -1,5 +1,6 @@
 from flask import Flask, g
 import flask_session
+from path import Path
 from flask_session import Session
 from admin import admin
 

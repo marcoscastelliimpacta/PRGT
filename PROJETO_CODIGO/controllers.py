@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, Blueprint, url_for, g, session
+from path import Path
 from app import app
 import os.path
 from conexao import *
@@ -13,12 +14,14 @@ def index():
     slide = selecionarImagens('slide_home')
     gallery_container = selecionarImagens('galery_container_home')
     if request.method == 'GET':
-        session.pop('user_type', None)      
+        session.pop('user_type', None)
+        session['tentativa_login'] = 0  
         return render_template(
             'index.html',
             Tabela = Tabela,
             slide = slide,
-            gallery_container = gallery_container        
+            gallery_container = gallery_container,
+            msgLog=''       
         )
     elif request.method == 'POST':
         form = request.form
@@ -28,10 +31,18 @@ def index():
             retur = Autentic_Usuario(usuario, senha)
             if retur > 0:
                 if retur == 2:
+                    session['tentativa_login'] = session['tentativa_login'] + 1
+                    msgLog = 'Usuário logado em outro aparelho! <br> +' + str((3 - session['tentativa_login'])) + ' tentativas o ele será deslogado'
+                    if session['tentativa_login'] == 3:
+                        for cnt in range(len(users)):
+                            if users[cnt].username == usuario:
+                                users.pop(cnt)
+                                msgLog = 'O usuário foi derrubado <br> Por favor, tente logar novamente.'
+                                break
                     return render_template(
                     'index.html',
                     titulo = 'Falha na autenticação.',
-                    msgLog = 'Usuário logado em outro aparelho!'
+                    msgLog = msgLog
                     )
                 user = [x for x in users if x.username == usuario][0]
                 if user:
@@ -44,8 +55,7 @@ def index():
                     titulo = 'Falha na autenticação.',
                     msgLog = 'Usuario ou senha errado!'
                     )
-        elif form["btn_home"] == "btn_msg":
-            print("mensagem")
+        elif form["btn_home"] == "btn_msg":            
             nome = form.get("name")
             email = form.get("email")
             tele = form.get("phone")

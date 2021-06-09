@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, g, session, url_for
 import os
+from pathlib import Path
 import json
 from datetime import date
 from conexao import *
@@ -38,7 +39,11 @@ class StatusProjetoAtivo:
 @admin_dp.route('/', methods=['GET', 'POST'])
 def home():    
     if 'user_type' in session:
-        user = [x for x in users if x.username == session['username']][0]
+        try:
+            user = [x for x in users if x.username == session['username']][0]
+        except Exception as e:
+            if e.args[0] == 'list index out of range':
+                return redirect (url_for('Deslogar'))
         g.user = user
         if request.method == 'GET':
             if g.user.user_type == 'dev' or g.user.user_type == 'admin' or g.user.user_type == 'func' or g.user.user_type == 'assistente' or g.user.user_type == 'blog':
@@ -217,11 +222,12 @@ def Projetos_Admin():
                 g.proj.orcamento = str(g.proj.orcamento)[0:-3]
         elif form['btn_admin_cli'] == "btn_insert_img":   
             idProjeto = int(form.get("txtcodigo_pro"))
+            ROOT_DIR = os.path.dirname(Path(__file__).parent)
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             func = Listar_Todos_Funcionarios(idProjeto)
             #img = form.get('fileImagens')
-            if not os.path.isdir(pasta):
-                os.mkdir(pasta)                
+            if not os.path.isdir(ROOT_DIR+'/'+pasta):
+                os.mkdir(ROOT_DIR+'/'+pasta)                
             if request.files:
                 file = request.files["fileImagens"]
                 #if os.path.isfile(pasta+file.filename):
@@ -235,7 +241,7 @@ def Projetos_Admin():
                     else:
                         setor = 'Projeto_'+str(idProjeto)
                         nomeImg = file.filename
-                    file.save(pasta+'/'+nomeImg)
+                    file.save(ROOT_DIR+'/'+pasta+'/'+nomeImg)
                     Insert_Imagem('/'+pasta, nomeImg, setor,'','1')
             #shutil.copy(img,pasta)            
             servicos = Listar_Servicos_Projetos(idProjeto)
@@ -247,10 +253,11 @@ def Projetos_Admin():
             idProjeto = form.get("txtcodigo_pro")
             idProjeto = int(idProjeto)
             imagemName = form.get("img_projeto")
+            ROOT_DIR = os.path.dirname(Path(__file__).parent)
             pasta = 'static/imgs/Projetos/'+str(idProjeto)+'/'
             func = Listar_Todos_Funcionarios(idProjeto)
-            if os.path.isfile(pasta+imagemName):
-                os.remove(pasta+imagemName)
+            if os.path.isfile(ROOT_DIR+'/'+pasta+imagemName):
+                os.remove(ROOT_DIR+'/'+pasta+imagemName)
             Delete_Img_Projeto('/'+pasta, imagemName)
             servicos = Listar_Servicos_Projetos(idProjeto)
             proj = [x for x in projetos if x.codigo_projeto == idProjeto][0]
