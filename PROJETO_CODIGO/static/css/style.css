@@ -1455,7 +1455,7 @@ transition: .3s ease; transform: scale(1.03);
 
 /*-------------------------------------------
 21. Pace Loading
--------------------------------------------*/
+
 
 .pace {
     -webkit-pointer-events: none;

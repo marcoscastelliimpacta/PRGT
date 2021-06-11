@@ -17,10 +17,17 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link REL="SHORTCUT ICON" HREF="/static/imgs/img_css/favicon.ico">
 	<title>PRGT Arquitetura & Execução de Obras</title>
-
+    <script>
+        function fFocusLink(link, form)
+        {   
+            document.body.innerHTML = document.body.innerHTML.replace('active', '');
+            document.getElementById(link).classList.add('active');
+            $('#'+form).modal('show');            
+        }
+    </script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" class="has-loading-screen">
+<body data-spy="scroll" data-target=".navbar" class="has-loading-screen" onload="fFocusLink('home', '{{form}}')">
     <!--<div class="page-wrapper" id="page-top">-->
         
         
@@ -33,18 +40,23 @@
                     {% else: %}
                         <h5 style="padding:17px; color: rgb(255, 255, 255);" id="exampleModalLabel">Acesso a Conta!</h5>
                     {% endif %}                  
-                    <button type="button" class="close" style="font-size:30px" data-dismiss="modal" aria-label="Close">
+                    <!--<button type="button" class="close" style="font-size:30px" data-dismiss="modal" aria-label="Close" onclick="$('.modal.in').modal('hide')
+                    ;">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button>-->
                 </div>
                 <form id="form_login" name="form_login" method="POST">                    
                   <div class="modal-body">
-                    <div class="return">                        
-                        <h5 style="padding:17px;" id="exampleModalLabel" ><p style="color: #770000;"> {{msgLog}} </p></h5>
+                    <div class="return">
+                        {%set msgLog = msgLog.split("<br>")%}
+                        {%for cnt in msgLog:%}                       
+                            <h5 style="padding:17px;" id="exampleModalLabel" ><p style="color: #770000;"> {{cnt}} </p></h5>
+                        {%endfor%}                       
+                        <!--<h5 style="padding:17px;" id="exampleModalLabel" ><p style="color: #770000;"> {{msgLog}} </p></h5>-->
                     </div>
                     <div class="form-group">
-                      <label for="email1">Email address</label>
-                      <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="emailHelp" placeholder="E-mail">
+                      <label for="email1">Usuário</label>
+                      <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="emailHelp" placeholder="Usuário">
                     </div>
                     <div class="form-group">
                       <label for="password1">Senha</label>
@@ -52,13 +64,16 @@
                     </div>
                   </div>
                   <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="submit" id="btn_alter" name="btn_alter" value="" class="btn btn-success" style="width: 40%;">Entrar</button>
+                    <button type="submit" id="btn_home" name="btn_home" value="btn_login" class="btn btn-success" style="width: 40%;">Entrar</button>
+                    <button type="button" class="close" style="font-size:30px" onclick="$('#form').modal('hide');">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-        <div class="loading-screen"></div>
+        <!--<div class="loading-screen"></div>-->
         <!--end loading-screen-->
 
         <!--*********************************************************************************************************-->
@@ -78,13 +93,13 @@
                     <!--end navbar-toggler-->
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
-                            <a class="nav-item nav-link active" href="{{ url_for('index') }}#page-top">Home <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#what-we-do">Serviços</a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#our-works">Fotos</a>
+                            <a class="nav-item nav-link" id="home" onclick="fFocusLink('home');" href="#page-top" >Home <!--<span class="sr-only">(current)</span>--></a>
+                            <a class="nav-item nav-link" id="servico" href="#what-we-do" onclick="fFocusLink('servico');">Serviços</a>
+                            <a class="nav-item nav-link" id="fotos" onclick="fFocusLink('fotos');" href="#our-works">Fotos</a>
 <!--                          <a class="nav-item nav-link" href="#the-team">The Team</a> --> 
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#about-us">Sobre Nós</a>
-                              <a class="nav-item nav-link" href="{{ url_for('blog') }}">Blog</a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}#contact">Contato</a>
+                            <a class="nav-item nav-link" id="sobre" href="#about-us" onclick="fFocusLink('sobre');">Sobre Nós</a>
+                            <!--<a class="nav-item nav-link" id="blog" onclick="fFocusLink('blog');" href="{{ url_for('blog') }}">Blog</a>-->
+                            <a class="nav-item nav-link" id="contato" href="#contact" onclick="fFocusLink('contato');">Contato</a>
                             <a class="nav-item nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#form">Login</a>
                         </div>
                         <!--end navbar-nav-->
@@ -163,7 +178,7 @@
     type: 'POST',
     data: {name: name, email:email, phone:phone, message:message},
     }).done(function() {
-    window.location.href ="index.asp";
+    window.location.href ="";
     });
     }
     });
@@ -182,8 +197,9 @@ gtag('config', 'UA-122288932-1');
 </script>
 
 {%if titulo != null: %}
-    <script type="text/javascript">        
-        $('#form').modal('show', 'focus');
+    <script type="text/javascript">
+        $('#form').trigger('focus')
+        //$('#form').modal({show: true});
     </script>            
 {% endif %}
 
@@ -221,7 +237,7 @@ gtag('config', 'UA-122288932-1');
                                   <div class="py-4">
                                       <figure>
                                           <i class="fa fa-envelope width-20px"></i>
-                                          <a href="contato@prgt.com.br" target="_blank">contato@prgt.com.br</a>
+                                          <a href="#contact" target="_blank">contato@prgt.com.br</a>
                                       </figure>
                                       <figure>
                                           <i class="fa fa-facebook width-20px"></i>
@@ -229,7 +245,7 @@ gtag('config', 'UA-122288932-1');
                                       </figure>
                                       <figure>
                                           <i class="fa fa-pinterest width-20px"></i>
-                                          <a href="http:/www.pinterest.com/linkprgt" target="_blank">PRGT no Pinterest</a>
+                                          <a href="https:/www.pinterest.com/linkprgt" target="_blank">PRGT no Pinterest</a>
                                       </figure>
                                       <figure>
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.2139380617286!2d-46.66003718437809!3d-23.56075866745662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59cc28d4990d%3A0xd6497aeb76f0f23a!2sAv.%20Paulista%2C%201765%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001311-200!5e0!3m2!1spt-BR!2sbr!4v1620170668347!5m2!1spt-BR!2sbr"  style="border:0; width: 100%; height: 250px;" allowfullscreen="" loading="lazy"></iframe>
@@ -246,17 +262,17 @@ gtag('config', 'UA-122288932-1');
                           <h4>Diga o que precisa!</h4>
 
                           <form id="form-contact" method="post" class="form clearfix">
-                           <div class="row">
-                              <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-name">Seu Nome</label><input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required=""></div></div>
-                              <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu E-mail</label><input type="email" class="form-control" id="email" name="email" placeholder="Seu E-mail" required=""></div></div>
-                              <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu Telefone</label><input type="text" class="form-control" id="phone" name="phone" placeholder="Seu Telefone" required=""></div></div>
-                           </div>
-                             <div class="row">
-                              <div class="col-md-12"><div class="form-group"><label for="form-contact-message">Sua Mensagem</label><textarea class="form-control" id="message" rows="8" name="message" placeholder="Sua Mensagem" required=""></textarea></div></div>
-                              </div>
-                              <div class="form-group clearfix">
-                                  <button type="submit" class="btn pull-right btn-default" id="submit">Enviar</button>
-                              </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-name">Seu Nome</label><input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required=""></div></div>
+                                <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu E-mail</label><input type="email" class="form-control" id="email" name="email" placeholder="Seu E-mail" required=""></div></div>
+                                <div class="col-md-6 col-sm-6"><div class="form-group"><label for="form-contact-email">Seu Telefone</label><input type="text" class="form-control" id="phone" name="phone" placeholder="Seu Telefone" required=""></div></div>
+                            </div>
+                                <div class="row">
+                                <div class="col-md-12"><div class="form-group"><label for="form-contact-message">Sua Mensagem</label><textarea class="form-control" id="message" rows="8" name="message" placeholder="Sua Mensagem" required=""></textarea></div></div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <button type="submit" class="btn pull-right btn-default" id="btn_home" name="btn_home" value="btn_msg">Enviar</button>
+                                </div>
                               <div class="form-contact-status"></div>
                           </form>
 

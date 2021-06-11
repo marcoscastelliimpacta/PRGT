@@ -29,7 +29,7 @@
             
             if (nSenha == cNova_Senha){
                 //document.getElementById("msg_senha").hidden = true;                
-                document.getElementById("btn_alter").type = "submit";
+                document.getElementById("btn_admin_cli").type = "submit";
             }else
             {
                 $('#form_msg_modal_1').modal('show', 'focus');                
@@ -38,7 +38,7 @@
     </script>
 </head>
 
-<body data-spy="scroll" data-target="" class="has-loading-screen" style="background-color: rgb(200,200,200);">
+<body data-spy="scroll" data-target="" class="has-loading-screen" style=" background: url(/static/imgs/outros/fundo.jpg) no-repeat center center fixed;   -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;  background-size: cover;">
     <!--<div class="page-wrapper" id="page-top">-->
         
         <div class="modal fade" id="form_nova_senha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -52,7 +52,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form id="form_alter_senha" name="form_alter_senha" method="POST">                    
+                <form id="form_alter_senha" name="form_alter_senha" method="POST" formaction="">                    
                   <div class="modal-body">
                     <div class="form-group">
                         <label for="senha_atual" style="color:rgb(0,0,0);">Senha Atual</label>
@@ -68,7 +68,7 @@
                     </div>
                   </div>
                   <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="button" id="btn_alter" name="btn_alter" value="btn_alter_password" class="btn btn-success" onclick="fAlterarSenha();" style="width: 40%; height: 30px; line-height: 0;">Salvar</button>
+                    <button type="button" id="btn_admin_cli" name="btn_admin_cli" value="btn_alter_password" class="btn btn-success" onclick="fAlterarSenha();" style="width: 40%; height: 30px; line-height: 0;">Salvar</button>
                   </div>
                 </form>
               </div>
@@ -146,7 +146,10 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
                             <a class="nav-item nav-link"> Bem vindo: &nbsp; {{g.func.funcao}} &nbsp; {{g.user.name}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
-                            <a class="nav-item nav-link" href="{{ url_for('index') }}">Logout</a>
+                            <form action="{{ url_for('Deslogar') }}">
+                              <button class="nav-item nav-link" type="submit" style=" cursor: pointer; background: rgba(255, 255, 255, 0); border-style: none; font-size: 14px;">LOGOUT</button>
+                              <input	type="text" value="{{g.user.username}}" name="txtUsuarioLogado" id="txtUsuarioLogado" hidden>
+                            </form>
                             <a class="nav-item nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#form_nova_senha">Alterar Senha</a>                             
                         </div>
                         <!--end navbar-nav-->                        
