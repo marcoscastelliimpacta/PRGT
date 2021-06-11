@@ -1,0 +1,337 @@
+{% extends 'base_generica.html' %}
+
+{% block Banner%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/tabela.css">
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+function fUsuario()
+{
+    check = document.getElementById("divUsuario").hidden;
+    
+    if (check)
+    {
+        document.getElementById("divUsuario").hidden = false;
+    }
+    else
+    {
+        document.getElementById("divUsuario").hidden = true;
+    }
+}
+</script>
+<style>
+.editar, .apagar {
+	background-color:#276873;
+	border-radius:5px;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+	font-weight:bold;
+	padding:7px 8px;
+	text-decoration:none;
+	margin-left:5px;
+	margin-right:0px;
+}
+
+.apagar {
+	background-color:#b34332;
+	margin-right:20px;	
+}
+
+    .form-projeto input{
+        padding: 0.5em;
+        margin: 0 0;        
+    }
+    .form-projeto label{
+        padding: 0.5em;
+        margin: 0 0;
+    }
+    .select-cli{
+        height: 30px;        
+    }
+    .list-project .list-column{
+        height: 70%;
+    }
+    @media screen and (max-width:892px)
+    {
+        .list-project .list-column{
+            height: 450px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    input[type=range] {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+}
+
+/* style datalist */
+input[type=range] + datalist {
+    display: block;
+    margin-top: -16px;
+    font-size: 12px;
+}
+input[type=range] + datalist option {
+    display: inline-block;
+    width: calc((90% - 12px) / (var(--list-length) + 1.8));
+    text-align: center;
+}
+
+
+
+
+/* style Firefox range and thumb */
+
+
+</style>
+<br>
+<br>
+<div class="row list-project" style="margin-top:110px; color: white; font-weight: bolder; font-size: 20px; height: 80%; cursor: default; padding:30px">
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7 list-column" style="margin-left: 0px; height: 720px;">
+        <h3 style="text-align: center; margin-bottom:60px">Lista de Funcionarios</h3>
+        
+            <label for="myInput">Filtro: </label>
+            <input id="myInput" type="text" placeholder=" Filtre sua Procura" size="30" style="width: 300px; height:30px; border:1px solid #bbb">
+            <div class="table100" style="overflow: auto; overflow-y: scroll; height: 680px; margin-top:20px;overflow: auto;">
+            
+                <table class= "table table-striped table-dark">
+                    <thead>
+                        <tr class="table100-head" style="background-color:#746c6c;height: 30px;">
+                            <th class="column1" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">Código</th>
+                            <th class="column2" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">Funcionario</th>
+                            <th class="column3" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">CPF</th>
+                            <th class="column4" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">Email</th>
+                            <th class="column5" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">Data Cadastro</th>                            
+                            <th class="column9" ></th>
+                            <th class="column10"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+
+                        {% if g.tFunc: %}
+                            {% for cnt in g.tFunc: %}
+                                <form method="POST">
+                                    <tr style="cursor: default;">
+                                        <td class="column1" style="cursor: default;">
+                                        <input type="text" id="codigo_func" name="codigo_func" value="{{cnt.codigo_func}}" readonly style="font-weight: bolder; color: rgba(120,120,120, 1); height: 15px; box-shadow: 0 0 0 0; border: 0 none; outline: 0; background-color: rgba(0,0,0, 0);"> </td>
+                                        <td class="column2" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">{{cnt.nome}}</td>
+                                        <td class="column3" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">{{cnt.cpf | formatingCPF}}</td>
+                                        <td class="column4" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">{{cnt.email}}</td>
+                                        <td class="column5" style="font-family:arial; font-size:14px; font-weight:normal; line-height:27px">{{cnt.data_hora_post}}</td>                                        
+                                        <td class="column9"><button  id="btn_admin_cli" value="btn_select_func" name="btn_admin_cli" type="submit" class="editar" style="background-color:white; color:black;  border-radius:0px">editar</button></td>
+                                        <td class="column10"><button  id="btn_admin_cli" value="btn_apagar_func" name="btn_admin_cli" type="submit" class="apagar" style="border-radius:0px">apagar</button></td>
+                                    </tr>
+                                </form>
+                            {% endfor %}
+                        {%else:%}
+                            <tr>
+                                <td style="color: white; text-align: center;  cursor: default;" colspan="7" class="msg-vazio"><h2>Ainda não foi cadastro nenhum projeto!</h2></td>
+                            </tr>
+                        {%endif%}
+                    </tbody>
+                </table>
+            </div>
+         
+        <!--<iframe src="{{url_for('profile.Lista_Projetos_Admin')}}" style="width: 100%; height: 100%;"></iframe>        -->
+    </div>
+    
+    <div class="col-xl-6 col-lg-2 col-md-11 col-sm-7" style="background-color:rgba(255, 255, 255, 0.85); padding: 30px; border-radius: 10px; ">
+        <span  style="color:black; font-size:28px">Cadastrar Novo Funcionário</span>
+    <br>
+        <form class="form-projeto" id="form_alter_senha" name="form_alter_senha" method="POST">                    
+            <div class="modal-body">
+                <div class="row" style="margin-top:40px; margin-bottom: -20px; color: white; font-weight: bolder; font-size: 20px; width: 50%;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtCodigoFuncionario" style="color:rgb(0,0,0);">Código do Funcionario</label>
+                            <input type="text" class="form-control" id="txtCodigoFuncionario" name="txtCodigoFuncionario" value="{{g.umFunc.codigo_func}}" readonly placeholder="código">
+                        </div>
+                    </div>
+                </div>                
+                <div class="row" style="color: white; font-weight: bolder; font-size: 20px;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtNome" style="color:rgb(0,0,0);">Nome Funcionario</label>
+                            <input type="text" class="form-control" id="txtNome" name="txtNome"  placeholder="Nome do Funcionario" value="{{g.umFunc.nome}}">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtCPF" style="color:rgb(0,0,0);">CPF</label>
+                            <input type="text" class="form-control" id="txtCPF" name="txtCPF" aria-describedby="emailHelp" placeholder="CPF Funcionario" value="{{g.umFunc.cpf | formatingCPF }}">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="txtemail" style="color:rgb(0,0,0);">Email</label>
+                            <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="E-Mail" value="{{g.umFunc.email}}">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                        <div class="form-group">
+                            <label for="cbCargo" style="color:rgb(0,0,0); ">Cargo</label>
+                            <select name="cbCargo" id="cbCargo" style="height: 40px; font-size: 18px;" class="form-control select-cli" >
+                                <option id="" style="font-size:7px">Selecione o Cargo</option>
+                                {%if cargos:%}
+                                    {%for cnt in cargos:%}
+                                        {%if cnt[0] == g.umFunc.codigo_funcao:%}
+                                            <option SELECTED value="{{cnt[0]}}">{{cnt[1]}}</option>
+                                        {%else:%}
+                                            <option value="{{cnt[0]}}">{{cnt[1]}}</option>
+                                        {%endif%}
+                                    {%endfor%}
+                                {%endif%}
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                
+                <input type="checkbox" id="chkUsuario" name="chkUsuario" onclick="fUsuario();">
+                <label for="chkUsuario" style="color:black; font-size:14px; font-weight: 100;">Usuário</label>
+                <br>
+                <br>
+                <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;" id="divUsuario" hidden>
+                    
+                    
+                    
+                    <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
+                        <div class="form-group">
+                            <div class="row" style="color: white; font-weight: bolder; font-size: 20px;">
+                                <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                                    <div class="form-group">
+                                        <label for="txtcodigo_usuario" style="color:rgb(255,255,255);">Código Usuário</label>
+                                        <input type="text" class="form-control" id="txtcodigo_usuario" name="txtcodigo_usuario"   value="{{usuario[0][0]}}" readonly>
+                                    </div>
+                                </div> 
+                                <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                                    <div class="form-group">
+                                        <label for="cbUsuario" style="color:rgb(255,255,255);">Tipo Usuário</label>
+                                        <select name="cbUsuario" id="cbUsuario" style="height: 40px; font-size: 18px;" class="form-control select-cli">
+                                            <option id=""></option>
+                                            {%if tpUsuario:%}
+                                                {%for cnt in tpUsuario:%}
+                                                    {%if cnt[0] == usuario[0][2]:%}
+                                                        <option SELECTED value="{{cnt[0]}}">{{cnt[1]}}</option>
+                                                    {%else:%}
+                                                        <option value="{{cnt[0]}}">{{cnt[1]}}</option>
+                                                    {%endif%}
+                                                {%endfor%}
+                                            {%endif%}
+                                            
+                                        </select>
+                                    </div>
+                                </div>                             
+                            </div>
+                            <br>
+                            <div class="row" style="margin-top:-30px; color: white; font-weight: bolder; font-size: 20px;">
+                                <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                                    <div class="form-group">
+                                        <label for="txtUsuario" style="color:rgb(255,255,255);">Usuário</label>
+                                        <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="Usuário" value="{{usuario[0][1]}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-2 col-md-2 col-sm-14">
+                                    <div class="form-group">
+                                        <label for="txtSenha" style="color:rgb(255,255,255);" hidden>Senha</label>
+                                        <input type="password" class="form-control" id="txtSenha" name="txtSenha" placeholder="Senha" value="" hidden>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-xl-6 col-lg-4 col-md-4 col-sm-14">
+                        <div class="form-group">
+                            <table style="width: 100%;  border-radius: 10px 10px 0 0;">
+                                <tr style="height: 2px; background-color: #36304a;">
+                                    <td style="width: 76%;  ">
+                                        <label style="color:rgb(255,255,255); font-size: 50; font-weight: bolder;">Permissões</label>
+                                    </td>                                    
+                                </tr>
+                            </table>
+                            
+                            <div style="overflow: auto; overflow-y: scroll; height: 200px;  background-color: rgb(220,220,220);">
+                                <table style="width: 100%;  border-radius: 0 0 0;" class="table table-striped table-dark">
+                                    {% if perUsuario: %}
+                                        {% for cnt in perUsuario: %}                   
+                                            <tr style="height: 2px;">
+                                                <td style="width: 80%;">
+                                                    &nbsp;&nbsp;<input type="checkbox" value="{{cnt[1]}}" {{cnt[3]}} name="ckPermisao" id="ckPermisao{{cnt[1]}}"> <label for="ckPermisao{{cnt[1]}}">{{cnt[2]}}</label>
+                                                </td>
+                                            </tr>
+                                        {%endfor%}
+                                    {%else:%}
+                                    <tr>
+                                        <td colspan="2" style="border-radius: 0 0 0 0;">
+                                            <h4>Não há nenhum fundionario disponivel!</h4>
+                                        </td>
+                                    </tr>
+                                    {%endif%}                                 
+                                </table>                                            
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="modal-footer border-top-0 d-flex justify-content-center" style="margin-top: -10px;">
+                {%if not g.umFunc.codigo_func: %}    
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_salvar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Salvar</button>
+                    <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="background-color:transparent; color:black; border:1px solid black; width: 150px; height: 30px; line-height: 0;">Voltar ao Menu</a>
+                {%else:%}
+                    <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_func" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0;">Alterar</button>
+                    {%if g.umFunc.codigo_usuario: %}
+                        <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_resete_password" class="btn btn-success" onclick="" style="background-color:#bbb; border:1px solid rgb(143, 133, 133);width: 140px; height: 30px; line-height: 0;">Resetar Senha</button>
+                    {%endif%}
+                    <a href="{{url_for('profile.Funcionarios')}}" class="btn btn-success" onclick="" style="background-color:transparent; color:black; border:1px solid black;width: 120px; height: 30px; line-height: 0;">Cancelar</a>
+
+                {%endif%}
+              
+            </div>
+          </form>       
+    </div>    
+    <script type="text/javascript" DEFER="DEFER">
+       
+        var codigo_usuario = {{g.umFunc.codigo_usuario}};
+        var vusuario = '{{usuario[0][1]}}';
+        if(codigo_usuario != 0 || vusuario != "")
+        {
+            document.getElementById("divUsuario").hidden = false;
+            document.getElementById("chkUsuario").checked = true;
+        }
+        else{
+            document.getElementById("divUsuario").hidden = true;
+        }
+    </script>
+</div>
+{%endblock%}

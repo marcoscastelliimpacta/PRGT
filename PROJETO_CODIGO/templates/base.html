@@ -18,15 +18,16 @@
     <link REL="SHORTCUT ICON" HREF="/static/imgs/img_css/favicon.ico">
 	<title>PRGT Arquitetura & Execução de Obras</title>
     <script>
-        function fFocusLink(link)
-        {            
+        function fFocusLink(link, form)
+        {   
             document.body.innerHTML = document.body.innerHTML.replace('active', '');
-            document.getElementById(link).classList.add('active');            
+            document.getElementById(link).classList.add('active');
+            $('#'+form).modal('show');            
         }
     </script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" class="has-loading-screen" onload="fFocusLink('home')">
+<body data-spy="scroll" data-target=".navbar" class="has-loading-screen" onload="fFocusLink('home', '{{form}}')">
     <!--<div class="page-wrapper" id="page-top">-->
         
         
@@ -39,9 +40,10 @@
                     {% else: %}
                         <h5 style="padding:17px; color: rgb(255, 255, 255);" id="exampleModalLabel">Acesso a Conta!</h5>
                     {% endif %}                  
-                    <button type="button" class="close" style="font-size:30px" data-dismiss="modal" aria-label="Close">
+                    <!--<button type="button" class="close" style="font-size:30px" data-dismiss="modal" aria-label="Close" onclick="$('.modal.in').modal('hide')
+                    ;">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button>-->
                 </div>
                 <form id="form_login" name="form_login" method="POST">                    
                   <div class="modal-body">
@@ -63,6 +65,9 @@
                   </div>
                   <div class="modal-footer border-top-0 d-flex justify-content-center">
                     <button type="submit" id="btn_home" name="btn_home" value="btn_login" class="btn btn-success" style="width: 40%;">Entrar</button>
+                    <button type="button" class="close" style="font-size:30px" onclick="$('#form').modal('hide');">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
                 </form>
               </div>
@@ -192,8 +197,9 @@ gtag('config', 'UA-122288932-1');
 </script>
 
 {%if titulo != null: %}
-    <script type="text/javascript">        
-        $('#form').modal('show', 'focus');
+    <script type="text/javascript">
+        $('#form').trigger('focus')
+        //$('#form').modal({show: true});
     </script>            
 {% endif %}
 

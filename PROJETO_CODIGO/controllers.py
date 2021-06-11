@@ -21,7 +21,8 @@ def index():
             Tabela = Tabela,
             slide = slide,
             gallery_container = gallery_container,
-            msgLog=''       
+            msgLog='',
+            form=''     
         )
     elif request.method == 'POST':
         form = request.form
@@ -41,8 +42,12 @@ def index():
                                 break
                     return render_template(
                     'index.html',
+                    Tabela = Tabela,
+                    slide = slide,
+                    gallery_container = gallery_container,
                     titulo = 'Falha na autenticação.',
-                    msgLog = msgLog
+                    msgLog = msgLog,
+                    form='form'
                     )
                 user = [x for x in users if x.username == usuario][0]
                 if user:
@@ -52,8 +57,12 @@ def index():
             else:
                 return render_template(
                     'index.html',
+                    Tabela = Tabela,
+                    slide = slide,
+                    gallery_container = gallery_container,
                     titulo = 'Falha na autenticação.',
-                    msgLog = 'Usuario ou senha errado!'
+                    msgLog = 'Usuario ou senha errado!',
+                    form='form'
                     )
         elif form["btn_home"] == "btn_msg":            
             nome = form.get("name")
@@ -64,7 +73,11 @@ def index():
             bot = TelegramBot()
             bot.Iniciar(mensagem)
             return render_template(
-                'index.html'
+                'index.html',
+                Tabela = Tabela,
+                slide = slide,
+                gallery_container = gallery_container,
+                msgLog=''
                 )
 
 @app.route('/blog/', methods=['GET', 'POST'])
@@ -112,6 +125,10 @@ def Deslogar():
             break
     return redirect('/')
 
+
+@app.route("/View3D/", methods=['GET', 'POST'])
+def View3D():
+    return render_template('tresDView.html')
 
 @app.route('/profile/', methods=['GET', 'POST'])
 def profile():
