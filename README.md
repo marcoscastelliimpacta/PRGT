@@ -1,4 +1,4 @@
-# PRGT
+#PRGT
 Grupo OPE
 
 Projeto para construção do website institucional ao cliente final PRGT.
