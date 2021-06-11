@@ -297,10 +297,11 @@ input[type="file"] {
                     <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height:0; background-color:transparent; color:black; border:1px solid; black">Voltar ao Menu</a>
                 {%else:%}
                     <button type="submit" id="btn_admin_cli" name="btn_admin_cli" value="btn_alterar_projeto" class="btn btn-success" onclick="" style="width: 120px; height: 30px; line-height: 0; ">Alterar</button>
-                    <a href="{{url_for('profile.Projetos_Admin')}}" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height:0; background-color:transparent; color:black; border:1px solid; black">Cancelar</a>
+                    <a href="{{url_for('profile.Projetos_Admin')}}" class="btn btn-success" onclick="" style="background-color:#bbb; border:1px solid rgb(143, 133, 133); width: 140px; height: 30px; line-height: 0;">Novo Projeto</a>
+                    <a href="{{url_for('profile')}}" class="btn btn-success" onclick="" style="width: 150px; height: 30px; line-height:0; background-color:transparent; color:black; border:1px solid; black">Voltar ao Menu</a>
                 {%endif%}
               <button type="button" id="btn_admin_cli" name="btn_admin_cli" value="btn_deletar_projeto" class="btn btn-success" onclick="fAlterarSenha();" style="width: 120px; height: 30px; line-height: 0;  background-color: red;" hidden>Apagar</button>
-              
+
             </div>
           </form>       
     </div>
